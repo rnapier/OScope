@@ -8,14 +8,27 @@
 
 /* Begin PBXBuildFile section */
 		FB037EF7196EEF98006E383D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB037EF6196EEF98006E383D /* AppDelegate.swift */; };
-		FB037EF9196EEF98006E383D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB037EF8196EEF98006E383D /* ViewController.swift */; };
+		FB037EF9196EEF98006E383D /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB037EF8196EEF98006E383D /* RootViewController.swift */; };
 		FB037EFC196EEF98006E383D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB037EFA196EEF98006E383D /* Main.storyboard */; };
 		FB037EFE196EEF98006E383D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB037EFD196EEF98006E383D /* Images.xcassets */; };
 		FB037F0A196EEF98006E383D /* OScopeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB037F09196EEF98006E383D /* OScopeTests.swift */; };
+		FB037F18196EF194006E383D /* ScopeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB037F17196EF194006E383D /* ScopeViewController.swift */; };
+		FB037F1A196EF1AA006E383D /* SignalGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB037F19196EF1AA006E383D /* SignalGraphViewController.swift */; };
+		FB236150197094210020FD9C /* lcm.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB23614F197094210020FD9C /* lcm.swift */; };
+		FBB7D7DF1972DD2300D1D3D4 /* SignalSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD6BEF9196F0E2100A6F9CD /* SignalSource.swift */; };
+		FBC7F1231972CF0C005328BE /* lcm.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB23614F197094210020FD9C /* lcm.swift */; };
+		FBD6BEFA196F0E2100A6F9CD /* SignalSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD6BEF9196F0E2100A6F9CD /* SignalSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		FB037F04196EEF98006E383D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FB037EE9196EEF98006E383D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FB037EF0196EEF98006E383D;
+			remoteInfo = OScope;
+		};
+		FB2361511970A05E0020FD9C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = FB037EE9196EEF98006E383D /* Project object */;
 			proxyType = 1;
@@ -28,12 +41,17 @@
 		FB037EF1196EEF98006E383D /* OScope.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OScope.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB037EF5196EEF98006E383D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FB037EF6196EEF98006E383D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		FB037EF8196EEF98006E383D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		FB037EF8196EEF98006E383D /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		FB037EFB196EEF98006E383D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FB037EFD196EEF98006E383D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		FB037F03196EEF98006E383D /* OScopeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OScopeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB037F08196EEF98006E383D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FB037F09196EEF98006E383D /* OScopeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OScopeTests.swift; sourceTree = "<group>"; };
+		FB037F17196EF194006E383D /* ScopeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeViewController.swift; sourceTree = "<group>"; };
+		FB037F19196EF1AA006E383D /* SignalGraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignalGraphViewController.swift; sourceTree = "<group>"; };
+		FB23614F197094210020FD9C /* lcm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = lcm.swift; sourceTree = "<group>"; };
+		FBB7D7E01972DEF900D1D3D4 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
+		FBD6BEF9196F0E2100A6F9CD /* SignalSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignalSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +75,7 @@
 		FB037EE8196EEF98006E383D = {
 			isa = PBXGroup;
 			children = (
+				FBB7D7E01972DEF900D1D3D4 /* MyPlayground.playground */,
 				FB037EF3196EEF98006E383D /* OScope */,
 				FB037F06196EEF98006E383D /* OScopeTests */,
 				FB037EF2196EEF98006E383D /* Products */,
@@ -76,7 +95,11 @@
 			isa = PBXGroup;
 			children = (
 				FB037EF6196EEF98006E383D /* AppDelegate.swift */,
-				FB037EF8196EEF98006E383D /* ViewController.swift */,
+				FB037EF8196EEF98006E383D /* RootViewController.swift */,
+				FB037F17196EF194006E383D /* ScopeViewController.swift */,
+				FB037F19196EF1AA006E383D /* SignalGraphViewController.swift */,
+				FBD6BEF9196F0E2100A6F9CD /* SignalSource.swift */,
+				FB23614F197094210020FD9C /* lcm.swift */,
 				FB037EFA196EEF98006E383D /* Main.storyboard */,
 				FB037EFD196EEF98006E383D /* Images.xcassets */,
 				FB037EF4196EEF98006E383D /* Supporting Files */,
@@ -141,6 +164,7 @@
 			);
 			dependencies = (
 				FB037F05196EEF98006E383D /* PBXTargetDependency */,
+				FB2361521970A05E0020FD9C /* PBXTargetDependency */,
 			);
 			name = OScopeTests;
 			productName = OScopeTests;
@@ -208,7 +232,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB037EF9196EEF98006E383D /* ViewController.swift in Sources */,
+				FBD6BEFA196F0E2100A6F9CD /* SignalSource.swift in Sources */,
+				FB037F18196EF194006E383D /* ScopeViewController.swift in Sources */,
+				FB236150197094210020FD9C /* lcm.swift in Sources */,
+				FB037F1A196EF1AA006E383D /* SignalGraphViewController.swift in Sources */,
+				FB037EF9196EEF98006E383D /* RootViewController.swift in Sources */,
 				FB037EF7196EEF98006E383D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -217,6 +245,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBB7D7DF1972DD2300D1D3D4 /* SignalSource.swift in Sources */,
+				FBC7F1231972CF0C005328BE /* lcm.swift in Sources */,
 				FB037F0A196EEF98006E383D /* OScopeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -228,6 +258,11 @@
 			isa = PBXTargetDependency;
 			target = FB037EF0196EEF98006E383D /* OScope */;
 			targetProxy = FB037F04196EEF98006E383D /* PBXContainerItemProxy */;
+		};
+		FB2361521970A05E0020FD9C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FB037EF0196EEF98006E383D /* OScope */;
+			targetProxy = FB2361511970A05E0020FD9C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -397,6 +432,7 @@
 				FB037F0F196EEF98006E383D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FB037F10196EEF98006E383D /* Build configuration list for PBXNativeTarget "OScopeTests" */ = {
 			isa = XCConfigurationList;
@@ -405,6 +441,7 @@
 				FB037F12196EEF98006E383D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
