@@ -10,4 +10,14 @@ import UIKit
 
 class ScopeViewController: UIViewController {
 
+  @IBOutlet var signalVisualizerView : SignalVisualizerView
+
+  var signalSource : SignalSource? {
+  get {
+    return signalVisualizerView.signalSource
+  }
+  set(newValue) {
+      signalVisualizerView.signalSource = newValue
+    }
+  }
 }

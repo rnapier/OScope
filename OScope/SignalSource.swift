@@ -12,6 +12,7 @@ typealias SignalTime = Float
 typealias SignalValue = Float
 
 protocol SignalSource {
+  var inputs:[SignalSource] { get }
   var periodLength : SignalTime { get }
   func value(time: SignalTime) -> SignalValue
 }
@@ -27,12 +28,15 @@ struct MixerSource : SignalSource {
 }
 
 struct ConstantSource : SignalSource {
-  let value:SignalValue
-  let periodLength = SignalTime(1)
+  let value : SignalValue
 
-  init(_ value:SignalValue) {
+  // FIXME: Why is this init required?
+  init (_ value: SignalValue) {
     self.value = value
   }
+
+  var periodLength : SignalTime { get { return SignalTime(1) } }
+  let inputs = [SignalSource]()
 
   func value(time: SignalTime) -> SignalValue {
     return value
@@ -45,6 +49,15 @@ struct SineSource : SignalSource {
   let phase      : SignalTime
   let sampleRate : SignalTime
 
+  // FIXME: Why is this init required?
+  init(frequency: SignalTime, amplitude:SignalValue, phase:SignalTime, sampleRate:SignalTime) {
+    self.frequency = frequency
+    self.amplitude = amplitude
+    self.phase = phase
+    self.sampleRate = sampleRate
+  }
+
+  let inputs = [SignalSource]()
   var periodLength : SignalTime { get { return sampleRate/frequency } }
 
   func value(time: SignalTime) -> SignalValue {
