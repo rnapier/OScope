@@ -65,4 +65,41 @@ class OScopeTests: XCTestCase {
     XCTAssertEqualWithAccuracy(src.value(r/2), 0, accuracy)
     XCTAssertEqualWithAccuracy(src.value(3*r/4), -1, accuracy)
   }
+
+  func testFlatten() {
+    let a = [[1], [2], [3]]
+    XCTAssertEqualObjects(flatten(a), [1,2,3])
+  }
+
+  func testSignalSourceLocation() {
+    let s1 = SineSource(frequency: 1, amplitude: 1, phase: 1, sampleRate:1)
+    let s2 = s1
+
+    let s3 = s1
+    let s4 = s1
+    let m2 = MixerSource(inputs: [s3, s4])
+    let m1 = MixerSource(inputs: [s1, s2, m2])
+
+    let loc = signalSourceLocation(m1, 0)
+    XCTAssertEqual(loc.height, 4)
+  }
+
+//  func testArrayFlatten() {
+//    let a = [[1], [2], [3]]
+//    let flatA : [Int] = a.flatten()
+//    XCTAssertEqualObjects(flatA, [1,2,3])
+//  }
+//  func testInputPaths() {
+//    let s1 = SineSource(frequency: 1, amplitude: 1, phase: 1, sampleRate: 1)
+//    let s2 = SineSource(frequency: 2, amplitude: 2, phase: 2, sampleRate: 1)
+//    let m = MixerSource(inputs: [s1, s2])
+//    let paths = inputPaths(m)
+//    println(paths)
+//    let path1 : SignalPath = [s1,m]
+//    let path2 : SignalPath = [s2,m]
+//    let expectedPaths : [SignalPath] = [path1, path2]
+//    println(expectedPaths)
+//    let result = (paths == expectedPaths)
+//    XCTAssertTrue(result)
+//  }
 }

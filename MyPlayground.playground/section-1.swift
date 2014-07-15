@@ -1,4 +1,10 @@
-// Playground - noun: a place where people can play
+//
+//  SignalGraph.swift
+//  OScope
+//
+//  Created by Rob Napier on 7/10/14.
+//  Copyright (c) 2014 Rob Napier. All rights reserved.
+//
 
 import Darwin
 
@@ -115,6 +121,7 @@ typealias SignalTime = Float
 typealias SignalValue = Float
 
 protocol SignalSource {
+  var inputs:[SignalSource] { get }
   var periodLength : SignalTime { get }
   func value(time: SignalTime) -> SignalValue
 }
@@ -129,14 +136,16 @@ struct MixerSource : SignalSource {
   }
 }
 
-
 struct ConstantSource : SignalSource {
-  let value:SignalValue
-  let periodLength = SignalTime(1)
+  let value : SignalValue
 
-  init(_ value:SignalValue) {
+  // FIXME: Why is this init required?
+  init (_ value: SignalValue) {
     self.value = value
   }
+
+  var periodLength : SignalTime { get { return SignalTime(1) } }
+  let inputs = [SignalSource]()
 
   func value(time: SignalTime) -> SignalValue {
     return value
@@ -144,11 +153,20 @@ struct ConstantSource : SignalSource {
 }
 
 struct SineSource : SignalSource {
-  let frequency : SignalTime
-  let amplitude : SignalValue
-  let phase : SignalTime
+  let frequency  : SignalTime
+  let amplitude  : SignalValue
+  let phase      : SignalTime
   let sampleRate : SignalTime
 
+  // FIXME: Why is this init required?
+  init(frequency: SignalTime, amplitude:SignalValue, phase:SignalTime, sampleRate:SignalTime) {
+    self.frequency = frequency
+    self.amplitude = amplitude
+    self.phase = phase
+    self.sampleRate = sampleRate
+  }
+
+  let inputs = [SignalSource]()
   var periodLength : SignalTime { get { return sampleRate/frequency } }
 
   func value(time: SignalTime) -> SignalValue {
@@ -162,16 +180,32 @@ struct SineSource : SignalSource {
 }
 
 
-let src1 = SineSource(frequency: 441, amplitude: 1, phase: 0, sampleRate: 44100)
+struct SignalSourceLocation {
+  let signalSource: SignalSource
+  let offset: Int
+  let height: Int
+  let inputs: [SignalSourceLocation]
+}
 
-let src2 = SineSource(frequency: 882, amplitude: 1, phase: 0, sampleRate: 44100)
+func signalSourceLocation(root: SignalSource, offset:Int) -> SignalSourceLocation {
+  var children = [SignalSourceLocation]()
+  var height = 0
+  for (index, input) in enumerate(root.inputs) {
+    let child = signalSourceLocation(input, offset + index)
+    height += child.height
+    children.append(child)
+  }
 
-let src3 = ConstantSource(2)
+  return SignalSourceLocation(signalSource: root, offset: offset, height: max(height, 1), inputs: children)
+}
 
-let m1 = MixerSource(inputs:[src1, src2, src3])
+let s1 = SineSource(frequency: 1, amplitude: 1, phase: 1, sampleRate:1)
+let s2 = s1
+let s3 = s1
+let s4 = s1
+let m1 = MixerSource(inputs: [s1, s2, s3, s4])
 
-let ys = (0...m1.periodLength).map{m1.value($0)}
-
-let p = m1.periodLength
+let loc = signalSourceLocation(m1, 0)
+loc.inputs[0]
 
 

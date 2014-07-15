@@ -12,12 +12,12 @@ class ScopeViewController: UIViewController {
 
   @IBOutlet var signalVisualizerView : SignalVisualizerView
 
-  var signalSource : SignalSource? {
+  var source : SignalSource? {
   get {
-    return signalVisualizerView.signalSource
+    return signalVisualizerView.source
   }
   set(newValue) {
-      signalVisualizerView.signalSource = newValue
+      signalVisualizerView.source = newValue
     }
   }
 }

@@ -69,3 +69,4 @@ struct SineSource : SignalSource {
     return SignalValue(v)
   }
 }
+

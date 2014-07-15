@@ -10,15 +10,15 @@ import UIKit
 
 class SignalVisualizerView: UIView {
 
-  var signalSource : SignalSource? {
+  var source : SignalSource? {
   didSet {
     setNeedsDisplay()
   }
   }
 
   override func drawRect(rect: CGRect) {
-    if let signalSource = signalSource {
-      SignalVisualizer(source: signalSource).path(rect).stroke()
+    if let source = source {
+      SignalVisualizer(source: source).path(rect).stroke()
     }
   }
 }

@@ -10,8 +10,9 @@ import UIKit
 
 class RootViewController: UIViewController {
 
-  var scopeViewController : ScopeViewController!
-  var networkViewController : NetworkViewController!
+  // FIXME: Should be able to connect to the container view in IB
+  var scopeViewController : ScopeViewController?
+  var networkViewController : NetworkViewController?
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -27,8 +28,10 @@ class RootViewController: UIViewController {
       }
     }
 
-    let signalSource = SineSource(frequency: 441, amplitude: 1, phase: 0, sampleRate: 44000)
-    scopeViewController.signalSource = signalSource
+    let source = SineSource(frequency: 441, amplitude: 1, phase: 0, sampleRate: 44000)
+    if let svc = scopeViewController {
+      svc.source = source
+    }
   }
 }
 
