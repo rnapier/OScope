@@ -80,7 +80,7 @@ class OScopeTests: XCTestCase {
     let m2 = MixerSource(inputs: [s3, s4])
     let m1 = MixerSource(inputs: [s1, s2, m2])
 
-    let loc = NetworkLayoutNode(root:m1, layer:0, offset:0)
+    let loc = NetworkLayoutNode(root:m1)
     XCTAssertEqual(loc.height, 4)
   }
 

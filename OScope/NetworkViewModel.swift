@@ -12,7 +12,7 @@ struct NetworkViewModel {
   let root : NetworkLayoutNode
   
   init(root: SignalSource) {
-    self.root = NetworkLayoutNode(root: root, layer: 0, offset:0) // FIXME: Simpler (root) constructor crashes in Beta3
+    self.root = NetworkLayoutNode(root: root)
   }
 
   func layout(bounds: CGRect) -> [(NetworkLayoutNode, CGRect)] {

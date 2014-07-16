@@ -27,7 +27,7 @@ struct NetworkLayoutNode {
   }
   }
 
-  init(root: SignalSource, layer: Int, offset: Int) {
+  init(root: SignalSource, layer: Int = 0, offset: Int = 0) {
     self.root = root
     self.offset = offset
     self.layer = layer
@@ -42,9 +42,5 @@ struct NetworkLayoutNode {
 
     self.children = children
     self.height = max(height, 1)
-  }
-
-  init(root: SignalSource) {
-    self.init(root: root, layer: 0, offset: 0)
   }
 }
