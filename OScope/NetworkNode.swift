@@ -27,6 +27,6 @@ struct NetworkNode {
           NetworkNode(source: input, layer: layer + 1, offset: offset + index)
       }))
 
-    height = max(children.reduce(0, combine: { sum, child in sum + child.height }), 1)
+    height = max(children.map{$0.height}.reduce(0, +), 1)
   }
 }
