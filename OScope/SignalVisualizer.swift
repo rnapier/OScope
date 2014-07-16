@@ -12,8 +12,6 @@ struct SignalVisualizer {
   let source : SignalSource
 
   func path(bounds:CGRect) -> UIBezierPath {
-//    let period = Int(source.periodLength)
-
     let width  = CGRectGetWidth(bounds)
     let height = CGRectGetHeight(bounds)
 
@@ -25,18 +23,19 @@ struct SignalVisualizer {
       CGAffineTransformMakeTranslation(0, yZero),
       xScale, yScale)
 
-    let vals = (0..<Int(width)).map { self.source.value(SignalTime($0)) }
+    let timeRange = Range(
+      start:SignalTime(CGRectGetMinX(bounds)),
+      end:SignalTime(CGRectGetMaxX(bounds)))
 
-    let cyclePath = cyclePathWithValues(vals)
-    cyclePath.applyTransform(transform)
-    return cyclePath
-//    var fullPath = pathFromHorizontallyRepeatedCycle(cyclePath, totalWidth:width)
-//    fullPath.applyTransform(transform)
-//    return fullPath
+    let vals = timeRange.map { self.source.value($0) }
+
+    let path = pathWithValues(vals)
+    path.applyTransform(transform)
+    return path
   }
 }
 
-func cyclePathWithValues(values:[SignalValue]) -> UIBezierPath {
+func pathWithValues(values:[SignalValue]) -> UIBezierPath {
   let cycle = UIBezierPath()
   let valCount = values.count
 
@@ -46,15 +45,4 @@ func cyclePathWithValues(values:[SignalValue]) -> UIBezierPath {
   }
   cycle.addLineToPoint(CGPointMake(CGFloat(valCount), CGFloat(values[0])))
   return cycle
-}
-
-
-func pathFromHorizontallyRepeatedCycle(cycle: UIBezierPath, #totalWidth:CGFloat) -> UIBezierPath {
-  let cycleOffset = CGAffineTransformMakeTranslation(cycle.bounds.width, 0)
-  let path = UIBezierPath()
-  do {
-    path.appendPath(cycle)
-    cycle.applyTransform(cycleOffset)
-  } while path.currentPoint.x < totalWidth
-  return path
 }
