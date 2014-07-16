@@ -10,6 +10,12 @@ import CoreGraphics
 
 let insetScale = CGFloat(5.0)
 
+func inputPoint(#frame: CGRect, #index: Int, #inputCount:Int) -> CGPoint {
+  return CGPointMake(
+    CGRectGetMinX(frame),
+    CGRectGetMinY(frame) + CGRectGetHeight(frame) * (Float(index + 1)/Float(inputCount + 1)))
+}
+
 struct NetworkNodeLayout {
   let node: NetworkNode
   let frame: CGRect
@@ -19,19 +25,15 @@ struct NetworkNodeLayout {
 
   init(node:NetworkNode, size:CGSize, totalDepth:Int) {
     self.node = node
-    frame = CGRectInset(
+    let frame = CGRectInset(
       CGRectMake(
         size.width * CGFloat(totalDepth - node.layer - 1),
         size.height * CGFloat(node.offset),
         size.width, size.height),
       size.width / insetScale, size.height / insetScale)
+    self.frame = frame
 
-    var iPoints = [CGPoint]()
-    for i:Int in 0..<node.source.inputs.count {
-      iPoints.append(CGPointMake(CGRectGetMinX(frame),
-        CGRectGetMinY(frame) + CGRectGetHeight(frame) * (Float(i + 1)/Float(node.source.inputs.count + 1))))
-    }
-    inputPoints = iPoints
+    inputPoints = indices(node.children).map { index in inputPoint(frame:frame, index:index, inputCount:node.children.count) }
     outputPoint = CGPointMake(CGRectGetMaxX(frame), CGRectGetMidY(frame))
 
     inputs = node.children.map{ return NetworkNodeLayout(node:$0, size:size, totalDepth: totalDepth) }

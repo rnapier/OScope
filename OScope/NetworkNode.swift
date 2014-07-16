@@ -8,35 +8,25 @@
 
 struct NetworkNode {
   let source: SignalSource
-  let offset: Int
-  let height: Int
   let layer: Int
+  let offset: Int
+
   let children: [NetworkNode]
+  let height: Int
 
   var depth: Int { return 1 + children.map{$0.depth}.reduce(0, combine: max) }
 
-  var tree : [NetworkNode] {
-    var result = [self]
-    for node in children {
-      result.extend(node.tree)
-    }
-    return result
-  }
-
   init(source: SignalSource, layer: Int = 0, offset: Int = 0) {
     self.source = source
-    self.offset = offset
     self.layer = layer
+    self.offset = offset
 
-    var children = [NetworkNode]()
-    var height = 0
-    for (index, input) in enumerate(source.inputs) {
-      let child = NetworkNode(source: input, layer: layer + 1, offset: offset + index)
-      height += child.height
-      children.append(child)
-    }
+    children = [NetworkNode](
+      map(enumerate(source.inputs),
+        { index, input in
+          NetworkNode(source: input, layer: layer + 1, offset: offset + index)
+      }))
 
-    self.children = children
-    self.height = max(height, 1)
+    height = max(children.reduce(0, combine: { sum, child in sum + child.height }), 1)
   }
 }
