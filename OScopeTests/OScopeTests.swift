@@ -80,8 +80,23 @@ class OScopeTests: XCTestCase {
     let m2 = MixerSource(inputs: [s3, s4])
     let m1 = MixerSource(inputs: [s1, s2, m2])
 
-    let loc = signalSourceLocation(m1, 0)
+    let loc = NetworkLayoutNode(root:m1, layer:0, offset:0)
     XCTAssertEqual(loc.height, 4)
+  }
+
+  func testNetworkViewModel() {
+    let s1 = SineSource(frequency: 1, amplitude: 1, phase: 1, sampleRate:1)
+    let s2 = s1
+
+    let s3 = s1
+    let s4 = s1
+    let m2 = MixerSource(inputs: [s3, s4])
+    let m1 = MixerSource(inputs: [s1, s2, m2])
+
+    let network = NetworkViewModel(root: m1)
+    println(network.layout(CGRectMake(0, 0, 100, 100)))
+    // FIXME: Perform test
+
   }
 
 //  func testArrayFlatten() {

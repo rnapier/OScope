@@ -2,33 +2,31 @@
 //  NetworkViewModel.swift
 //  OScope
 //
-//  Created by Rob Napier on 7/14/14.
+//  Created by Rob Napier on 7/15/14.
 //  Copyright (c) 2014 Rob Napier. All rights reserved.
 //
 
 import CoreGraphics
 
-struct SignalSourceLocation {
-  let signalSource: SignalSource
-  let offset: Int
-  let height: Int
-  let inputs: [SignalSourceLocation]
-}
-
 struct NetworkViewModel {
-  let output : SignalSource
-  let bounds : CGRect
-}
-
-func signalSourceLocation(root: SignalSource, offset:Int) -> SignalSourceLocation {
-  var children = [SignalSourceLocation]()
-  var height = 0
-  for (index, input) in enumerate(root.inputs) {
-    let child = signalSourceLocation(input, offset + index)
-    height += child.height
-    children.append(child)
+  let root : NetworkLayoutNode
+  
+  init(root: SignalSource) {
+    self.root = NetworkLayoutNode(root: root, layer: 0, offset:0) // FIXME: Simpler (root) constructor crashes in Beta3
   }
 
-  return SignalSourceLocation(signalSource: root, offset: offset, height: max(height, 1), inputs: children)
-}
+  func layout(bounds: CGRect) -> [(NetworkLayoutNode, CGRect)] {
+    let size = CGSizeMake(CGRectGetWidth(bounds)/CGFloat(root.depth), CGRectGetHeight(bounds)/CGFloat(root.height))
 
+    var result: [(NetworkLayoutNode, CGRect)] = []
+
+    for node in root.tree {
+      result.append((root,
+        CGRectMake(size.width * CGFloat(node.layer),
+          size.height * CGFloat(node.offset),
+          size.width, size.height)))
+    }
+
+    return result
+  }
+}
