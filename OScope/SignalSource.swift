@@ -13,17 +13,17 @@ typealias SignalValue = Float
 
 protocol SignalSource {
   var inputs:[SignalSource] { get }
-  var periodLength : SignalTime { get }
+//  var periodLength : SignalTime { get }
   func value(time: SignalTime) -> SignalValue
 }
 
 struct MixerSource : SignalSource {
   let inputs:[SignalSource]
 
-  var periodLength : SignalTime {
-  println(self, "periodLength start");
-    let val = SignalTime(lcm(self.inputs.map{ Int(round($0.periodLength)) } ) )
-    println(self, "periodLength stop"); return val }
+//  var periodLength : SignalTime {
+//  println(self, "periodLength start");
+//    let val = SignalTime(lcm(self.inputs.map{ Int(round($0.periodLength)) } ) )
+//    println(self, "periodLength stop"); return val }
 //  var result : SignalTime?
 //    return {
 //      if !result {
@@ -48,7 +48,7 @@ struct ConstantSource : SignalSource {
     self.value = value
   }
 
-  var periodLength : SignalTime { return SignalTime(1) }
+//  var periodLength : SignalTime { return SignalTime(1) }
   let inputs = [SignalSource]()
 
   func value(time: SignalTime) -> SignalValue {
@@ -71,7 +71,7 @@ struct SineSource : SignalSource {
   }
 
   let inputs = [SignalSource]()
-  var periodLength : SignalTime { return sampleRate/frequency }
+//  var periodLength : SignalTime { return sampleRate/frequency }
 
   func value(time: SignalTime) -> SignalValue {
     let tau = Float(2 * M_PI)

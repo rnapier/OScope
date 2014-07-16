@@ -12,7 +12,7 @@ struct SignalVisualizer {
   let source : SignalSource
 
   func path(bounds:CGRect) -> UIBezierPath {
-    let period = Int(source.periodLength)
+//    let period = Int(source.periodLength)
 
     let width  = CGRectGetWidth(bounds)
     let height = CGRectGetHeight(bounds)
@@ -25,12 +25,14 @@ struct SignalVisualizer {
       CGAffineTransformMakeTranslation(0, yZero),
       xScale, yScale)
 
-    let vals = (0..<period).map { self.source.value(SignalTime($0)) }
+    let vals = (0..<Int(width)).map { self.source.value(SignalTime($0)) }
 
     let cyclePath = cyclePathWithValues(vals)
-    var fullPath = pathFromHorizontallyRepeatedCycle(cyclePath, totalWidth:width)
-    fullPath.applyTransform(transform)
-    return fullPath
+    cyclePath.applyTransform(transform)
+    return cyclePath
+//    var fullPath = pathFromHorizontallyRepeatedCycle(cyclePath, totalWidth:width)
+//    fullPath.applyTransform(transform)
+//    return fullPath
   }
 }
 
