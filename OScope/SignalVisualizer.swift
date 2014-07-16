@@ -8,21 +8,16 @@
 
 import UIKit
 
+enum VisualizerScale {
+  case Absolute(Float)
+  case Automatic
+}
+
 struct SignalVisualizer {
   let source : SignalSource
 
-  func path(frame:CGRect) -> UIBezierPath {
-    println(frame)
+  func path(frame:CGRect, xScale:Float = 1, yScale:VisualizerScale = .Absolute(1)) -> UIBezierPath {
     let width  = CGRectGetWidth(frame)
-    let height = CGRectGetHeight(frame)
-
-    let yZero  = CGRectGetMidY(frame)
-    let xScale = CGFloat(1)
-    let yScale = -height/2
-
-    let transform = CGAffineTransformScale(
-      CGAffineTransformMakeTranslation(CGRectGetMinX(frame), yZero),
-      xScale, yScale)
 
     // TODO: In Beta3, you can't range over floats
     let timeRange = Range(
@@ -31,9 +26,29 @@ struct SignalVisualizer {
 
     let vals = timeRange.map { self.source.value(SignalTime($0)) }
 
+    let transform = pathTransform(frame:frame, xScale:xScale, yScale:yScale, values: vals)
+
     let path = pathWithValues(vals)
     path.applyTransform(transform)
     return path
+  }
+
+  func pathTransform(#frame: CGRect, xScale:Float, yScale:VisualizerScale, values: [SignalValue]) -> CGAffineTransform {
+    let height = CGRectGetHeight(frame)
+    let yZero  = CGRectGetMidY(frame)
+    let baseScale = -height/2
+    let yScaleValue = baseScale * {
+      switch yScale {
+      case .Absolute(let value): return value
+      case .Automatic: return 1/values.map(abs).reduce(0.01, combine: max)
+      }
+    }()
+
+    let transform = CGAffineTransformScale(
+      CGAffineTransformMakeTranslation(CGRectGetMinX(frame), yZero),
+      CGFloat(xScale), CGFloat(yScaleValue))
+
+    return transform
   }
 }
 
@@ -45,6 +60,5 @@ func pathWithValues(values:[SignalValue]) -> UIBezierPath {
   for t in 0..<valCount {
     cycle.addLineToPoint(CGPointMake(CGFloat(t), CGFloat(values[t])))
   }
-//  cycle.addLineToPoint(CGPointMake(CGFloat(valCount), CGFloat(values[0])))
   return cycle
 }
