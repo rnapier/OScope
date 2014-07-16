@@ -21,12 +21,13 @@ struct NetworkNode {
     self.layer = layer
     self.offset = offset
 
-    children = [NetworkNode](
-      map(enumerate(source.inputs),
-        { index, input in
-          NetworkNode(source: input, layer: layer + 1, offset: offset + index)
-      }))
-
-    height = max(children.map{$0.height}.reduce(0, +), 1)
+    children = [NetworkNode]()
+    height = 0
+    for input in source.inputs {
+      let child = NetworkNode(source: input, layer: layer + 1, offset: offset + height)
+      children.append(child)
+      height += child.height
+    }
+    height = max(height, 1)
   }
 }

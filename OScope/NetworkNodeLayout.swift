@@ -13,7 +13,7 @@ let insetScale = CGFloat(5.0)
 func inputPoint(#frame: CGRect, #index: Int, #inputCount:Int) -> CGPoint {
   return CGPointMake(
     CGRectGetMinX(frame),
-    CGRectGetMinY(frame) + CGRectGetHeight(frame) * (CGFloat(index + 1)/CGFloat(inputCount + 1)))
+    CGRectGetMinY(frame) + CGRectGetHeight(frame) * (Float(index + 1)/Float(inputCount + 1)))
 }
 
 struct NetworkNodeLayout {
