@@ -92,6 +92,7 @@ func minElementAt<C: Swift.Collection where C.GeneratorType.Element: Comparable>
 
 
 func lcm(xs:[Int]) -> Int {
+  println("lcm start", xs)
   assert(forAll(xs, { $0 > 0 }), "All values must be positive")
 
   var accums = xs
@@ -102,7 +103,9 @@ func lcm(xs:[Int]) -> Int {
     } else {
       assert(false, "BUG: every non-empty collection should have a minimum")
     }
-
+    println(accums)
   }
+  let result = accums[0]
+  println("lcm stop", result)
   return accums[0]
 }

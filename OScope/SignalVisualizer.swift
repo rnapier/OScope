@@ -40,9 +40,9 @@ func cyclePathWithValues(values:[SignalValue]) -> UIBezierPath {
 
   cycle.moveToPoint(CGPointZero)
   for t in 0..<valCount {
-    cycle.addLineToPoint(CGPointMake(CGFloat(t), values[t]))
+    cycle.addLineToPoint(CGPointMake(CGFloat(t), CGFloat(values[t])))
   }
-  cycle.addLineToPoint(CGPointMake(CGFloat(valCount), values[0]))
+  cycle.addLineToPoint(CGPointMake(CGFloat(valCount), CGFloat(values[0])))
   return cycle
 }
 

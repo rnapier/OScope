@@ -20,9 +20,22 @@ protocol SignalSource {
 struct MixerSource : SignalSource {
   let inputs:[SignalSource]
 
-  var periodLength : SignalTime { return SignalTime(lcm(inputs.map{ Int(round($0.periodLength)) })) }
+  var periodLength : SignalTime {
+  println(self, "periodLength start");
+    let val = SignalTime(lcm(self.inputs.map{ Int(round($0.periodLength)) } ) )
+    println(self, "periodLength stop"); return val }
+//  var result : SignalTime?
+//    return {
+//      if !result {
+//        println("periodLength")
+//        result = SignalTime(lcm(self.inputs.map{ Int(round($0.periodLength)) } ) )
+//      }
+//      return result!
+//      }()
+//  }
 
   func value(time: SignalTime) -> SignalValue {
+    println(self, time)
     return inputs.map{ $0.value(time) }.reduce(0,+)
   }
 }
