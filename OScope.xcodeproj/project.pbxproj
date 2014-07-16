@@ -15,15 +15,16 @@
 		FB037F18196EF194006E383D /* ScopeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB037F17196EF194006E383D /* ScopeViewController.swift */; };
 		FB037F1A196EF1AA006E383D /* SignalVisualizerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB037F19196EF1AA006E383D /* SignalVisualizerView.swift */; };
 		FB236150197094210020FD9C /* lcm.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB23614F197094210020FD9C /* lcm.swift */; };
-		FB6B2B201975C0BE00B57828 /* NetworkLayoutNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF86CAD1973DBBC0090AD78 /* NetworkLayoutNode.swift */; };
+		FB6B2B201975C0BE00B57828 /* NetworkNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF86CAD1973DBBC0090AD78 /* NetworkNode.swift */; };
 		FBA8768319761D7300362199 /* NetworkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA8768219761D7300362199 /* NetworkViewModel.swift */; };
 		FBA8768419762ABF00362199 /* NetworkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA8768219761D7300362199 /* NetworkViewModel.swift */; };
+		FBA876861976B2DD00362199 /* NetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA876851976B2DD00362199 /* NetworkView.swift */; };
 		FBB7D7DF1972DD2300D1D3D4 /* SignalSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD6BEF9196F0E2100A6F9CD /* SignalSource.swift */; };
 		FBC7F1231972CF0C005328BE /* lcm.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB23614F197094210020FD9C /* lcm.swift */; };
 		FBD6BEFA196F0E2100A6F9CD /* SignalSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD6BEF9196F0E2100A6F9CD /* SignalSource.swift */; };
 		FBE510A01973074A004A7D07 /* SignalVisualizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE5109F1973074A004A7D07 /* SignalVisualizer.swift */; };
 		FBE510A319730E26004A7D07 /* NetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE510A219730E26004A7D07 /* NetworkViewController.swift */; };
-		FBF86CAE1973DBBC0090AD78 /* NetworkLayoutNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF86CAD1973DBBC0090AD78 /* NetworkLayoutNode.swift */; };
+		FBF86CAE1973DBBC0090AD78 /* NetworkNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF86CAD1973DBBC0090AD78 /* NetworkNode.swift */; };
 		FBF86CB21973E2860090AD78 /* Lambda.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF86CB11973E2860090AD78 /* Lambda.swift */; };
 		FBF86CB31973E3910090AD78 /* Lambda.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF86CB11973E2860090AD78 /* Lambda.swift */; };
 /* End PBXBuildFile section */
@@ -59,11 +60,12 @@
 		FB037F19196EF1AA006E383D /* SignalVisualizerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SignalVisualizerView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FB23614F197094210020FD9C /* lcm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = lcm.swift; sourceTree = "<group>"; };
 		FBA8768219761D7300362199 /* NetworkViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkViewModel.swift; sourceTree = "<group>"; };
+		FBA876851976B2DD00362199 /* NetworkView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkView.swift; sourceTree = "<group>"; };
 		FBB7D7E01972DEF900D1D3D4 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		FBD6BEF9196F0E2100A6F9CD /* SignalSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SignalSource.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FBE5109F1973074A004A7D07 /* SignalVisualizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SignalVisualizer.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FBE510A219730E26004A7D07 /* NetworkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkViewController.swift; sourceTree = "<group>"; };
-		FBF86CAD1973DBBC0090AD78 /* NetworkLayoutNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NetworkLayoutNode.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		FBF86CAD1973DBBC0090AD78 /* NetworkNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NetworkNode.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FBF86CB11973E2860090AD78 /* Lambda.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lambda.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -109,10 +111,8 @@
 			isa = PBXGroup;
 			children = (
 				FB037EF6196EEF98006E383D /* AppDelegate.swift */,
-				FB037EF8196EEF98006E383D /* RootViewController.swift */,
-				FB037F17196EF194006E383D /* ScopeViewController.swift */,
-				FB037F19196EF1AA006E383D /* SignalVisualizerView.swift */,
-				FBE510A219730E26004A7D07 /* NetworkViewController.swift */,
+				FBA876881976B30E00362199 /* ViewControllers */,
+				FBA876871976B2FA00362199 /* Views */,
 				FBE510A119730773004A7D07 /* Model */,
 				FB6B2B1F1974B82100B57828 /* ViewModel */,
 				FB23614F197094210020FD9C /* lcm.swift */,
@@ -156,12 +156,31 @@
 			name = ViewModel;
 			sourceTree = "<group>";
 		};
+		FBA876871976B2FA00362199 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FB037F19196EF1AA006E383D /* SignalVisualizerView.swift */,
+				FBA876851976B2DD00362199 /* NetworkView.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		FBA876881976B30E00362199 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				FB037EF8196EEF98006E383D /* RootViewController.swift */,
+				FB037F17196EF194006E383D /* ScopeViewController.swift */,
+				FBE510A219730E26004A7D07 /* NetworkViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
 		FBE510A119730773004A7D07 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				FBD6BEF9196F0E2100A6F9CD /* SignalSource.swift */,
 				FBE5109F1973074A004A7D07 /* SignalVisualizer.swift */,
-				FBF86CAD1973DBBC0090AD78 /* NetworkLayoutNode.swift */,
+				FBF86CAD1973DBBC0090AD78 /* NetworkNode.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -271,10 +290,11 @@
 				FBA8768319761D7300362199 /* NetworkViewModel.swift in Sources */,
 				FBE510A01973074A004A7D07 /* SignalVisualizer.swift in Sources */,
 				FB037F18196EF194006E383D /* ScopeViewController.swift in Sources */,
-				FBF86CAE1973DBBC0090AD78 /* NetworkLayoutNode.swift in Sources */,
+				FBF86CAE1973DBBC0090AD78 /* NetworkNode.swift in Sources */,
 				FB236150197094210020FD9C /* lcm.swift in Sources */,
 				FBF86CB21973E2860090AD78 /* Lambda.swift in Sources */,
 				FB037F1A196EF1AA006E383D /* SignalVisualizerView.swift in Sources */,
+				FBA876861976B2DD00362199 /* NetworkView.swift in Sources */,
 				FB037EF9196EEF98006E383D /* RootViewController.swift in Sources */,
 				FB037EF7196EEF98006E383D /* AppDelegate.swift in Sources */,
 			);
@@ -288,7 +308,7 @@
 				FBA8768419762ABF00362199 /* NetworkViewModel.swift in Sources */,
 				FBB7D7DF1972DD2300D1D3D4 /* SignalSource.swift in Sources */,
 				FBC7F1231972CF0C005328BE /* lcm.swift in Sources */,
-				FB6B2B201975C0BE00B57828 /* NetworkLayoutNode.swift in Sources */,
+				FB6B2B201975C0BE00B57828 /* NetworkNode.swift in Sources */,
 				FB037F0A196EEF98006E383D /* OScopeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

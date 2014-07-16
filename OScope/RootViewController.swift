@@ -28,10 +28,12 @@ class RootViewController: UIViewController {
       }
     }
 
-    let source = SineSource(frequency: 441, amplitude: 1, phase: 0, sampleRate: 44000)
-    if let svc = scopeViewController {
-      svc.source = source
-    }
+    let source1 = SineSource(frequency: 441, amplitude: 1, phase: 0, sampleRate: 44000)
+    let source2 = SineSource(frequency: 882, amplitude: 1, phase: 0, sampleRate: 44000)
+    let mixer = MixerSource(inputs: [source1, source2])
+
+    scopeViewController.map{ $0.source = mixer }
+    networkViewController.map{ $0.rootSource = mixer }
   }
 }
 

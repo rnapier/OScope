@@ -53,7 +53,7 @@
                         <viewControllerLayoutGuide type="top" id="e28-a0-rSu"/>
                         <viewControllerLayoutGuide type="bottom" id="i9z-e8-DIL"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="NXP-Ud-pqD">
+                    <view key="view" contentMode="scaleToFill" id="NXP-Ud-pqD" customClass="NetworkView" customModule="OScope" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="220"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

@@ -20,7 +20,7 @@ protocol SignalSource {
 struct MixerSource : SignalSource {
   let inputs:[SignalSource]
 
-  var periodLength : SignalTime { get { return SignalTime(lcm(inputs.map{ Int(round($0.periodLength)) })) } }
+  var periodLength : SignalTime { return SignalTime(lcm(inputs.map{ Int(round($0.periodLength)) })) }
 
   func value(time: SignalTime) -> SignalValue {
     return inputs.map{ $0.value(time) }.reduce(0,+)
@@ -35,7 +35,7 @@ struct ConstantSource : SignalSource {
     self.value = value
   }
 
-  var periodLength : SignalTime { get { return SignalTime(1) } }
+  var periodLength : SignalTime { return SignalTime(1) }
   let inputs = [SignalSource]()
 
   func value(time: SignalTime) -> SignalValue {
@@ -58,7 +58,7 @@ struct SineSource : SignalSource {
   }
 
   let inputs = [SignalSource]()
-  var periodLength : SignalTime { get { return sampleRate/frequency } }
+  var periodLength : SignalTime { return sampleRate/frequency }
 
   func value(time: SignalTime) -> SignalValue {
     let tau = Float(2 * M_PI)

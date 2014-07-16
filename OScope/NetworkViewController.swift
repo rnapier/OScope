@@ -9,5 +9,18 @@
 import UIKit
 
 class NetworkViewController: UIViewController {
+  var viewModel : NetworkViewModel?
+
+  var rootSource : SignalSource? {
+  get { return viewModel?.rootNode.source }
+  set(newValue) {
+    viewModel = newValue.map {NetworkViewModel(rootSource: $0)}
+    if let networkView = view as? NetworkView {
+      networkView.viewModel = viewModel
+    }
+  }
+  }
+
+
 
 }

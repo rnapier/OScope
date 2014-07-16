@@ -8,25 +8,32 @@
 
 import CoreGraphics
 
+let insetScale = CGFloat(5.0)
+
+struct NetworkNodeLayout {
+  let node: NetworkNode
+  let frame: CGRect
+
+  init(node:NetworkNode, size:CGSize) {
+    self.node = node
+    frame = CGRectInset(
+      CGRectMake(
+        size.width * CGFloat(node.layer),
+        size.height * CGFloat(node.offset),
+        size.width, size.height),
+      size.width / insetScale, size.height / insetScale)
+  }
+}
+
 struct NetworkViewModel {
-  let root : NetworkLayoutNode
+  let rootNode : NetworkNode
   
-  init(root: SignalSource) {
-    self.root = NetworkLayoutNode(root: root)
+  init(rootSource: SignalSource) {
+    self.rootNode = NetworkNode(source: rootSource)
   }
 
-  func layout(bounds: CGRect) -> [(NetworkLayoutNode, CGRect)] {
-    let size = CGSizeMake(CGRectGetWidth(bounds)/CGFloat(root.depth), CGRectGetHeight(bounds)/CGFloat(root.height))
-
-    var result: [(NetworkLayoutNode, CGRect)] = []
-
-    for node in root.tree {
-      result.append((root,
-        CGRectMake(size.width * CGFloat(node.layer),
-          size.height * CGFloat(node.offset),
-          size.width, size.height)))
-    }
-
-    return result
+  func layout(bounds: CGRect) -> [NetworkNodeLayout] {
+    let size = CGSizeMake(CGRectGetWidth(bounds)/CGFloat(rootNode.depth), CGRectGetHeight(bounds)/CGFloat(rootNode.height))
+    return rootNode.tree.map { NetworkNodeLayout(node: $0, size:size) }
   }
 }

@@ -80,7 +80,7 @@ class OScopeTests: XCTestCase {
     let m2 = MixerSource(inputs: [s3, s4])
     let m1 = MixerSource(inputs: [s1, s2, m2])
 
-    let loc = NetworkLayoutNode(root:m1)
+    let loc = NetworkNode(source:m1)
     XCTAssertEqual(loc.height, 4)
   }
 
@@ -93,7 +93,7 @@ class OScopeTests: XCTestCase {
     let m2 = MixerSource(inputs: [s3, s4])
     let m1 = MixerSource(inputs: [s1, s2, m2])
 
-    let network = NetworkViewModel(root: m1)
+    let network = NetworkViewModel(rootSource: m1)
     println(network.layout(CGRectMake(0, 0, 100, 100)))
     // FIXME: Perform test
 
