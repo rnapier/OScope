@@ -25,13 +25,8 @@ class NetworkView: UIView {
   override func drawRect(rect: CGRect) {
     if let viewModel = viewModel {
       for layout in flatten(viewModel.layout(bounds), {$0.inputs}) {
-        UIBezierPath(rect:layout.frame).stroke()
-        for (index, input) in enumerate(layout.inputs) {
-          let line = UIBezierPath()
-          line.moveToPoint(layout.inputPoints[index])
-          line.addLineToPoint(layout.inputs[index].outputPoint)
-          line.stroke()
-        }
+        layout.nodePath.stroke()
+        layout.connectionPaths.stroke()
       }
     }
   }

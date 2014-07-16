@@ -20,7 +20,6 @@ struct MixerSource : SignalSource {
   let inputs:[SignalSource]
 
   func value(time: SignalTime) -> SignalValue {
-    println(self, time)
     return inputs.map{ $0.value(time) }.reduce(0,+)
   }
 }

@@ -11,23 +11,25 @@ import UIKit
 struct SignalVisualizer {
   let source : SignalSource
 
-  func path(bounds:CGRect) -> UIBezierPath {
-    let width  = CGRectGetWidth(bounds)
-    let height = CGRectGetHeight(bounds)
+  func path(frame:CGRect) -> UIBezierPath {
+    println(frame)
+    let width  = CGRectGetWidth(frame)
+    let height = CGRectGetHeight(frame)
 
-    let yZero  = CGRectGetMidY(bounds)
+    let yZero  = CGRectGetMidY(frame)
     let xScale = CGFloat(1)
     let yScale = -height/2
 
     let transform = CGAffineTransformScale(
-      CGAffineTransformMakeTranslation(0, yZero),
+      CGAffineTransformMakeTranslation(CGRectGetMinX(frame), yZero),
       xScale, yScale)
 
+    // TODO: In Beta3, you can't range over floats
     let timeRange = Range(
-      start:SignalTime(CGRectGetMinX(bounds)),
-      end:SignalTime(CGRectGetMaxX(bounds)))
+      start:Int(CGRectGetMinX(frame)),
+      end:Int(CGRectGetMaxX(frame)) + 1)
 
-    let vals = timeRange.map { self.source.value($0) }
+    let vals = timeRange.map { self.source.value(SignalTime($0)) }
 
     let path = pathWithValues(vals)
     path.applyTransform(transform)
@@ -43,6 +45,6 @@ func pathWithValues(values:[SignalValue]) -> UIBezierPath {
   for t in 0..<valCount {
     cycle.addLineToPoint(CGPointMake(CGFloat(t), CGFloat(values[t])))
   }
-  cycle.addLineToPoint(CGPointMake(CGFloat(valCount), CGFloat(values[0])))
+//  cycle.addLineToPoint(CGPointMake(CGFloat(valCount), CGFloat(values[0])))
   return cycle
 }

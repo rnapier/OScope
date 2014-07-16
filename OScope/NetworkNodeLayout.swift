@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Rob Napier. All rights reserved.
 //
 
-import CoreGraphics
+import UIKit
 
 let insetScale = CGFloat(5.0)
 
@@ -22,6 +22,23 @@ struct NetworkNodeLayout {
   let inputPoints: [CGPoint]
   let outputPoint: CGPoint
   let inputs: [NetworkNodeLayout]
+
+  var nodePath : UIBezierPath {
+    println(frame)
+    let path = UIBezierPath(rect:frame)
+    let v = SignalVisualizer(source: node.source)
+    path.appendPath(v.path(frame))
+    return path
+  }
+
+  var connectionPaths : UIBezierPath {
+  let connections = UIBezierPath()
+    for (index, input) in enumerate(inputs) {
+      connections.moveToPoint(inputPoints[index])
+      connections.addLineToPoint(inputs[index].outputPoint)
+    }
+    return connections
+  }
 
   init(node:NetworkNode, size:CGSize, totalDepth:Int) {
     self.node = node
@@ -42,13 +59,13 @@ struct NetworkNodeLayout {
 
 struct NetworkViewModel {
   let rootNode : NetworkNode
-  
+
   init(rootSource: SignalSource) {
     self.rootNode = NetworkNode(source: rootSource)
   }
 
   func layout(bounds: CGRect) -> NetworkNodeLayout {
     let size = CGSizeMake(CGRectGetWidth(bounds)/CGFloat(rootNode.depth), CGRectGetHeight(bounds)/CGFloat(rootNode.height))
-    return NetworkNodeLayout(node: rootNode, size:size, totalDepth:rootNode.depth) // .tree.map { NetworkNodeLayout(node: $0, size:size) }
+    return NetworkNodeLayout(node: rootNode, size:size, totalDepth:rootNode.depth)
   }
 }
