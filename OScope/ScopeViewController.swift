@@ -11,7 +11,7 @@ import UIKit
 class ScopeViewController: UIViewController {
 
   @IBOutlet var signalVisualizerView : SignalVisualizerView
-  @IBOutlet var yScaleKnob: RWKnobControl
+  @IBOutlet var yScaleKnob: KnobControl
   @IBOutlet var yScaleAutoButton: HighlightButton
 
   var yScale: VisualizerScale = .Automatic {

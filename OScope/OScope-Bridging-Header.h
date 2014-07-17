@@ -7,3 +7,5 @@
 //
 
 #import "RWKnobControl.h"
+#import "RWRotationGestureRecognizer.h"
+#import "RWKnobRenderer.h"
