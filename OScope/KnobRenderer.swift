@@ -98,11 +98,11 @@ class KnobRenderer {
   }
 
   func setPointerAngle(newValue:CGFloat, animated:Bool) {
-    _primitivePointerAngle = newValue
-
     CATransaction.begin()
     CATransaction.setDisableActions(true)
-    pointerLayer.transform = CATransform3DMakeRotation(pointerAngle, 0, 0, 1)
+
+    pointerLayer.transform = CATransform3DMakeRotation(newValue, 0, 0, 1)
+
     if(animated) {
       // Provide an animation
       // Key-frame animation to ensure rotates in correct direction
@@ -110,12 +110,16 @@ class KnobRenderer {
         min(pointerAngle, _primitivePointerAngle) ) / 2.0 +
         min(pointerAngle, _primitivePointerAngle)
       let animation = CAKeyframeAnimation(keyPath:"transform.rotation.z")
-      animation.duration = 3.0
-      animation.values = [(_primitivePointerAngle), midAngle, _primitivePointerAngle]
-      animation.keyTimes = [0, 0.5, 1.0]
-      animation.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseInEaseOut)
-      pointerLayer.addAnimation(animation, forKey: "")
+
+      animation.duration = 0.7
+      animation.values = [_primitivePointerAngle, midAngle, newValue]
+      animation.keyTimes = [0, 0.3, 1.0]
+      animation.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseOut)
+      pointerLayer.addAnimation(animation, forKey: "rotate")
     }
+
+    _primitivePointerAngle = newValue
+
     CATransaction.commit()
   }
 

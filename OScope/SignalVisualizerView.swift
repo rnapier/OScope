@@ -12,6 +12,7 @@ class SignalVisualizerView: UIView {
 
   var source : SignalSource? {
   didSet {
+    visualizer = source.map{SignalVisualizer(source: $0)}
     setNeedsDisplay()
   }
   }
@@ -22,11 +23,13 @@ class SignalVisualizerView: UIView {
   }
   }
 
+  var visualizer : SignalVisualizer?
+
   override func drawRect(rect: CGRect) {
     drawGrid()
     if let source = source {
       UIColor(white: 1, alpha: 1).set()
-      SignalVisualizer(source: source).path(rect, xScale:1, yScale:yScale).stroke()
+      visualizer?.path(bounds, xScale:1, yScale:yScale).stroke()
     }
   }
 

@@ -17,6 +17,7 @@ class ScopeViewController: UIViewController {
   var yScale: VisualizerScale = .Automatic {
   didSet {
     signalVisualizerView.yScale = yScale
+    updateYScaleControls(animated: true)
   }
   }
 
@@ -26,15 +27,16 @@ class ScopeViewController: UIViewController {
   }
   set(newValue) {
     signalVisualizerView.source = newValue
+    updateYScaleControls(animated:false)
   }
   }
 
   override func viewDidLoad() {
-    updateYScaleControls()
     signalVisualizerView.yScale = yScale
+    updateYScaleControls(animated: false)
   }
 
-  func updateYScaleControls() {
+  func updateYScaleControls(#animated: Bool) {
     switch yScale {
     case .Absolute(_):
       yScaleAutoButton.value = false
@@ -44,6 +46,13 @@ class ScopeViewController: UIViewController {
       yScaleAutoButton.value = true
       yScaleKnob.enabled = false
       yScaleKnob.tintColor = UIColor.grayColor().colorWithAlphaComponent(0.3)
+
+      if let visualizer = signalVisualizerView.visualizer {
+        yScaleKnob.setValue(visualizer.automaticYScale(timeRange: Range(start:0, end:SignalTime(CGRectGetWidth(view.bounds)))), animated: animated)
+      }
+      else {
+        yScaleKnob.setValue(0, animated: animated)
+      }
     }
   }
   @IBAction func yScaleChanged(sender: KnobControl) {
@@ -56,6 +65,6 @@ class ScopeViewController: UIViewController {
     } else {
       yScale = .Automatic
     }
-    updateYScaleControls()
+    updateYScaleControls(animated:true)
   }
 }

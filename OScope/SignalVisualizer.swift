@@ -19,12 +19,11 @@ struct SignalVisualizer {
   func path(frame:CGRect, xScale:Float = 1, yScale:VisualizerScale = .Absolute(1)) -> UIBezierPath {
     let width  = CGRectGetWidth(frame)
 
-    // TODO: In Beta3, you can't range over floats
     let timeRange = Range(
-      start:Int(CGRectGetMinX(frame)),
-      end:Int(CGRectGetMaxX(frame)) + 1)
+      start:SignalTime(CGRectGetMinX(frame)),
+      end:SignalTime(CGRectGetMaxX(frame)) + 1)
 
-    let vals = timeRange.map { self.source.value(SignalTime($0)) }
+    let vals = values(timeRange)
 
     let transform = pathTransform(frame:frame, xScale:xScale, yScale:yScale, values: vals)
 
@@ -33,14 +32,28 @@ struct SignalVisualizer {
     return path
   }
 
-  func pathTransform(#frame: CGRect, xScale:Float, yScale:VisualizerScale, values: [SignalValue]) -> CGAffineTransform {
+  func values(range:Range<SignalTime>) -> [SignalValue] {
+    // TODO: In Beta3, you can't range over floats
+    let intRange = Range<Int>(start:Int(range.startIndex), end:Int(range.endIndex))
+    return intRange.map { self.source.value(SignalTime($0)) }
+  }
+
+  func automaticYScale(#timeRange:Range<SignalTime>) -> SignalValue {
+    return automaticYScale(values:values(timeRange))
+  }
+
+  func automaticYScale(#values:[SignalValue]) -> SignalValue {
+    return 1/values.map(abs).reduce(0.01, combine: max)
+  }
+
+  func pathTransform(#frame: CGRect, xScale:Float, yScale:VisualizerScale, values:[SignalValue]) -> CGAffineTransform {
     let height = CGRectGetHeight(frame)
     let yZero  = CGRectGetMidY(frame)
     let baseScale = -height/2
     let yScaleValue = baseScale * {
       switch yScale {
       case .Absolute(let value): return value
-      case .Automatic: return 1/values.map(abs).reduce(0.01, combine: max)
+      case .Automatic: return self.automaticYScale(values:values)
       }
     }()
 
