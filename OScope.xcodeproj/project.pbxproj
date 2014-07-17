@@ -18,6 +18,8 @@
 		FBA8768319761D7300362199 /* NetworkNodeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA8768219761D7300362199 /* NetworkNodeLayout.swift */; };
 		FBA8768419762ABF00362199 /* NetworkNodeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA8768219761D7300362199 /* NetworkNodeLayout.swift */; };
 		FBA876861976B2DD00362199 /* NetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA876851976B2DD00362199 /* NetworkView.swift */; };
+		FBA9D8551977291C00EC6BD1 /* KnobControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA9D8541977291C00EC6BD1 /* KnobControl.swift */; };
+		FBA9D85719774A3F00EC6BD1 /* HighlightButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA9D85619774A3F00EC6BD1 /* HighlightButton.swift */; };
 		FBB7D7DF1972DD2300D1D3D4 /* SignalSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD6BEF9196F0E2100A6F9CD /* SignalSource.swift */; };
 		FBD6BEFA196F0E2100A6F9CD /* SignalSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD6BEF9196F0E2100A6F9CD /* SignalSource.swift */; };
 		FBE510A01973074A004A7D07 /* SignalVisualizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE5109F1973074A004A7D07 /* SignalVisualizer.swift */; };
@@ -59,6 +61,8 @@
 		FB23614F197094210020FD9C /* lcm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = lcm.swift; path = OScope/lcm.swift; sourceTree = "<group>"; };
 		FBA8768219761D7300362199 /* NetworkNodeLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkNodeLayout.swift; sourceTree = "<group>"; };
 		FBA876851976B2DD00362199 /* NetworkView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkView.swift; sourceTree = "<group>"; };
+		FBA9D8541977291C00EC6BD1 /* KnobControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KnobControl.swift; sourceTree = "<group>"; };
+		FBA9D85619774A3F00EC6BD1 /* HighlightButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightButton.swift; sourceTree = "<group>"; };
 		FBB7D7E01972DEF900D1D3D4 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		FBD6BEF9196F0E2100A6F9CD /* SignalSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SignalSource.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FBE5109F1973074A004A7D07 /* SignalVisualizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SignalVisualizer.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -159,6 +163,8 @@
 			children = (
 				FB037F19196EF1AA006E383D /* SignalVisualizerView.swift */,
 				FBA876851976B2DD00362199 /* NetworkView.swift */,
+				FBA9D8541977291C00EC6BD1 /* KnobControl.swift */,
+				FBA9D85619774A3F00EC6BD1 /* HighlightButton.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -286,10 +292,12 @@
 				FBD6BEFA196F0E2100A6F9CD /* SignalSource.swift in Sources */,
 				FBE510A319730E26004A7D07 /* NetworkViewController.swift in Sources */,
 				FBA8768319761D7300362199 /* NetworkNodeLayout.swift in Sources */,
+				FBA9D8551977291C00EC6BD1 /* KnobControl.swift in Sources */,
 				FBE510A01973074A004A7D07 /* SignalVisualizer.swift in Sources */,
 				FB037F18196EF194006E383D /* ScopeViewController.swift in Sources */,
 				FBF86CAE1973DBBC0090AD78 /* NetworkNode.swift in Sources */,
 				FBF86CB21973E2860090AD78 /* Lambda.swift in Sources */,
+				FBA9D85719774A3F00EC6BD1 /* HighlightButton.swift in Sources */,
 				FB037F1A196EF1AA006E383D /* SignalVisualizerView.swift in Sources */,
 				FBA876861976B2DD00362199 /* NetworkView.swift in Sources */,
 				FB037EF9196EEF98006E383D /* RootViewController.swift in Sources */,
