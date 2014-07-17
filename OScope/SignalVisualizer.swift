@@ -33,7 +33,7 @@ struct SignalVisualizer {
   }
 
   func withYScale(newYScale:VisualizerScale) -> SignalVisualizer {
-    return SignalVisualizer(source: source, frame: frame, xScale: xScale, yScale: newYScale, values: values, basePath: basePath) //, transform: pathTransform)
+    return SignalVisualizer(source: source, frame: frame, xScale: xScale, yScale: newYScale, values: values, basePath: basePath)
   }
 }
 
@@ -62,7 +62,6 @@ func valuesForSource(source: SignalSource, #timeRange:Range<SignalTime>) -> [Sig
   let intRange = Range<Int>(start:Int(timeRange.startIndex), end:Int(timeRange.endIndex))
   return intRange.map { source.value(SignalTime($0)) }
 }
-
 
 func pathWithValues(values:[SignalValue]) -> UIBezierPath {
   let cycle = UIBezierPath()

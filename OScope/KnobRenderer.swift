@@ -111,7 +111,7 @@ class KnobRenderer {
         min(pointerAngle, _primitivePointerAngle)
       let animation = CAKeyframeAnimation(keyPath:"transform.rotation.z")
 
-      animation.duration = 0.7
+      animation.duration = 0.4
       animation.values = [_primitivePointerAngle, midAngle, newValue]
       animation.keyTimes = [0, 0.3, 1.0]
       animation.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseOut)

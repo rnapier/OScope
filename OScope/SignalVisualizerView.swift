@@ -7,8 +7,36 @@
 //
 
 import UIKit
+import QuartzCore
 
 class SignalVisualizerView: UIView {
+
+  let signalLayer = CAShapeLayer()
+  let gridLayer = CAShapeLayer()
+
+  func setup() {
+    clipsToBounds = true
+
+    signalLayer.frame = bounds
+    signalLayer.strokeColor = UIColor.whiteColor().CGColor
+    signalLayer.path = flatLine().CGPath
+    layer.addSublayer(signalLayer)
+
+    gridLayer.frame = bounds
+    gridLayer.path = axesPath().CGPath
+    gridLayer.strokeColor = UIColor(red: 0.6, green: 0.4, blue: 0.2, alpha: 0.5).CGColor
+    layer.addSublayer(gridLayer)
+  }
+
+  init(coder aDecoder: NSCoder!) {
+    super.init(coder: aDecoder)
+    setup()
+  }
+
+  init(frame: CGRect) {
+    super.init(frame: frame)
+    setup()
+  }
 
   var source : SignalSource? {
   didSet {
@@ -24,23 +52,17 @@ class SignalVisualizerView: UIView {
 
   var visualizer : SignalVisualizer? {
   didSet {
-    setNeedsDisplay()
+    let newPath = visualizer?.path.CGPath
+    let animation = CABasicAnimation(keyPath: "path")
+    animation.duration = 0.3
+    animation.fromValue = signalLayer.path
+    animation.toValue = newPath
+    signalLayer.addAnimation(animation, forKey: "path")
+    signalLayer.path = newPath
   }
   }
 
-  override func drawRect(rect: CGRect) {
-    drawGrid()
-    if let source = source {
-      UIColor(white: 1, alpha: 1).set()
-      visualizer?.path.stroke()
-    }
-  }
-
-  func drawGrid() {
-    drawOrigin()
-  }
-
-  func drawOrigin() {
+  func axesPath() -> UIBezierPath {
     let path = UIBezierPath()
     path.moveToPoint(CGPointMake(CGRectGetMidX(bounds), CGRectGetMinY(bounds)))
     path.addLineToPoint(CGPointMake(CGRectGetMidX(bounds), CGRectGetMaxY(bounds)))
@@ -50,8 +72,14 @@ class SignalVisualizerView: UIView {
 
     path.lineWidth = 3
 
-    UIColor(red: 0.6, green: 0.4, blue: 0.2, alpha: 0.5).set()
 
-    path.stroke()
+    return path
+  }
+
+  func flatLine() -> UIBezierPath {
+    let path = UIBezierPath()
+    path.moveToPoint(CGPointMake(CGRectGetMinX(bounds), CGRectGetMidY(bounds)))
+    path.addLineToPoint(CGPointMake(CGRectGetMaxX(bounds), CGRectGetMidY(bounds)))
+    return path
   }
 }
