@@ -13,8 +13,6 @@ enum VisualizerScale {
   case Automatic
 }
 
-// FIXME: Support changing scale without recomputing all items. Cache the values for a given range
-
 struct SignalVisualizer {
   let source: SignalSource
   let frame: CGRect
@@ -22,10 +20,10 @@ struct SignalVisualizer {
   let yScale: VisualizerScale
   let values: [SignalValue]
   let basePath : UIBezierPath
-  let transform : CGAffineTransform
 
   var path : UIBezierPath {
-    let path = basePath
+    let path = basePath.copy() as UIBezierPath
+    let transform = pathTransform(frame:frame, xScale:xScale, yScale:yScale, values: values)
     path.applyTransform(transform)
     return path
   }
@@ -34,10 +32,9 @@ struct SignalVisualizer {
   return calculateAutomaticYScale(values:values)
   }
 
-//  func automaticYScale(#timeRange:Range<SignalTime>) -> SignalValue {
-//    return automaticYScale(values:values)
-//  }
-
+  func withYScale(newYScale:VisualizerScale) -> SignalVisualizer {
+    return SignalVisualizer(source: source, frame: frame, xScale: xScale, yScale: newYScale, values: values, basePath: basePath) //, transform: pathTransform)
+  }
 }
 
 extension SignalVisualizer {
@@ -57,7 +54,6 @@ extension SignalVisualizer {
     self.values = vs
 
     basePath = pathWithValues(self.values)
-    transform = pathTransform(frame:frame, xScale:xScale, yScale:yScale, values: values)
   }
 }
 

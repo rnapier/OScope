@@ -13,18 +13,20 @@ class SignalVisualizerView: UIView {
   var source : SignalSource? {
   didSet {
     visualizer = source.map{SignalVisualizer(source: $0, frame:self.bounds, xScale:1, yScale:self.yScale)}
-    setNeedsDisplay()
   }
   }
 
   var yScale : VisualizerScale = .Automatic {
   didSet {
-    visualizer = source.map{SignalVisualizer(source: $0, frame:self.bounds, xScale:1, yScale:self.yScale)} // FIXME: Remove dupe
-    setNeedsDisplay()
+    visualizer = visualizer?.withYScale(yScale)
   }
   }
 
-  var visualizer : SignalVisualizer?
+  var visualizer : SignalVisualizer? {
+  didSet {
+    setNeedsDisplay()
+  }
+  }
 
   override func drawRect(rect: CGRect) {
     drawGrid()
