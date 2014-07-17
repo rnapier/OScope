@@ -16,7 +16,11 @@ class SignalVisualizerView: UIView {
   }
   }
 
-  var yScale : VisualizerScale = .Automatic
+  var yScale : VisualizerScale = .Automatic {
+  didSet {
+    setNeedsDisplay()
+  }
+  }
 
   override func drawRect(rect: CGRect) {
     drawGrid()

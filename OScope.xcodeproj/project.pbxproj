@@ -20,6 +20,9 @@
 		FBA876861976B2DD00362199 /* NetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA876851976B2DD00362199 /* NetworkView.swift */; };
 		FBA9D8551977291C00EC6BD1 /* KnobControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA9D8541977291C00EC6BD1 /* KnobControl.swift */; };
 		FBA9D85719774A3F00EC6BD1 /* HighlightButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA9D85619774A3F00EC6BD1 /* HighlightButton.swift */; };
+		FBA9D85E1977659100EC6BD1 /* RWKnobControl.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA9D8591977659100EC6BD1 /* RWKnobControl.m */; };
+		FBA9D85F1977659100EC6BD1 /* RWKnobRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA9D85B1977659100EC6BD1 /* RWKnobRenderer.m */; };
+		FBA9D8601977659100EC6BD1 /* RWRotationGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA9D85D1977659100EC6BD1 /* RWRotationGestureRecognizer.m */; };
 		FBB7D7DF1972DD2300D1D3D4 /* SignalSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD6BEF9196F0E2100A6F9CD /* SignalSource.swift */; };
 		FBD6BEFA196F0E2100A6F9CD /* SignalSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD6BEF9196F0E2100A6F9CD /* SignalSource.swift */; };
 		FBE510A01973074A004A7D07 /* SignalVisualizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE5109F1973074A004A7D07 /* SignalVisualizer.swift */; };
@@ -63,6 +66,13 @@
 		FBA876851976B2DD00362199 /* NetworkView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkView.swift; sourceTree = "<group>"; };
 		FBA9D8541977291C00EC6BD1 /* KnobControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KnobControl.swift; sourceTree = "<group>"; };
 		FBA9D85619774A3F00EC6BD1 /* HighlightButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightButton.swift; sourceTree = "<group>"; };
+		FBA9D8581977659100EC6BD1 /* RWKnobControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RWKnobControl.h; path = "../../../src/RW-KnobControl/KnobControl/RWKnobControl.h"; sourceTree = "<group>"; };
+		FBA9D8591977659100EC6BD1 /* RWKnobControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RWKnobControl.m; path = "../../../src/RW-KnobControl/KnobControl/RWKnobControl.m"; sourceTree = "<group>"; };
+		FBA9D85A1977659100EC6BD1 /* RWKnobRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RWKnobRenderer.h; path = "../../../src/RW-KnobControl/KnobControl/RWKnobRenderer.h"; sourceTree = "<group>"; };
+		FBA9D85B1977659100EC6BD1 /* RWKnobRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RWKnobRenderer.m; path = "../../../src/RW-KnobControl/KnobControl/RWKnobRenderer.m"; sourceTree = "<group>"; };
+		FBA9D85C1977659100EC6BD1 /* RWRotationGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RWRotationGestureRecognizer.h; path = "../../../src/RW-KnobControl/KnobControl/RWRotationGestureRecognizer.h"; sourceTree = "<group>"; };
+		FBA9D85D1977659100EC6BD1 /* RWRotationGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RWRotationGestureRecognizer.m; path = "../../../src/RW-KnobControl/KnobControl/RWRotationGestureRecognizer.m"; sourceTree = "<group>"; };
+		FBA9D8641977665700EC6BD1 /* OScope-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OScope-Bridging-Header.h"; sourceTree = "<group>"; };
 		FBB7D7E01972DEF900D1D3D4 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		FBD6BEF9196F0E2100A6F9CD /* SignalSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SignalSource.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FBE5109F1973074A004A7D07 /* SignalVisualizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SignalVisualizer.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -129,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				FB037EF5196EEF98006E383D /* Info.plist */,
+				FBA9D8641977665700EC6BD1 /* OScope-Bridging-Header.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -161,6 +172,12 @@
 		FBA876871976B2FA00362199 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				FBA9D8581977659100EC6BD1 /* RWKnobControl.h */,
+				FBA9D8591977659100EC6BD1 /* RWKnobControl.m */,
+				FBA9D85A1977659100EC6BD1 /* RWKnobRenderer.h */,
+				FBA9D85B1977659100EC6BD1 /* RWKnobRenderer.m */,
+				FBA9D85C1977659100EC6BD1 /* RWRotationGestureRecognizer.h */,
+				FBA9D85D1977659100EC6BD1 /* RWRotationGestureRecognizer.m */,
 				FB037F19196EF1AA006E383D /* SignalVisualizerView.swift */,
 				FBA876851976B2DD00362199 /* NetworkView.swift */,
 				FBA9D8541977291C00EC6BD1 /* KnobControl.swift */,
@@ -294,7 +311,10 @@
 				FBA8768319761D7300362199 /* NetworkNodeLayout.swift in Sources */,
 				FBA9D8551977291C00EC6BD1 /* KnobControl.swift in Sources */,
 				FBE510A01973074A004A7D07 /* SignalVisualizer.swift in Sources */,
+				FBA9D85F1977659100EC6BD1 /* RWKnobRenderer.m in Sources */,
 				FB037F18196EF194006E383D /* ScopeViewController.swift in Sources */,
+				FBA9D85E1977659100EC6BD1 /* RWKnobControl.m in Sources */,
+				FBA9D8601977659100EC6BD1 /* RWRotationGestureRecognizer.m in Sources */,
 				FBF86CAE1973DBBC0090AD78 /* NetworkNode.swift in Sources */,
 				FBF86CB21973E2860090AD78 /* Lambda.swift in Sources */,
 				FBA9D85719774A3F00EC6BD1 /* HighlightButton.swift in Sources */,
@@ -382,6 +402,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "OScope/OScope-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -418,6 +439,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "OScope/OScope-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
 			};

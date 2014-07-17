@@ -11,10 +11,14 @@ import UIKit
 class ScopeViewController: UIViewController {
 
   @IBOutlet var signalVisualizerView : SignalVisualizerView
-  @IBOutlet var yScaleKnob: KnobControl
+  @IBOutlet var yScaleKnob: RWKnobControl
   @IBOutlet var yScaleAutoButton: HighlightButton
 
-  var yScale: VisualizerScale = .Automatic
+  var yScale: VisualizerScale = .Automatic {
+  didSet {
+    signalVisualizerView.yScale = yScale
+  }
+  }
 
   var source : SignalSource? {
   get {
@@ -26,29 +30,32 @@ class ScopeViewController: UIViewController {
   }
 
   override func viewDidLoad() {
-    switch yScale {
-    case .Automatic:
-      yScaleAutoButton.value = true
-      yScaleKnob.enabled = false
-    case .Absolute(let scale):
-      yScaleAutoButton.value = false
-      yScaleKnob.enabled = true
-    }
+    updateYScaleControls()
     signalVisualizerView.yScale = yScale
   }
 
+  func updateYScaleControls() {
+    switch yScale {
+    case .Absolute(_):
+      yScaleAutoButton.value = false
+      yScaleKnob.enabled = true
+      yScaleKnob.tintColor = UIColor.blueColor()
+    case .Automatic:
+      yScaleAutoButton.value = true
+      yScaleKnob.enabled = false
+      yScaleKnob.tintColor = UIColor.grayColor().colorWithAlphaComponent(0.3)
+    }
+  }
   @IBAction func yScaleChanged(sender: KnobControl) {
+    yScale = .Absolute(yScaleKnob.value)
   }
 
   @IBAction func performYScaleAutoButton(sender: HighlightButton) {
     if yScaleAutoButton.value {
-      yScaleAutoButton.value = false
-      yScaleKnob.enabled = true
       yScale = .Absolute(yScaleKnob.value)
     } else {
-      yScaleAutoButton.value = true
-      yScaleKnob.enabled = false
       yScale = .Automatic
     }
+    updateYScaleControls()
   }
 }
