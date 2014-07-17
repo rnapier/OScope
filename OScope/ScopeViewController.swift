@@ -48,7 +48,7 @@ class ScopeViewController: UIViewController {
       yScaleKnob.tintColor = UIColor.grayColor().colorWithAlphaComponent(0.3)
 
       if let visualizer = signalVisualizerView.visualizer {
-        yScaleKnob.setValue(visualizer.automaticYScale(timeRange: Range(start:0, end:SignalTime(CGRectGetWidth(view.bounds)))), animated: animated)
+        yScaleKnob.setValue(visualizer.automaticYScale, animated: animated)
       }
       else {
         yScaleKnob.setValue(0, animated: animated)
