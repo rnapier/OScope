@@ -36,7 +36,7 @@ class KnobControl : UIControl {
     return RWRotationGestureRecognizer(target: self, action: "handleGesture:")
     }()
 
-  let knobRenderer = RWKnobRenderer()
+  let knobRenderer = KnobRenderer()
 
   var lineWidth : CGFloat {
   get { return knobRenderer.lineWidth }
