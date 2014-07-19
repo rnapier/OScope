@@ -40,7 +40,7 @@ class SignalVisualizerView: UIView {
 
   var source : SignalSource? {
   didSet {
-    visualizer = source.map{SignalVisualizer(source: $0, frame:self.bounds, xScale:1, yScale:self.yScale)}
+    visualizer = source.map{SignalVisualizer(source: $0, domain: self.domain, frame:self.bounds, xScale:1, yScale:self.yScale)}
   }
   }
 
@@ -59,6 +59,12 @@ class SignalVisualizerView: UIView {
     animation.toValue = newPath
     signalLayer.addAnimation(animation, forKey: "path")
     signalLayer.path = newPath
+  }
+  }
+
+  var domain : VisualizerDomain = .Time {
+  didSet {
+    visualizer = source.map{SignalVisualizer(source: $0, domain: self.domain, frame:self.bounds, xScale:1, yScale:self.yScale)}
   }
   }
 

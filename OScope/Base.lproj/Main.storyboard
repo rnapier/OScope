@@ -113,24 +113,49 @@
                                     <action selector="performYScaleAutoButton:" destination="oXA-lM-HEx" eventType="touchUpInside" id="dJG-Nh-ZMU"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oAq-Th-QA3">
+                                <rect key="frame" x="269" y="166" width="38" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Freq" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Qo-Fe-2Fh">
+                                <rect key="frame" x="372" y="166" width="35" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ziG-I1-yMd">
+                                <rect key="frame" x="315" y="161" width="51" height="31"/>
+                                <connections>
+                                    <action selector="performDomainSwitch:" destination="oXA-lM-HEx" eventType="valueChanged" id="RUe-Zj-wbu"/>
+                                </connections>
+                            </switch>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="ziG-I1-yMd" firstAttribute="top" secondItem="6Qo-Fe-2Fh" secondAttribute="top" constant="-5" id="1ag-bW-Zcu"/>
+                            <constraint firstItem="ziG-I1-yMd" firstAttribute="leading" secondItem="oAq-Th-QA3" secondAttribute="trailing" constant="8" id="3x3-4X-yMd"/>
                             <constraint firstItem="c8V-H3-OVv" firstAttribute="centerX" secondItem="dTo-8j-3Ct" secondAttribute="centerX" id="B7c-Yr-cQG"/>
                             <constraint firstItem="ZMd-gO-V5p" firstAttribute="top" secondItem="dx1-8C-Dlr" secondAttribute="bottom" constant="20" id="BKV-Ls-rAu"/>
+                            <constraint firstItem="oAq-Th-QA3" firstAttribute="top" secondItem="ziG-I1-yMd" secondAttribute="top" constant="5" id="EJI-oa-qFp"/>
                             <constraint firstItem="dTo-8j-3Ct" firstAttribute="top" secondItem="c8V-H3-OVv" secondAttribute="bottom" constant="7" id="FxU-5c-C19"/>
                             <constraint firstItem="c8V-H3-OVv" firstAttribute="leading" secondItem="dx1-8C-Dlr" secondAttribute="trailing" constant="23" id="GcR-ZF-ZXK"/>
                             <constraint firstItem="Dbk-cx-L1w" firstAttribute="centerX" secondItem="dTo-8j-3Ct" secondAttribute="centerX" id="Heg-7r-EGz"/>
+                            <constraint firstItem="oAq-Th-QA3" firstAttribute="leading" secondItem="dx1-8C-Dlr" secondAttribute="trailing" constant="8" id="HmV-YW-v3K"/>
                             <constraint firstItem="Dbk-cx-L1w" firstAttribute="top" secondItem="dTo-8j-3Ct" secondAttribute="bottom" constant="8" id="I69-Rx-1Jz"/>
                             <constraint firstItem="Dbk-cx-L1w" firstAttribute="width" secondItem="c8V-H3-OVv" secondAttribute="width" id="NVJ-8H-mXA"/>
                             <constraint firstItem="dx1-8C-Dlr" firstAttribute="leading" secondItem="QOa-GU-llY" secondAttribute="leading" constant="21" id="U2D-Za-bdj"/>
                             <constraint firstItem="c8V-H3-OVv" firstAttribute="top" secondItem="dx1-8C-Dlr" secondAttribute="top" id="g7B-um-VvO"/>
                             <constraint firstItem="dx1-8C-Dlr" firstAttribute="top" secondItem="Tzp-6Y-Jhe" secondAttribute="bottom" constant="20" id="oMy-rz-S7V"/>
+                            <constraint firstItem="6Qo-Fe-2Fh" firstAttribute="leading" secondItem="ziG-I1-yMd" secondAttribute="trailing" constant="8" id="omn-2s-0th"/>
+                            <constraint firstItem="ziG-I1-yMd" firstAttribute="top" secondItem="Dbk-cx-L1w" secondAttribute="bottom" constant="25" id="t79-ku-aX3"/>
                             <constraint firstItem="dTo-8j-3Ct" firstAttribute="top" secondItem="Tzp-6Y-Jhe" secondAttribute="bottom" constant="44" id="yCw-g0-4Ro"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
                     <connections>
+                        <outlet property="domainSwitch" destination="ziG-I1-yMd" id="zkn-qb-uHs"/>
                         <outlet property="signalVisualizerView" destination="dx1-8C-Dlr" id="eoh-WC-wKj"/>
                         <outlet property="yScaleAutoButton" destination="Dbk-cx-L1w" id="f9Y-cL-vDk"/>
                         <outlet property="yScaleKnob" destination="dTo-8j-3Ct" id="pNx-ZG-lTW"/>

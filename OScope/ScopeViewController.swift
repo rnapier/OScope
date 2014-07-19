@@ -13,6 +13,7 @@ class ScopeViewController: UIViewController {
   @IBOutlet var signalVisualizerView : SignalVisualizerView
   @IBOutlet var yScaleKnob: KnobControl
   @IBOutlet var yScaleAutoButton: HighlightButton
+  @IBOutlet var domainSwitch: UISwitch
 
   var yScale: VisualizerScale = .Automatic {
   didSet {
@@ -28,6 +29,12 @@ class ScopeViewController: UIViewController {
   set(newValue) {
     signalVisualizerView.source = newValue
     updateYScaleControls(animated:false)
+  }
+  }
+
+  var domain : VisualizerDomain = .Time {
+  didSet {
+    signalVisualizerView.domain = domain
   }
   }
 
@@ -66,5 +73,9 @@ class ScopeViewController: UIViewController {
       yScale = .Automatic
     }
     updateYScaleControls(animated:true)
+  }
+
+  @IBAction func performDomainSwitch(sender: AnyObject) {
+    domain = domainSwitch.on ? .Frequency : .Time
   }
 }

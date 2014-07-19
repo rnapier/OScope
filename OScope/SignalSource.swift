@@ -27,7 +27,7 @@ struct MixerSource : SignalSource {
 struct ConstantSource : SignalSource {
   let value : SignalValue
 
-  let inputs = [SignalSource]()
+  var inputs : [SignalSource] { get { return [] } }
 
   func value(time: SignalTime) -> SignalValue {
     return value

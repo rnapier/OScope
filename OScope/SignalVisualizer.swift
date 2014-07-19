@@ -13,8 +13,14 @@ enum VisualizerScale {
   case Automatic
 }
 
+enum VisualizerDomain {
+  case Time
+  case Frequency
+}
+
 struct SignalVisualizer {
   let source: SignalSource
+  let domain: VisualizerDomain
   let frame: CGRect
   let xScale: Float
   let yScale: VisualizerScale
@@ -33,21 +39,22 @@ struct SignalVisualizer {
   }
 
   func withYScale(newYScale:VisualizerScale) -> SignalVisualizer {
-    return SignalVisualizer(source: source, frame: frame, xScale: xScale, yScale: newYScale, values: values, basePath: basePath)
+    return SignalVisualizer(source: source, domain: domain, frame: frame, xScale: xScale, yScale: newYScale, values: values, basePath: basePath)
   }
 }
 
 extension SignalVisualizer {
-  init(source: SignalSource, frame: CGRect, xScale: Float, yScale: VisualizerScale) {
+  init(source: SignalSource, domain: VisualizerDomain, frame: CGRect, xScale: Float, yScale: VisualizerScale) {
     let timeRange = Range(
       start:SignalTime(CGRectGetMinX(frame)),
       end:SignalTime(CGRectGetMaxX(frame)) + 1)
 
-    let vs = valuesForSource(source, timeRange:timeRange)
+    let vs = valuesForSource(source, timeRange:timeRange, domain: domain)
 
     // FIXME: I should be able to use self.init(...) here (crashes in Beta3)
-//        self.init(source: source, frame: frame, xScale: xScale, yScale: yScale, values: vs)
+    //        self.init(source: source, frame: frame, xScale: xScale, yScale: yScale, values: vs)
     self.source = source
+    self.domain = domain
     self.frame = frame
     self.xScale = xScale
     self.yScale = yScale
@@ -57,10 +64,22 @@ extension SignalVisualizer {
   }
 }
 
-func valuesForSource(source: SignalSource, #timeRange:Range<SignalTime>) -> [SignalValue] {
+func valuesForSource(source: SignalSource, #timeRange:Range<SignalTime>, #domain:VisualizerDomain) -> [SignalValue] {
   // TODO: In Beta3, you can't range over floats
-  let intRange = Range<Int>(start:Int(timeRange.startIndex), end:Int(timeRange.endIndex))
-  return intRange.map { source.value(SignalTime($0)) }
+  switch domain {
+  case .Time:
+    let intRange = Range<Int>(start:Int(timeRange.startIndex), end:Int(timeRange.endIndex))
+    let signal = intRange.map { source.value(SignalTime($0)) }
+    return signal
+  case .Frequency:
+    // FIXME: This is kind of hackish
+    // Expand range to one more than the next power of 2 (one to cover the desired time, and a second so we'll have enough points to cover the whole frame)
+    let realLength = timeRange.endIndex - timeRange.startIndex
+    let n2Length = 1 << (Int(log2f(Float(realLength))) + 2)
+    let intRange = Range<Int>(start:Int(timeRange.startIndex), end:Int(timeRange.startIndex) + Int(n2Length))
+    let signal = intRange.map { source.value(SignalTime($0)) }
+    return SpectrumForValues(signal) as [SignalValue]
+  }
 }
 
 func pathWithValues(values:[SignalValue]) -> UIBezierPath {
@@ -69,7 +88,9 @@ func pathWithValues(values:[SignalValue]) -> UIBezierPath {
 
   cycle.moveToPoint(CGPointZero)
   for t in 0..<valCount {
-    cycle.addLineToPoint(CGPointMake(CGFloat(t), CGFloat(values[t])))
+    if values[t].isFinite && values[t] < 10000 {
+      cycle.addLineToPoint(CGPointMake(CGFloat(t), min(CGFloat(values[t]), 10000)))
+    }
   }
   return cycle
 }

@@ -21,30 +21,29 @@ class OScopeTests: XCTestCase {
     super.tearDown()
   }
 
-  func testForAll() {
-    XCTAssertTrue(forAll([2,4,6], { $0%2 == 0 }), "All even")
-    XCTAssertFalse(forAll(1...4, { $0%2 == 0 }), "All not even")
-    XCTAssertTrue(forAll([], {$0%2 == 0}), "Is true if nothing is false")
-
-    let c = [1,1,1]
-    XCTAssertTrue(forAll(c) { $0 == c[c.startIndex] }, "allEqual by hand")
-  }
-
-  func testAllEqual() {
-    XCTAssertTrue(allEqual([1,1,1], 1), "All equal")
-    XCTAssertFalse(allEqual(1...4, 1), "All not equal")
-  }
-
-  func testLcm() {
-    XCTAssertEqual(lcm([1,2,3]), 6, "6")
-    XCTAssertEqual(lcm([5,10,15]), 30, "30")
-  }
+//  func testForAll() {
+//    XCTAssertTrue(forAll([2,4,6], { $0%2 == 0 }), "All even")
+//    XCTAssertFalse(forAll(1...4, { $0%2 == 0 }), "All not even")
+//    XCTAssertTrue(forAll([], {$0%2 == 0}), "Is true if nothing is false")
+//
+//    let c = [1,1,1]
+//    XCTAssertTrue(forAll(c) { $0 == c[c.startIndex] }, "allEqual by hand")
+//  }
+//
+//  func testAllEqual() {
+//    XCTAssertTrue(allEqual([1,1,1], 1), "All equal")
+//    XCTAssertFalse(allEqual(1...4, 1), "All not equal")
+//  }
+//
+//  func testLcm() {
+//    XCTAssertEqual(lcm([1,2,3]), 6, "6")
+//    XCTAssertEqual(lcm([5,10,15]), 30, "30")
+//  }
 
 
   func testConstantSource() {
     let value:SignalValue = 3
-    let src = ConstantSource(value)
-    XCTAssertEqual(src.periodLength, 1)
+    let src = ConstantSource(value: value)
     XCTAssertEqual(src.value(0), value)
     XCTAssertEqual(src.value(1), value)
     XCTAssertEqual(src.value(3), value)
@@ -59,7 +58,6 @@ class OScopeTests: XCTestCase {
 
     let src = SineSource(frequency: f, amplitude: a, phase: p, sampleRate:r)
 
-    XCTAssertEqual(src.periodLength, 100.0)
     XCTAssertEqual(src.value(0), 0)
     XCTAssertEqualWithAccuracy(src.value(r/4), 1, accuracy)
     XCTAssertEqualWithAccuracy(src.value(r/2), 0, accuracy)
@@ -94,9 +92,33 @@ class OScopeTests: XCTestCase {
     let m1 = MixerSource(inputs: [s1, s2, m2])
 
     let network = NetworkViewModel(rootSource: m1)
-    println(network.layout(CGRectMake(0, 0, 100, 100)))
+//    println(network.layout(CGRectMake(0, 0, 100, 100)))
     // FIXME: Perform test
+  }
 
+  func testFFT() {
+    let sampleRate = SignalTime(44100)
+    let source11 = SineSource(frequency: 440, amplitude: 1, phase: 0, sampleRate: sampleRate)
+    let source12 = SineSource(frequency: 800, amplitude: 1, phase: 0, sampleRate: sampleRate)
+    let source13 = SineSource(frequency: 1000, amplitude: 1, phase: 500, sampleRate: sampleRate)
+    let mixer1 = MixerSource(inputs: [source11, source12, source13])
+
+    let source21 = SineSource(frequency: 1200, amplitude: 1, phase: 0, sampleRate: sampleRate)
+    let source22 = SineSource(frequency: 200, amplitude: 1, phase: 0, sampleRate: sampleRate)
+    let mixer2 = MixerSource(inputs: [source21, source22])
+
+    let source31 = SineSource(frequency: 11100, amplitude: 1, phase: 0, sampleRate: sampleRate)
+    let mixer3 = MixerSource(inputs: [ mixer1, mixer2, source31])
+
+    let output = mixer3
+
+    let values = valuesForSource(source11, timeRange: SignalTime(0)...SignalTime(1000), domain: .Time)
+//    println(values)
+
+    let values2 = valuesForSource(source11, timeRange: SignalTime(0)...SignalTime(1000), domain: .Time)
+//    println(values2)
+
+    XCTAssertEqualObjects(values, values2)
   }
 
 //  func testArrayFlatten() {
