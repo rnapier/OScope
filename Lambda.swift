@@ -30,7 +30,7 @@ extension Array {
 }
 
 operator infix >>= {
-  associativity left
+associativity left
 }
 
 func >>=<T,U>(xs: [T], f:(T -> [U])) -> [U] {
@@ -41,3 +41,27 @@ func +<T>(lhs: [T], rhs: T) -> [T] {
   return lhs + [rhs]
 }
 
+
+func combinations
+  <First:Sequence, Second:Collection>
+  (first: First, second: Second) -> SequenceOf<(First.GeneratorType.Element, Second.GeneratorType.Element)> {
+
+    var firstGeneator = first.generate()
+    var nextElement = firstGeneator.next()
+    var secondIndex = second.startIndex
+
+    return SequenceOf(GeneratorOf( {
+      if let firstElement = nextElement {
+        let secondElement = second[secondIndex]
+        secondIndex++
+        if secondIndex == second.endIndex {
+          nextElement = firstGeneator.next()
+          secondIndex = second.startIndex
+        }
+        return (firstElement, secondElement)
+      } else {
+        return nil
+      }
+      }
+      ))
+}
