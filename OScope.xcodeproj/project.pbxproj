@@ -15,10 +15,11 @@
 		FB037F18196EF194006E383D /* ScopeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB037F17196EF194006E383D /* ScopeViewController.swift */; };
 		FB037F1A196EF1AA006E383D /* SignalVisualizerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB037F19196EF1AA006E383D /* SignalVisualizerView.swift */; };
 		FB20A61E197824B500BD0551 /* KnobRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB20A61D197824B500BD0551 /* KnobRenderer.swift */; };
+		FB454210197C8772000852C5 /* Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB45420F197C8772000852C5 /* Future.swift */; };
+		FB454212197C882C000852C5 /* ExecutionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB454211197C882C000852C5 /* ExecutionContext.swift */; };
+		FB454214197C8832000852C5 /* GCDExecutionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB454213197C8832000852C5 /* GCDExecutionContext.swift */; };
 		FB4A8184197AC48000BB0D72 /* SignalVisualizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE5109F1973074A004A7D07 /* SignalVisualizer.swift */; };
 		FB4A8186197AC5F700BB0D72 /* RWRotationGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA9D85D1977659100EC6BD1 /* RWRotationGestureRecognizer.m */; };
-		FB4A84D4197AD17C00BB0D72 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB4A84D3197AD17C00BB0D72 /* Accelerate.framework */; };
-		FB4A84D5197AD18800BB0D72 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB4A84D3197AD17C00BB0D72 /* Accelerate.framework */; };
 		FB4A84D6197B17E100BB0D72 /* FFT.m in Sources */ = {isa = PBXBuildFile; fileRef = FB20A61F19789D6400BD0551 /* FFT.m */; };
 		FB4A84D7197B17E200BB0D72 /* FFT.m in Sources */ = {isa = PBXBuildFile; fileRef = FB20A61F19789D6400BD0551 /* FFT.m */; };
 		FB6B2B201975C0BE00B57828 /* NetworkNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF86CAD1973DBBC0090AD78 /* NetworkNode.swift */; };
@@ -32,6 +33,9 @@
 		FBD6BEFA196F0E2100A6F9CD /* SignalSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD6BEF9196F0E2100A6F9CD /* SignalSource.swift */; };
 		FBE510A01973074A004A7D07 /* SignalVisualizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE5109F1973074A004A7D07 /* SignalVisualizer.swift */; };
 		FBE510A319730E26004A7D07 /* NetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE510A219730E26004A7D07 /* NetworkViewController.swift */; };
+		FBE5EC4B197C8C2200143C03 /* Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB45420F197C8772000852C5 /* Future.swift */; };
+		FBE5EC4C197C8C2500143C03 /* ExecutionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB454211197C882C000852C5 /* ExecutionContext.swift */; };
+		FBE5EC4D197C8C2800143C03 /* GCDExecutionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB454213197C8832000852C5 /* GCDExecutionContext.swift */; };
 		FBF86CAE1973DBBC0090AD78 /* NetworkNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF86CAD1973DBBC0090AD78 /* NetworkNode.swift */; };
 		FBF86CB21973E2860090AD78 /* Lambda.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF86CB11973E2860090AD78 /* Lambda.swift */; };
 		FBF86CB31973E3910090AD78 /* Lambda.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF86CB11973E2860090AD78 /* Lambda.swift */; };
@@ -72,8 +76,9 @@
 		FB20A62319789EBA00BD0551 /* FFTAccelerate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FFTAccelerate.h; path = OScope/FFTAccelerate.h; sourceTree = "<group>"; };
 		FB20A62419789EDA00BD0551 /* FFT.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; path = FFT.h; sourceTree = "<group>"; };
 		FB23614F197094210020FD9C /* lcm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = lcm.swift; path = OScope/lcm.swift; sourceTree = "<group>"; };
-		FB4A84D3197AD17C00BB0D72 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
-		FB4A84D8197B1B1200BB0D72 /* CABitOperations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CABitOperations.h; sourceTree = "<group>"; };
+		FB45420F197C8772000852C5 /* Future.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Future.swift; sourceTree = "<group>"; };
+		FB454211197C882C000852C5 /* ExecutionContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecutionContext.swift; sourceTree = "<group>"; };
+		FB454213197C8832000852C5 /* GCDExecutionContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDExecutionContext.swift; sourceTree = "<group>"; };
 		FBA8768219761D7300362199 /* NetworkNodeLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkNodeLayout.swift; sourceTree = "<group>"; };
 		FBA876851976B2DD00362199 /* NetworkView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkView.swift; sourceTree = "<group>"; };
 		FBA9D85619774A3F00EC6BD1 /* HighlightButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightButton.swift; sourceTree = "<group>"; };
@@ -94,7 +99,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB4A84D4197AD17C00BB0D72 /* Accelerate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,7 +106,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB4A84D5197AD18800BB0D72 /* Accelerate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,8 +115,10 @@
 		FB037EE8196EEF98006E383D = {
 			isa = PBXGroup;
 			children = (
-				FB4A84D3197AD17C00BB0D72 /* Accelerate.framework */,
 				FBF86CB11973E2860090AD78 /* Lambda.swift */,
+				FB45420F197C8772000852C5 /* Future.swift */,
+				FB454211197C882C000852C5 /* ExecutionContext.swift */,
+				FB454213197C8832000852C5 /* GCDExecutionContext.swift */,
 				FB4A8187197ACD0800BB0D72 /* Unused */,
 				FBB7D7E01972DEF900D1D3D4 /* MyPlayground.playground */,
 				FB037EF3196EEF98006E383D /* OScope */,
@@ -141,7 +146,6 @@
 				FB6B2B1F1974B82100B57828 /* ViewModel */,
 				FB20A62419789EDA00BD0551 /* FFT.h */,
 				FB20A61F19789D6400BD0551 /* FFT.m */,
-				FB4A84D8197B1B1200BB0D72 /* CABitOperations.h */,
 				FB037EFA196EEF98006E383D /* Main.storyboard */,
 				FB037EFD196EEF98006E383D /* Images.xcassets */,
 				FB037EF4196EEF98006E383D /* Supporting Files */,
@@ -337,11 +341,14 @@
 				FBF86CAE1973DBBC0090AD78 /* NetworkNode.swift in Sources */,
 				FBF86CB21973E2860090AD78 /* Lambda.swift in Sources */,
 				FBA9D85719774A3F00EC6BD1 /* HighlightButton.swift in Sources */,
+				FB454210197C8772000852C5 /* Future.swift in Sources */,
 				FB037F1A196EF1AA006E383D /* SignalVisualizerView.swift in Sources */,
 				FBA876861976B2DD00362199 /* NetworkView.swift in Sources */,
 				FB037EF9196EEF98006E383D /* RootViewController.swift in Sources */,
+				FB454214197C8832000852C5 /* GCDExecutionContext.swift in Sources */,
 				FB20A61E197824B500BD0551 /* KnobRenderer.swift in Sources */,
 				FB4A84D6197B17E100BB0D72 /* FFT.m in Sources */,
+				FB454212197C882C000852C5 /* ExecutionContext.swift in Sources */,
 				FB037EF7196EEF98006E383D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -354,8 +361,11 @@
 				FBA8768419762ABF00362199 /* NetworkNodeLayout.swift in Sources */,
 				FB4A8186197AC5F700BB0D72 /* RWRotationGestureRecognizer.m in Sources */,
 				FBB7D7DF1972DD2300D1D3D4 /* SignalSource.swift in Sources */,
+				FBE5EC4D197C8C2800143C03 /* GCDExecutionContext.swift in Sources */,
 				FB4A8184197AC48000BB0D72 /* SignalVisualizer.swift in Sources */,
 				FB6B2B201975C0BE00B57828 /* NetworkNode.swift in Sources */,
+				FBE5EC4C197C8C2500143C03 /* ExecutionContext.swift in Sources */,
+				FBE5EC4B197C8C2200143C03 /* Future.swift in Sources */,
 				FB4A84D7197B17E200BB0D72 /* FFT.m in Sources */,
 				FB037F0A196EEF98006E383D /* OScopeTests.swift in Sources */,
 			);

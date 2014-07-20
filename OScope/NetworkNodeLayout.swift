@@ -23,11 +23,13 @@ struct NetworkNodeLayout {
   let outputPoint: CGPoint
   let inputs: [NetworkNodeLayout]
 
-  var nodePath : UIBezierPath {
-    let path = UIBezierPath(rect:frame)
-      let v = SignalVisualizer(source: node.source, domain:.Time, frame:frame, xScale: 1.0, yScale:.Automatic)
-      path.appendPath(v.path)
-    return path
+  func nodePath() -> Future<UIBezierPath> {
+    let path = UIBezierPath(rect:self.frame)
+    let v = SignalVisualizer(source: node.source, domain:.Time, frame:frame, xScale: 1.0, yScale:.Automatic)
+    return v.path().map {
+      path.appendPath($0)
+      return path
+    }
   }
 
   var connectionPaths : UIBezierPath {

@@ -25,7 +25,7 @@ class NetworkView: UIView {
   override func drawRect(rect: CGRect) {
     if let viewModel = viewModel {
       for layout in flatten(viewModel.layout(bounds), {$0.inputs}) {
-        layout.nodePath.stroke()
+        layout.nodePath().result().stroke()
         layout.connectionPaths.stroke()
       }
     }
