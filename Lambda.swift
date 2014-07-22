@@ -23,6 +23,14 @@ func flatten<T>(xs: [[T]]) -> [T] {
   return [T]().join(xs)
 }
 
+func flatten<T>(root: T, children:((T)->[T])) -> [T] {
+  var result = [root]
+  for node in children(root) {
+    result.extend(flatten(node, children))
+  }
+  return result
+}
+
 extension Array {
   func bind<U>(f:(T -> [U])) -> [U] {
     return flatten(self.map(f))

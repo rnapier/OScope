@@ -41,7 +41,14 @@ struct SignalVisualizer {
   }
 
   func withYScale(newYScale:VisualizerScale) -> SignalVisualizer {
-    return SignalVisualizer(source: source, domain: domain, frame: frame, xScale: xScale, yScale: newYScale, values: values, basePath: basePath)
+    return SignalVisualizer(
+      source: self.source,
+      domain: self.domain,
+      frame: self.frame,
+      xScale: self.xScale,
+      yScale: newYScale,
+      values: self.values,
+      basePath: self.basePath)
   }
 }
 
@@ -52,16 +59,17 @@ extension SignalVisualizer {
       end:SignalTime(CGFloat(CGRectGetMaxX(frame) + 1.0)))
 
     let vs = valuesForSource(source, signalInterval:signalInterval, domain: domain)
+    let basePath = pathWithValues(vs)
 
-    // FIXME: I should be able to use self.init(...) here (crashes in Beta3)
-    //        self.init(source: source, frame: frame, xScale: xScale, yScale: yScale, values: vs)
+    // FIXME: This still crashes in Beta4
+//    self.init(source: source, domain: domain, frame: frame, xScale: xScale, yScale: yScale, values: vs, basePath: basePath)
     self.source = source
     self.domain = domain
     self.frame = frame
     self.xScale = xScale
     self.yScale = yScale
     self.values = vs
-    self.basePath = pathWithValues(self.values)
+    self.basePath = basePath
   }
 }
 

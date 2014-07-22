@@ -15,42 +15,42 @@ class HighlightButton: UIButton {
   let activeColor = UIColor.blueColor()
 
   var value : Bool = false {
-  didSet { update() }
+  didSet { self.update() }
   }
 
   override var enabled : Bool  {
-  didSet {update() }
+  didSet { self.update() }
   }
 
   func setup() {
-    borderLayer.path = UIBezierPath(roundedRect: bounds, cornerRadius: 5.0).CGPath
-    borderLayer.fillColor = nil
-    borderLayer.strokeColor = activeColor.CGColor
-    borderLayer.frame = layer.bounds
-    layer.addSublayer(borderLayer)
-    update()
+    self.borderLayer.path = UIBezierPath(roundedRect: self.bounds, cornerRadius: 5.0).CGPath
+    self.borderLayer.fillColor = nil
+    self.borderLayer.strokeColor = self.activeColor.CGColor
+    self.borderLayer.frame = self.layer.bounds
+    self.layer.addSublayer(self.borderLayer)
+    self.update()
   }
 
   init(coder aDecoder: NSCoder!) {
     super.init(coder: aDecoder)
-    setup()
+    self.setup()
   }
 
   init(frame: CGRect)  {
     super.init(frame: frame)
-    setup()
+    self.setup()
   }
 
   func update() {
     if value {
-      borderLayer.fillColor = activeColor.CGColor
-      setTitleColor(UIColor.whiteColor(), forState: .Normal)
-      setTitleColor(UIColor.grayColor(), forState: .Highlighted)
+      self.borderLayer.fillColor = activeColor.CGColor
+      self.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+      self.setTitleColor(UIColor.grayColor(), forState: .Highlighted)
     }
     else {
-      borderLayer.fillColor = nil
-      setTitleColor(activeColor, forState: .Normal)
-      setTitleColor(UIColor.grayColor(), forState: .Highlighted)
+      self.borderLayer.fillColor = nil
+      self.setTitleColor(activeColor, forState: .Normal)
+      self.setTitleColor(UIColor.grayColor(), forState: .Highlighted)
     }
   }
 }

@@ -25,7 +25,7 @@ struct NetworkNodeLayout {
 
   func nodePath() -> Future<UIBezierPath> {
     let path = UIBezierPath(rect:self.frame)
-    let v = SignalVisualizer(source: node.source, domain:.Time, frame:frame, xScale: 1.0, yScale:.Automatic)
+    let v = SignalVisualizer(source: self.node.source, domain:.Time, frame:self.frame, xScale: 1.0, yScale:.Automatic)
     return v.path().map {
       path.appendPath($0)
       return path
@@ -34,9 +34,9 @@ struct NetworkNodeLayout {
 
   var connectionPaths : UIBezierPath {
   let connections = UIBezierPath()
-    for (index, input) in enumerate(inputs) {
-      connections.moveToPoint(inputPoints[index])
-      connections.addLineToPoint(inputs[index].outputPoint)
+    for (index, input) in enumerate(self.inputs) {
+      connections.moveToPoint(self.inputPoints[index])
+      connections.addLineToPoint(self.inputs[index].outputPoint)
     }
     return connections
   }
@@ -51,10 +51,10 @@ struct NetworkNodeLayout {
       size.width / insetScale, size.height / insetScale)
     self.frame = frame
 
-    inputPoints = indices(node.children).map { index in inputPoint(frame:frame, index:index, inputCount:node.children.count) }
-    outputPoint = CGPointMake(CGRectGetMaxX(frame), CGRectGetMidY(frame))
+    self.inputPoints = indices(node.children).map { index in inputPoint(frame:frame, index:index, inputCount:node.children.count) }
+    self.outputPoint = CGPointMake(CGRectGetMaxX(frame), CGRectGetMidY(frame))
 
-    inputs = node.children.map{ return NetworkNodeLayout(node:$0, size:size, totalDepth: totalDepth) }
+    self.inputs = node.children.map{ return NetworkNodeLayout(node:$0, size:size, totalDepth: totalDepth) }
   }
 }
 
@@ -66,7 +66,7 @@ struct NetworkViewModel {
   }
 
   func layout(bounds: CGRect) -> NetworkNodeLayout {
-    let size = CGSizeMake(CGRectGetWidth(bounds)/CGFloat(rootNode.depth), CGRectGetHeight(bounds)/CGFloat(rootNode.height))
+    let size = CGSizeMake(CGRectGetWidth(bounds)/CGFloat(self.rootNode.depth), CGRectGetHeight(bounds)/CGFloat(self.rootNode.height))
     return NetworkNodeLayout(node: rootNode, size:size, totalDepth:rootNode.depth)
   }
 }

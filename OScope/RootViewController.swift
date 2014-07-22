@@ -20,9 +20,9 @@ class RootViewController: UIViewController {
     for vc in childViewControllers as [UIViewController] {
       switch vc {
       case let vc as ScopeViewController:
-        scopeViewController = vc
+        self.scopeViewController = vc
       case let vc as NetworkViewController:
-        networkViewController = vc
+        self.networkViewController = vc
       default:
         break
       }
@@ -43,8 +43,8 @@ class RootViewController: UIViewController {
 
     let output = mixer3
 
-    scopeViewController.map{ $0.source = output }
-    networkViewController.map{ $0.rootSource = output }
+    self.scopeViewController.map{ $0.source = output }
+    self.networkViewController.map{ $0.rootSource = output }
   }
 }
 

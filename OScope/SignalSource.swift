@@ -22,7 +22,7 @@ struct SignalInterval : Collection {
   }
 
   func generate() -> GeneratorType {
-    var current = start
+    var current = self.start
     return GeneratorOf {
       if current > self.end {
         return nil
@@ -40,7 +40,7 @@ struct SignalInterval : Collection {
   init(start: SignalTime, end: SignalTime) {
     self.start = start
     self.end = end
-    self.endIndex = Int((end - start) / stride)
+    self.endIndex = Int((end - start) / self.stride)
   }
 
   init(start: SignalTime, count: Int) {
@@ -64,10 +64,10 @@ struct MixerSource : SignalSource {
 struct ConstantSource : SignalSource {
   let value : SignalValue
 
-  var inputs : [SignalSource] { get { return [] } }
+  var inputs = [SignalSource]()
 
   func value(time: SignalTime) -> SignalValue {
-    return value
+    return self.value
   }
 }
 
@@ -77,7 +77,6 @@ struct SineSource : SignalSource {
   let phase      : SignalTime
   let sampleRate : SignalTime
 
-  // FIXME: Why is this init required?
   init(frequency: SignalTime, amplitude:SignalValue, phase:SignalTime, sampleRate:SignalTime) {
     self.frequency = frequency
     self.amplitude = amplitude
@@ -89,11 +88,10 @@ struct SineSource : SignalSource {
 
   func value(time: SignalTime) -> SignalValue {
     let tau = Float(2 * M_PI)
-    let tau_ft = tau * Float(frequency*time)/Float(sampleRate)
-    let p = Float(phase)
-    let v = Float(amplitude) * sinf(tau_ft + p)
+    let tau_ft = tau * Float(self.frequency * time)/Float(self.sampleRate)
+    let p = Float(self.phase)
+    let v = Float(self.amplitude) * sinf(tau_ft + p)
 
     return SignalValue(v)
   }
 }
-

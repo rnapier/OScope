@@ -16,18 +16,18 @@ class KnobControl : UIControl {
 
   var _primitiveValue:CGFloat = 0.0
   var value:CGFloat {
-  get { return _primitiveValue }
-  set { setValue(newValue, animated: false) }
+  get { return self._primitiveValue }
+  set { self.setValue(newValue, animated: false) }
   }
 
   var startAngle:CGFloat {
-  get { return knobRenderer.startAngle }
-  set { knobRenderer.startAngle = newValue }
+  get { return self.knobRenderer.startAngle }
+  set { self.knobRenderer.startAngle = newValue }
   }
 
   var endAngle:CGFloat {
-  get { return knobRenderer.endAngle }
-  set { knobRenderer.endAngle = newValue }
+  get { return self.knobRenderer.endAngle }
+  set { self.knobRenderer.endAngle = newValue }
   }
 
   let continuous = true
@@ -39,62 +39,62 @@ class KnobControl : UIControl {
   let knobRenderer = KnobRenderer()
 
   var lineWidth : CGFloat {
-  get { return knobRenderer.lineWidth }
-  set { knobRenderer.lineWidth = newValue }
+  get { return self.knobRenderer.lineWidth }
+  set { self.knobRenderer.lineWidth = newValue }
   }
 
   var pointerLength : CGFloat {
-  get { return knobRenderer.pointerLength }
-  set { knobRenderer.pointerLength = newValue }
+  get { return self.knobRenderer.pointerLength }
+  set { self.knobRenderer.pointerLength = newValue }
   }
 
   func setup() {
-    addGestureRecognizer(gestureRecognizer)
-    createKnobUI()
+    addGestureRecognizer(self.gestureRecognizer)
+    self.createKnobUI()
   }
 
   init(coder aDecoder: NSCoder!) {
     super.init(coder: aDecoder)
-    setup()
+    self.setup()
   }
 
   init(frame: CGRect)  {
     super.init(frame: frame)
-    setup()
+    self.setup()
   }
 
   func createKnobUI() {
-    knobRenderer.updateWithBounds(bounds)
-    knobRenderer.color = tintColor
-    knobRenderer.startAngle = CGFloat(-M_PI * 11.0 / 8.0)
-    knobRenderer.endAngle = CGFloat(M_PI * 3.0 / 8.0)
-    knobRenderer.pointerAngle = knobRenderer.startAngle
-    knobRenderer.lineWidth = 2.0
-    knobRenderer.pointerLength = 6.0
-    layer.addSublayer(knobRenderer.trackLayer)
-    layer.addSublayer(knobRenderer.pointerLayer)
+    self.knobRenderer.updateWithBounds(bounds)
+    self.knobRenderer.color = tintColor
+    self.knobRenderer.startAngle = CGFloat(-M_PI * 11.0 / 8.0)
+    self.knobRenderer.endAngle = CGFloat(M_PI * 3.0 / 8.0)
+    self.knobRenderer.pointerAngle = knobRenderer.startAngle
+    self.knobRenderer.lineWidth = 2.0
+    self.knobRenderer.pointerLength = 6.0
+    layer.addSublayer(self.knobRenderer.trackLayer)
+    layer.addSublayer(self.knobRenderer.pointerLayer)
   }
 
   func setValue(newValue: CGFloat, animated:Bool) {
-    if newValue != _primitiveValue {
-      willChangeValueForKey("value")
+    if newValue != self._primitiveValue {
+      self.willChangeValueForKey("value")
 
       // Save the value to the backing ivar
       // Make sure we limit it to the requested bounds
-      _primitiveValue = min(maximumValue, max(minimumValue, newValue))
+      self._primitiveValue = min(self.maximumValue, max(self.minimumValue, newValue))
 
       // Now let's update the knob with the correct angle
-      let angleRange = endAngle - startAngle
-      let valueRange = maximumValue - minimumValue
-      let angleForValue = (_primitiveValue - minimumValue) / valueRange * angleRange + startAngle
-      knobRenderer.setPointerAngle(angleForValue, animated:animated)
-      didChangeValueForKey("value")
+      let angleRange = self.endAngle - self.startAngle
+      let valueRange = self.maximumValue - self.minimumValue
+      let angleForValue = (self._primitiveValue - self.minimumValue) / valueRange * angleRange + self.startAngle
+      self.knobRenderer.setPointerAngle(angleForValue, animated:animated)
+      self.didChangeValueForKey("value")
     }
   }
 
   func handleGesture(gesture:RWRotationGestureRecognizer) {
     // Mid-point angle
-    let midPointAngle = (2.0 * CGFloat(M_PI) + startAngle - endAngle) / 2.0 + endAngle
+    let midPointAngle = (2.0 * CGFloat(M_PI) + self.startAngle - self.endAngle) / 2.0 + self.endAngle
 
     // Ensure the angle is within a suitable range
     var boundedAngle = gesture.touchAngle
@@ -104,24 +104,24 @@ class KnobControl : UIControl {
       boundedAngle += CGFloat(2.0 * M_PI)
     }
     // Bound the angle to within the suitable range
-    boundedAngle = min(endAngle, max(startAngle, boundedAngle));
+    boundedAngle = min(self.endAngle, max(self.startAngle, boundedAngle));
 
     // Convert the angle to a value
-    let angleRange = endAngle - startAngle
-    let valueRange = maximumValue - minimumValue
-    let valueForAngle = (boundedAngle - startAngle) / angleRange * valueRange + minimumValue
+    let angleRange = self.endAngle - self.startAngle
+    let valueRange = self.maximumValue - self.minimumValue
+    let valueForAngle = (boundedAngle - self.startAngle) / angleRange * valueRange + self.minimumValue
 
     // Set the control to this value
-    value = valueForAngle
+    self.value = valueForAngle
 
     // Notify of value change
-    if continuous {
-      sendActionsForControlEvents(.ValueChanged)
+    if self.continuous {
+      self.sendActionsForControlEvents(.ValueChanged)
     } else {
       // Only send an update if the gesture has completed
       switch gesture.state {
       case .Ended, .Cancelled:
-        sendActionsForControlEvents(.ValueChanged)
+        self.sendActionsForControlEvents(.ValueChanged)
       default:
         break
       }
@@ -129,6 +129,6 @@ class KnobControl : UIControl {
   }
 
   override func tintColorDidChange() {
-    knobRenderer.color = tintColor
+    self.knobRenderer.color = tintColor
   }
 }

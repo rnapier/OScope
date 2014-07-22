@@ -16,111 +16,110 @@ class KnobRenderer {
 
   var pointerLength:CGFloat = 0.0 {
   didSet {
-    updateTrackShape()
-    updatePointerShape()
+    self.updateTrackShape()
+    self.updatePointerShape()
   }
   }
 
   var lineWidth:CGFloat = 0.0 {
   didSet {
-    trackLayer.lineWidth = lineWidth
-    pointerLayer.lineWidth = lineWidth
-    updateTrackShape()
-    updatePointerShape()
+    self.trackLayer.lineWidth = lineWidth
+    self.pointerLayer.lineWidth = lineWidth
+    self.updateTrackShape()
+    self.updatePointerShape()
   }
   }
 
   var startAngle:CGFloat = 0.0 {
   didSet {
-    updateTrackShape()
+    self.updateTrackShape()
   }
   }
 
   var endAngle:CGFloat = 0.0 {
   didSet {
-    updateTrackShape()
+    self.updateTrackShape()
   }
   }
 
   var color:UIColor = UIColor.clearColor() {
   didSet {
-    trackLayer.strokeColor = color.CGColor
-    pointerLayer.strokeColor = color.CGColor
+    self.trackLayer.strokeColor = color.CGColor
+    self.pointerLayer.strokeColor = color.CGColor
   }
   }
 
   var _primitivePointerAngle:CGFloat = 0.0
   var pointerAngle:CGFloat {
-  get { return _primitivePointerAngle }
-  set { setPointerAngle(newValue, animated: false) }
+  get { return self._primitivePointerAngle }
+  set { self.setPointerAngle(newValue, animated: false) }
   }
 
   init() {
-    trackLayer.fillColor = UIColor.clearColor().CGColor
-    pointerLayer.fillColor = UIColor.clearColor().CGColor
+    self.trackLayer.fillColor = UIColor.clearColor().CGColor
+    self.pointerLayer.fillColor = UIColor.clearColor().CGColor
   }
 
   func updateTrackShape() {
     let center = CGPointMake(
-      CGRectGetWidth(trackLayer.bounds)/2.0,
-      CGRectGetHeight(trackLayer.bounds)/2)
+      CGRectGetWidth(self.trackLayer.bounds)/2.0,
+      CGRectGetHeight(self.trackLayer.bounds)/2)
 
-    let offset = max(pointerLength, lineWidth / 2.0)
+    let offset = max(self.pointerLength, self.lineWidth / 2.0)
 
-    let radius = min(CGRectGetHeight(trackLayer.bounds),
-      CGRectGetWidth(trackLayer.bounds)) / 2.0 - offset;
+    let radius = min(CGRectGetHeight(self.trackLayer.bounds),
+      CGRectGetWidth(self.trackLayer.bounds)) / 2.0 - offset;
 
     let ring = UIBezierPath(arcCenter:center,
       radius:radius,
-      startAngle:startAngle,
-      endAngle:endAngle,
+      startAngle:self.startAngle,
+      endAngle:self.endAngle,
       clockwise:true)
-    trackLayer.path = ring.CGPath
+    self.trackLayer.path = ring.CGPath
   }
 
   func updatePointerShape() {
     let pointer = UIBezierPath()
-    pointer.moveToPoint(CGPointMake(CGRectGetWidth(pointerLayer.bounds) - pointerLength - lineWidth/2.0,
-      CGRectGetHeight(pointerLayer.bounds) / 2.0))
-    pointer.addLineToPoint(CGPointMake(CGRectGetWidth(pointerLayer.bounds),
-      CGRectGetHeight(pointerLayer.bounds) / 2.0))
-    pointerLayer.path = pointer.CGPath
+    pointer.moveToPoint(CGPointMake(CGRectGetWidth(self.pointerLayer.bounds) - self.pointerLength - self.lineWidth/2.0,
+      CGRectGetHeight(self.pointerLayer.bounds) / 2.0))
+    pointer.addLineToPoint(CGPointMake(CGRectGetWidth(self.pointerLayer.bounds),
+      CGRectGetHeight(self.pointerLayer.bounds) / 2.0))
+    self.pointerLayer.path = pointer.CGPath
   }
 
   func updateWithBounds(bounds: CGRect) {
-    trackLayer.bounds = bounds
-    trackLayer.position = CGPointMake(CGRectGetWidth(bounds)/2.0, CGRectGetHeight(bounds)/2.0)
-    updateTrackShape()
+    self.trackLayer.bounds = bounds
+    self.trackLayer.position = CGPointMake(CGRectGetWidth(bounds)/2.0, CGRectGetHeight(bounds)/2.0)
+    self.updateTrackShape()
 
-    pointerLayer.bounds = trackLayer.bounds
-    pointerLayer.position = trackLayer.position
-    updatePointerShape()
+    self.pointerLayer.bounds = trackLayer.bounds
+    self.pointerLayer.position = trackLayer.position
+    self.updatePointerShape()
   }
 
   func setPointerAngle(newValue:CGFloat, animated:Bool) {
     CATransaction.begin()
     CATransaction.setDisableActions(true)
 
-    pointerLayer.transform = CATransform3DMakeRotation(newValue, 0, 0, 1)
+    self.pointerLayer.transform = CATransform3DMakeRotation(newValue, 0, 0, 1)
 
     if(animated) {
       // Provide an animation
       // Key-frame animation to ensure rotates in correct direction
-      let midAngle = (max(pointerAngle, _primitivePointerAngle) -
-        min(pointerAngle, _primitivePointerAngle) ) / 2.0 +
-        min(pointerAngle, _primitivePointerAngle)
+      let midAngle = (max(self.pointerAngle, self._primitivePointerAngle) -
+        min(self.pointerAngle, self._primitivePointerAngle) ) / 2.0 +
+        min(self.pointerAngle, self._primitivePointerAngle)
       let animation = CAKeyframeAnimation(keyPath:"transform.rotation.z")
 
       animation.duration = 0.4
-      animation.values = [_primitivePointerAngle, midAngle, newValue]
+      animation.values = [self._primitivePointerAngle, midAngle, newValue]
       animation.keyTimes = [0, 0.3, 1.0]
       animation.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseOut)
-      pointerLayer.addAnimation(animation, forKey: "rotate")
+      self.pointerLayer.addAnimation(animation, forKey: "rotate")
     }
 
-    _primitivePointerAngle = newValue
+    self._primitivePointerAngle = newValue
 
     CATransaction.commit()
   }
-
 }

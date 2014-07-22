@@ -17,65 +17,65 @@ class ScopeViewController: UIViewController {
 
   var yScale: VisualizerScale = .Automatic {
   didSet {
-    signalVisualizerView.yScale = yScale
-    updateYScaleControls(animated: true)
+    self.signalVisualizerView.yScale = yScale
+    self.updateYScaleControls(animated: true)
   }
   }
 
   var source : SignalSource? {
   get {
-    return signalVisualizerView.source
+    return self.signalVisualizerView.source
   }
   set(newValue) {
-    signalVisualizerView.source = newValue
-    updateYScaleControls(animated:false)
+    self.signalVisualizerView.source = newValue
+    self.updateYScaleControls(animated:false)
   }
   }
 
   var domain : VisualizerDomain = .Time {
   didSet {
-    signalVisualizerView.domain = domain
+    self.signalVisualizerView.domain = self.domain
   }
   }
 
   override func viewDidLoad() {
-    signalVisualizerView.yScale = yScale
-    updateYScaleControls(animated: false)
+    self.signalVisualizerView.yScale = yScale
+    self.updateYScaleControls(animated: false)
   }
 
   func updateYScaleControls(#animated: Bool) {
-    switch yScale {
+    switch self.yScale {
     case .Absolute(_):
-      yScaleAutoButton.value = false
-      yScaleKnob.enabled = true
-      yScaleKnob.tintColor = UIColor.blueColor()
+      self.yScaleAutoButton.value = false
+      self.yScaleKnob.enabled = true
+      self.yScaleKnob.tintColor = UIColor.blueColor()
     case .Automatic:
-      yScaleAutoButton.value = true
-      yScaleKnob.enabled = false
-      yScaleKnob.tintColor = UIColor.grayColor().colorWithAlphaComponent(0.3)
+      self.yScaleAutoButton.value = true
+      self.yScaleKnob.enabled = false
+      self.yScaleKnob.tintColor = UIColor.grayColor().colorWithAlphaComponent(0.3)
 
       if let visualizer = signalVisualizerView.visualizer {
-        yScaleKnob.setValue(CGFloat(visualizer.automaticYScale), animated: animated)
+        self.yScaleKnob.setValue(CGFloat(visualizer.automaticYScale), animated: animated)
       }
       else {
-        yScaleKnob.setValue(0, animated: animated)
+        self.yScaleKnob.setValue(0, animated: animated)
       }
     }
   }
   @IBAction func yScaleChanged(sender: KnobControl) {
-    yScale = .Absolute(Float(yScaleKnob.value))
+    self.yScale = .Absolute(Float(self.yScaleKnob.value))
   }
 
   @IBAction func performYScaleAutoButton(sender: HighlightButton) {
-    if yScaleAutoButton.value {
-      yScale = .Absolute(Float(yScaleKnob.value))
+    if self.yScaleAutoButton.value {
+      self.yScale = .Absolute(Float(self.yScaleKnob.value))
     } else {
-      yScale = .Automatic
+      self.yScale = .Automatic
     }
-    updateYScaleControls(animated:true)
+    self.updateYScaleControls(animated:true)
   }
 
   @IBAction func performDomainSwitch(sender: AnyObject) {
-    domain = domainSwitch.on ? .Frequency : .Time
+    self.domain = self.domainSwitch.on ? .Frequency : .Time
   }
 }
