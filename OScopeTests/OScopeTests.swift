@@ -116,4 +116,6 @@ class OScopeTests: XCTestCase {
     let values2 = valuesForSource(source11, signalInterval: SignalInterval(start:0, end:1000), domain: .Time)
     XCTAssert(values == values2)
   }
+
+  
 }

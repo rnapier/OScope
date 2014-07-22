@@ -29,6 +29,7 @@ struct SignalVisualizer {
 
   var path: UIBezierPath {
   let path = self.basePath.copy() as UIBezierPath
+    println(self.frame)
     let transform = pathTransform(frame:self.frame, xScale:self.xScale, yScale:self.yScale, values: self.values)
     path.applyTransform(transform)
     return path
@@ -53,8 +54,8 @@ struct SignalVisualizer {
 extension SignalVisualizer {
   init(source: SignalSource, domain: VisualizerDomain, frame: CGRect, xScale: Float, yScale: VisualizerScale) {
     let signalInterval = SignalInterval(
-      start:SignalTime(CGRectGetMinX(frame)),
-      end:SignalTime(CGFloat(CGRectGetMaxX(frame) + 1.0)))
+      start:SignalTime(0),
+      end:SignalTime(CGFloat(CGRectGetWidth(frame) + 1.0)))
 
     let vs = valuesForSource(source, signalInterval:signalInterval, domain: domain)
     let basePath = pathWithValues(vs)

@@ -39,20 +39,21 @@ struct NetworkNodeLayout {
     return connections
   }
 
-  init(node:NetworkNode, size:CGSize, totalDepth:Int) {
+  init(node:NetworkNode, nodeSize:CGSize, totalDepth:Int) {
     self.node = node
+
     let frame = CGRectInset(
       CGRectMake(
-        size.width * CGFloat(totalDepth - node.layer - 1),
-        size.height * CGFloat(node.offset),
-        size.width, size.height),
-      size.width / insetScale, size.height / insetScale)
+        nodeSize.width * CGFloat(totalDepth - node.layer - 1),
+        nodeSize.height * CGFloat(node.offset),
+        nodeSize.width, nodeSize.height),
+      nodeSize.width / insetScale, nodeSize.height / insetScale)
     self.frame = frame
 
     self.inputPoints = indices(node.children).map { index in inputPoint(frame:frame, index:index, inputCount:node.children.count) }
     self.outputPoint = CGPointMake(CGRectGetMaxX(frame), CGRectGetMidY(frame))
 
-    self.inputs = node.children.map{ return NetworkNodeLayout(node:$0, size:size, totalDepth: totalDepth) }
+    self.inputs = node.children.map{ return NetworkNodeLayout(node:$0, nodeSize:nodeSize, totalDepth: totalDepth) }
   }
 }
 
@@ -63,8 +64,9 @@ struct NetworkViewModel {
     self.rootNode = NetworkNode(source: rootSource)
   }
 
-  func layout(bounds: CGRect) -> NetworkNodeLayout {
-    let size = CGSizeMake(CGRectGetWidth(bounds)/CGFloat(self.rootNode.depth), CGRectGetHeight(bounds)/CGFloat(self.rootNode.height))
-    return NetworkNodeLayout(node: rootNode, size:size, totalDepth:rootNode.depth)
+  func layout(#frame: CGRect) -> NetworkNodeLayout {
+    let size = CGSizeMake(CGRectGetWidth(frame)/CGFloat(self.rootNode.depth), CGRectGetHeight(frame)/CGFloat(self.rootNode.height))
+    println("size = \(size)")
+    return NetworkNodeLayout(node: rootNode, nodeSize:size, totalDepth:rootNode.depth)
   }
 }
