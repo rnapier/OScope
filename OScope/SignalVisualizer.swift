@@ -48,8 +48,8 @@ struct SignalVisualizer {
 extension SignalVisualizer {
   init(source: SignalSource, domain: VisualizerDomain, frame: CGRect, xScale: Float, yScale: VisualizerScale) {
     let timeRange = Range(
-      start:SignalTime(CGRectGetMinX(frame)),
-      end:SignalTime(CGRectGetMaxX(frame)) + 1)
+      start:IntSignalTime(CGRectGetMinX(frame)),
+      end:IntSignalTime(CGRectGetMaxX(frame)) + 1)
 
     let vs = valuesForSource(source, timeRange:timeRange, domain: domain)
 
@@ -66,7 +66,7 @@ extension SignalVisualizer {
   }
 }
 
-func valuesForSource(source: SignalSource, #timeRange:Range<SignalTime>, #domain:VisualizerDomain) -> [SignalValue] {
+func valuesForSource(source: SignalSource, #timeRange:Range<IntSignalTime>, #domain:VisualizerDomain) -> [SignalValue] {
   // TODO: In Beta3, you can't range over floats
   switch domain {
   case .Time:
@@ -107,8 +107,8 @@ func pathTransform(#frame: CGRect, #xScale:Float, #yScale:VisualizerScale, #valu
   let baseScale = -height/2
   let yScaleValue = baseScale * {
     switch yScale {
-    case .Absolute(let value): return value
-    case .Automatic: return calculateAutomaticYScale(values:values)
+    case .Absolute(let value): return CGFloat(value)
+    case .Automatic: return CGFloat(calculateAutomaticYScale(values:values))
     }
     }()
 

@@ -32,7 +32,7 @@ class KnobControl : UIControl {
 
   let continuous = true
 
-  @lazy var gestureRecognizer : RWRotationGestureRecognizer = {
+  lazy var gestureRecognizer : RWRotationGestureRecognizer = {
     return RWRotationGestureRecognizer(target: self, action: "handleGesture:")
     }()
 

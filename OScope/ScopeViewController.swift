@@ -10,10 +10,10 @@ import UIKit
 
 class ScopeViewController: UIViewController {
 
-  @IBOutlet var signalVisualizerView : SignalVisualizerView
-  @IBOutlet var yScaleKnob: KnobControl
-  @IBOutlet var yScaleAutoButton: HighlightButton
-  @IBOutlet var domainSwitch: UISwitch
+  @IBOutlet var signalVisualizerView : SignalVisualizerView!
+  @IBOutlet var yScaleKnob: KnobControl!
+  @IBOutlet var yScaleAutoButton: HighlightButton!
+  @IBOutlet var domainSwitch: UISwitch!
 
   var yScale: VisualizerScale = .Automatic {
   didSet {
@@ -55,7 +55,7 @@ class ScopeViewController: UIViewController {
       yScaleKnob.tintColor = UIColor.grayColor().colorWithAlphaComponent(0.3)
 
       if let visualizer = signalVisualizerView.visualizer {
-        yScaleKnob.setValue(visualizer.automaticYScale, animated: animated)
+        yScaleKnob.setValue(CGFloat(visualizer.automaticYScale), animated: animated)
       }
       else {
         yScaleKnob.setValue(0, animated: animated)
@@ -63,12 +63,12 @@ class ScopeViewController: UIViewController {
     }
   }
   @IBAction func yScaleChanged(sender: KnobControl) {
-    yScale = .Absolute(yScaleKnob.value)
+    yScale = .Absolute(Float(yScaleKnob.value))
   }
 
   @IBAction func performYScaleAutoButton(sender: HighlightButton) {
     if yScaleAutoButton.value {
-      yScale = .Absolute(yScaleKnob.value)
+      yScale = .Absolute(Float(yScaleKnob.value))
     } else {
       yScale = .Automatic
     }

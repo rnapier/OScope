@@ -7,7 +7,7 @@
 //
 
 #import "FFT.h"
-#import <Accelerate/Accelerate.h>
+@import Accelerate;
 
 NSArray *SpectrumForValues(NSArray *samples) {
   int Log2N = log2f(samples.count);

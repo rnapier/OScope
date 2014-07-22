@@ -9,6 +9,7 @@
 import Darwin
 
 typealias SignalTime = Float
+typealias IntSignalTime = Int // FIXME: Hack around the fact that we can't have ranged floats
 typealias SignalValue = Float
 
 protocol SignalSource {
