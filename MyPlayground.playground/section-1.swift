@@ -43,3 +43,27 @@ func each<C:Swift.Collection>(collection: C, fn:(C.GeneratorType.Element, C.Inde
   }
   return collection
 }
+
+
+
+
+
+
+
+
+
+typealias SignalTime = Float
+typealias SignalInterval = StrideThrough<SignalTime>
+
+let s = stride(from:CGFloat(1.0), through:CGFloat(2.0), by:1)
+
+for x in stride(from:1.0, through:10.0, by:strideof(Float)) {
+  println(x)
+}
+
+strideof(CGFloat)
+strideofValue(1.0)
+
+//
+//let s1 = StrideThrough(start:1.0, end:2.0, stride:1.0.Type.Stride)
+

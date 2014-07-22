@@ -47,11 +47,11 @@ struct SignalVisualizer {
 
 extension SignalVisualizer {
   init(source: SignalSource, domain: VisualizerDomain, frame: CGRect, xScale: Float, yScale: VisualizerScale) {
-    let timeRange = Range(
-      start:IntSignalTime(CGRectGetMinX(frame)),
-      end:IntSignalTime(CGRectGetMaxX(frame)) + 1)
+    let signalInterval = SignalInterval(
+      start:SignalTime(CGRectGetMinX(frame)),
+      end:SignalTime(CGFloat(CGRectGetMaxX(frame) + 1.0)))
 
-    let vs = valuesForSource(source, timeRange:timeRange, domain: domain)
+    let vs = valuesForSource(source, signalInterval:signalInterval, domain: domain)
 
     // FIXME: I should be able to use self.init(...) here (crashes in Beta3)
     //        self.init(source: source, frame: frame, xScale: xScale, yScale: yScale, values: vs)
@@ -61,25 +61,20 @@ extension SignalVisualizer {
     self.xScale = xScale
     self.yScale = yScale
     self.values = vs
-
-    basePath = pathWithValues(self.values)
+    self.basePath = pathWithValues(self.values)
   }
 }
 
-func valuesForSource(source: SignalSource, #timeRange:Range<IntSignalTime>, #domain:VisualizerDomain) -> [SignalValue] {
-  // TODO: In Beta3, you can't range over floats
+func valuesForSource(source: SignalSource, #signalInterval:SignalInterval, #domain:VisualizerDomain) -> [SignalValue] {
   switch domain {
   case .Time:
-    let intRange = Range<Int>(start:Int(timeRange.startIndex), end:Int(timeRange.endIndex))
-    let signal = intRange.map { source.value(SignalTime($0)) }
+    let signal = map(signalInterval) { source.value(SignalTime($0)) }
     return signal
   case .Frequency:
-    // FIXME: This is kind of hackish
-    // Expand range to one more than the next power of 2 (one to cover the desired time, and a second so we'll have enough points to cover the whole frame)
-    let realLength = timeRange.endIndex - timeRange.startIndex
+    let realLength = countElements(signalInterval)
     let n2Length = 1 << (Int(log2f(Float(realLength))) + 2)
-    let intRange = Range<Int>(start:Int(timeRange.startIndex), end:Int(timeRange.startIndex) + Int(n2Length))
-    let signal = intRange.map { source.value(SignalTime($0)) }
+    let n2Interval = SignalInterval(start: signalInterval.start, count: n2Length)
+    let signal = map(n2Interval, { source.value(SignalTime($0)) })
     return SpectrumForValues(signal) as [SignalValue]
   }
 }

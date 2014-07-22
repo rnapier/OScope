@@ -9,8 +9,44 @@
 import Darwin
 
 typealias SignalTime = Float
-typealias IntSignalTime = Int // FIXME: Hack around the fact that we can't have ranged floats
 typealias SignalValue = Float
+
+// FIXME: It should be possible to build this with a Stride
+struct SignalInterval : Collection {
+  typealias IndexType = Int
+  typealias GeneratorType = GeneratorOf<SignalTime>
+  internal let startIndex: IndexType = 0
+  internal let endIndex: IndexType
+  subscript(i:IndexType) -> SignalTime {
+    return start + SignalTime(i) * stride
+  }
+
+  func generate() -> GeneratorType {
+    var current = start
+    return GeneratorOf {
+      if current > self.end {
+        return nil
+      }
+      let result = current
+      current += self.stride
+      return result
+    }
+  }
+
+  let start: SignalTime
+  let end: SignalTime
+  let stride: SignalTime = 1.0
+
+  init(start: SignalTime, end: SignalTime) {
+    self.start = start
+    self.end = end
+    self.endIndex = Int((end - start) / stride)
+  }
+
+  init(start: SignalTime, count: Int) {
+    self.init(start: start, end: start + SignalTime(count))
+  }
+}
 
 protocol SignalSource {
   var inputs:[SignalSource] { get }
