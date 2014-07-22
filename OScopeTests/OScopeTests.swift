@@ -66,7 +66,7 @@ class OScopeTests: XCTestCase {
 
   func testFlatten() {
     let a = [[1], [2], [3]]
-    XCTAssertEqualObjects(flatten(a), [1,2,3])
+    XCTAssert(flatten(a) == [1,2,3])
   }
 
   func testSignalSourceLocation() {
@@ -112,31 +112,8 @@ class OScopeTests: XCTestCase {
 
     let output = mixer3
 
-    let values = valuesForSource(source11, timeRange: SignalTime(0)...SignalTime(1000), domain: .Time)
-//    println(values)
-
-    let values2 = valuesForSource(source11, timeRange: SignalTime(0)...SignalTime(1000), domain: .Time)
-//    println(values2)
-
-    XCTAssertEqualObjects(values, values2)
+    let values = valuesForSource(source11, signalInterval: SignalInterval(start:0, end:1000), domain: .Time)
+    let values2 = valuesForSource(source11, signalInterval: SignalInterval(start:0, end:1000), domain: .Time)
+    XCTAssert(values == values2)
   }
-
-//  func testArrayFlatten() {
-//    let a = [[1], [2], [3]]
-//    let flatA : [Int] = a.flatten()
-//    XCTAssertEqualObjects(flatA, [1,2,3])
-//  }
-//  func testInputPaths() {
-//    let s1 = SineSource(frequency: 1, amplitude: 1, phase: 1, sampleRate: 1)
-//    let s2 = SineSource(frequency: 2, amplitude: 2, phase: 2, sampleRate: 1)
-//    let m = MixerSource(inputs: [s1, s2])
-//    let paths = inputPaths(m)
-//    println(paths)
-//    let path1 : SignalPath = [s1,m]
-//    let path2 : SignalPath = [s2,m]
-//    let expectedPaths : [SignalPath] = [path1, path2]
-//    println(expectedPaths)
-//    let result = (paths == expectedPaths)
-//    XCTAssertTrue(result)
-//  }
 }

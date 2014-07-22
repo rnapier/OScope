@@ -62,6 +62,10 @@ struct MixerSource : SignalSource {
 }
 
 struct ConstantSource : SignalSource {
+  init(value: SignalValue) {
+    self.value = value
+  }
+
   let value : SignalValue
 
   var inputs = [SignalSource]()
