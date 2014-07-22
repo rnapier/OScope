@@ -27,13 +27,11 @@ struct SignalVisualizer {
   let values: [SignalValue]
   let basePath : UIBezierPath
 
-  func path() -> Future<UIBezierPath> {
-    return Future(exec: gcdExecutionContext, {
-      let path = self.basePath.copy() as UIBezierPath
-      let transform = pathTransform(frame:self.frame, xScale:self.xScale, yScale:self.yScale, values: self.values)
-      path.applyTransform(transform)
-      return path
-    })
+  var path: UIBezierPath {
+  let path = self.basePath.copy() as UIBezierPath
+    let transform = pathTransform(frame:self.frame, xScale:self.xScale, yScale:self.yScale, values: self.values)
+    path.applyTransform(transform)
+    return path
   }
 
   var automaticYScale : SignalValue {
@@ -62,7 +60,7 @@ extension SignalVisualizer {
     let basePath = pathWithValues(vs)
 
     // FIXME: This still crashes in Beta4
-//    self.init(source: source, domain: domain, frame: frame, xScale: xScale, yScale: yScale, values: vs, basePath: basePath)
+    //    self.init(source: source, domain: domain, frame: frame, xScale: xScale, yScale: yScale, values: vs, basePath: basePath)
     self.source = source
     self.domain = domain
     self.frame = frame
@@ -118,6 +116,6 @@ func pathTransform(#frame: CGRect, #xScale:Float, #yScale:VisualizerScale, #valu
   let transform = CGAffineTransformScale(
     CGAffineTransformMakeTranslation(CGRectGetMinX(frame), yZero),
     CGFloat(xScale), CGFloat(yScaleValue))
-  
+
   return transform
 }

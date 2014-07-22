@@ -52,7 +52,7 @@ class SignalVisualizerView: UIView {
 
   var visualizer : SignalVisualizer? {
   didSet {
-    let newPath = self.visualizer?.path().result().CGPath
+    let newPath = self.visualizer?.path.CGPath
     let animation = CABasicAnimation(keyPath: "path")
     animation.duration = 0.3
     animation.fromValue = signalLayer.path
