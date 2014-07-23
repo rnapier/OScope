@@ -44,8 +44,7 @@ struct SignalSamples : Collection {
     self.sampleRate = sampleRate
     self.endIndex = Int((end - start) * sampleRate)
 
-    let scale = -log10(sampleRate.inHertz())
-    self.stride = SignalTime(seconds: Double(self.endIndex - 1) / sampleRate.inHertz(), normalizedToFrequency: sampleRate)
+    self.stride = SignalTime(seconds: Double(self.endIndex - 1) / sampleRate.hertz)
   }
 
 //  init(start: SignalTime, count: Int, sampleRate: SignalFrequency) {
