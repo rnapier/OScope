@@ -6,13 +6,15 @@
 //  Copyright (c) 2014 Rob Napier. All rights reserved.
 //
 
-struct SignalTime {
+struct SignalTime : DebugPrintable {
   let seconds: Double
 
-  static let Nanosecond = 0.000_000_001
-  static let Microsecond = 0.000_001
-  static let Millisecond = 0.000_1
-  static let Second = 1.0
+  static let Second      = 1.0
+  static let Millisecond = Second / 1000.0
+  static let Microsecond = Millisecond / 1000.0
+  static let Nanosecond  = Microsecond / 1000.0
+
+  var debugDescription: String { return seconds.description }
 }
 
 func combine(lhs: SignalTime, rhs: SignalTime, op: (Double, Double) -> Double) -> SignalTime {
@@ -95,11 +97,11 @@ extension Int {
   var gigahertz: SignalFrequency { return Double(self).gigahertz }
 }
 
-extension CGFloat {
-  var hertz:     SignalFrequency { return Double(self).hertz }
-  var kilohertz: SignalFrequency { return Double(self).kilohertz }
-  var megahertz: SignalFrequency { return Double(self).megahertz }
-  var gigahertz: SignalFrequency { return Double(self).gigahertz }
-}
-
-
+//extension CGFloat {
+//  var hertz:     SignalFrequency { return Double(self).hertz }
+//  var kilohertz: SignalFrequency { return Double(self).kilohertz }
+//  var megahertz: SignalFrequency { return Double(self).megahertz }
+//  var gigahertz: SignalFrequency { return Double(self).gigahertz }
+//}
+//
+//

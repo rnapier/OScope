@@ -43,13 +43,8 @@ struct SignalSampleTimes : Collection {
     self.end = end
     self.sampleRate = sampleRate
     self.endIndex = Int((end - start) * sampleRate)
-
-    self.stride = SignalTime(seconds: Double(self.endIndex - 1) / sampleRate.hertz)
+    self.stride = SignalTime(seconds: 1.0/Double(self.endIndex))
   }
-
-//  init(start: SignalTime, count: Int, sampleRate: SignalFrequency) {
-//    self.init(start: start, end: start + SignalTime(count))
-//  }
 }
 
 protocol SignalSource {

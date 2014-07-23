@@ -98,7 +98,13 @@ class OScopeTests: XCTestCase {
     // FIXME: Perform test
   }
 
-  func testFFT() {
+  func testSampleTimes() {
+    let sampleRate = 44100.hertz
+    let times = SignalSampleTimes(start:0.second, end:1.millisecond, sampleRate:sampleRate)
+    XCTAssertEqual(countElements(times), 44)
+  }
+
+  func testTimeDomain() {
     let sampleRate = 44100.hertz
     let source11 = SineSource(frequency: 440.hertz, amplitude: 1, phase: 0)
     let source12 = SineSource(frequency: 800.hertz, amplitude: 1, phase: 0)
@@ -114,11 +120,13 @@ class OScopeTests: XCTestCase {
 
     let output = mixer3
 
-    // Verify that two FFT's give the same result
+    // Verify that two calls give the same result
+    let times = SignalSampleTimes(start:0.second, end:1.millisecond, sampleRate:sampleRate)
+//    println(map(times) { $0.seconds })
     let values  = valuesForSource(source11, sampleTimes: SignalSampleTimes(start:0.second, end:1.millisecond, sampleRate:sampleRate), domain: .Time)
-    println(values)
+//    debugPrintln(values)
     let values2 = valuesForSource(source11, sampleTimes: SignalSampleTimes(start:0.second, end:1.millisecond, sampleRate:sampleRate), domain: .Time)
-    println(values2)
+//    debugPrintln(values2)
     XCTAssert(values == values2)
   }
 }

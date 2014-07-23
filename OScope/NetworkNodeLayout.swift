@@ -66,7 +66,6 @@ struct NetworkViewModel {
 
   func layout(#frame: CGRect) -> NetworkNodeLayout {
     let size = CGSizeMake(CGRectGetWidth(frame)/CGFloat(self.rootNode.depth), CGRectGetHeight(frame)/CGFloat(self.rootNode.height))
-    println("size = \(size)")
     return NetworkNodeLayout(node: rootNode, nodeSize:size, totalDepth:rootNode.depth)
   }
 }
