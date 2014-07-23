@@ -55,7 +55,9 @@ extension SignalVisualizer {
   init(source: SignalSource, domain: VisualizerDomain, frame: CGRect, xScale: Float, yScale: VisualizerScale) {
     let signalInterval = SignalInterval(
       start:SignalTime(0),
-      end:SignalTime(CGFloat(CGRectGetWidth(frame) + 1.0)))
+      end:SignalTime(CGFloat(CGRectGetWidth(frame)/CGFloat(xScale) + 1.0)))
+
+    println(SignalTime(CGFloat(CGRectGetWidth(frame)/CGFloat(xScale) + 1.0)))
 
     let vs = valuesForSource(source, signalInterval:signalInterval, domain: domain)
     let basePath = pathWithValues(vs)

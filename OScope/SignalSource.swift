@@ -8,17 +8,17 @@
 
 import Darwin
 
-typealias SignalTime = Float
 typealias SignalValue = Float
 
 // FIXME: It should be possible to build this with a Stride
-struct SignalInterval : Collection {
+struct SignalSamples : Collection {
   typealias IndexType = Int
   typealias GeneratorType = GeneratorOf<SignalTime>
-  internal let startIndex: IndexType = 0
-  internal let endIndex: IndexType
-  subscript(i:IndexType) -> SignalTime {
-    return start + SignalTime(i) * stride
+  internal let startIndex = 0
+  internal let endIndex: Int
+
+  subscript(i:Int) -> SignalTime {
+    return self.start + (i * self.stride)
   }
 
   func generate() -> GeneratorType {
@@ -28,24 +28,29 @@ struct SignalInterval : Collection {
         return nil
       }
       let result = current
-      current += self.stride
+      current = current + self.stride
       return result
     }
   }
 
   let start: SignalTime
   let end: SignalTime
-  let stride: SignalTime = 1.0
+  let sampleRate : SignalFrequency
+  var stride: SignalTime
 
-  init(start: SignalTime, end: SignalTime) {
+  init(start: SignalTime, end: SignalTime, sampleRate: SignalFrequency) {
     self.start = start
     self.end = end
-    self.endIndex = Int((end - start) / self.stride)
+    self.sampleRate = sampleRate
+    self.endIndex = Int((end - start) * sampleRate)
+
+    let scale = -log10(sampleRate.inHertz())
+    self.stride = SignalTime(seconds: Double(self.endIndex - 1) / sampleRate.inHertz(), normalizedToFrequency: sampleRate)
   }
 
-  init(start: SignalTime, count: Int) {
-    self.init(start: start, end: start + SignalTime(count))
-  }
+//  init(start: SignalTime, count: Int, sampleRate: SignalFrequency) {
+//    self.init(start: start, end: start + SignalTime(count))
+//  }
 }
 
 protocol SignalSource {
@@ -75,26 +80,26 @@ struct ConstantSource : SignalSource {
   }
 }
 
-struct SineSource : SignalSource {
-  let frequency  : SignalTime
-  let amplitude  : SignalValue
-  let phase      : SignalTime
-  let sampleRate : SignalTime
+typealias Radians = Double
 
-  init(frequency: SignalTime, amplitude:SignalValue, phase:SignalTime, sampleRate:SignalTime) {
+struct SineSource : SignalSource {
+  let frequency  : SignalFrequency
+  let amplitude  : SignalValue
+  let phase      : Radians
+
+  init(frequency: SignalFrequency, amplitude:SignalValue, phase:Radians) {
     self.frequency = frequency
     self.amplitude = amplitude
     self.phase = phase
-    self.sampleRate = sampleRate
   }
 
   let inputs = [SignalSource]()
 
   func value(time: SignalTime) -> SignalValue {
-    let tau = Float(2 * M_PI)
-    let tau_ft = tau * Float(self.frequency * time)/Float(self.sampleRate)
-    let p = Float(self.phase)
-    let v = Float(self.amplitude) * sinf(tau_ft + p)
+    let tau = Double(2 * M_PI)
+    let ft = self.frequency * time
+    let p = self.phase
+    let v = Double(self.amplitude) * sin(tau * ft + p)
 
     return SignalValue(v)
   }
