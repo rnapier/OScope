@@ -53,13 +53,13 @@ struct SignalVisualizer {
 
 extension SignalVisualizer {
   init(source: SignalSource, domain: VisualizerDomain, frame: CGRect, xScale: Float, yScale: VisualizerScale) {
-    let signalInterval = SignalInterval(
-      start:SignalTime(0),
-      end:SignalTime(CGFloat(CGRectGetWidth(frame)/CGFloat(xScale) + 1.0)))
+    let samples = SignalSampleTimes(
+      start:0.seconds,
+      end:(CGRectGetWidth(frame) / CGFloat(xScale)).seconds,
+      sampleRate: SignalFrequency(hertz: 44100.0) // FIXME: configure sample rate
+    )
 
-    println(SignalTime(CGFloat(CGRectGetWidth(frame)/CGFloat(xScale) + 1.0)))
-
-    let vs = valuesForSource(source, signalInterval:signalInterval, domain: domain)
+    let vs = valuesForSource(source, sampleTimes:samples, domain: domain)
     let basePath = pathWithValues(vs)
 
     // FIXME: This still crashes in Beta4
@@ -74,16 +74,16 @@ extension SignalVisualizer {
   }
 }
 
-func valuesForSource(source: SignalSource, #signalInterval:SignalInterval, #domain:VisualizerDomain) -> [SignalValue] {
+func valuesForSource(source: SignalSource, #sampleTimes:SignalSampleTimes, #domain:VisualizerDomain) -> [SignalValue] {
   switch domain {
   case .Time:
-    let signal = map(signalInterval) { source.value(SignalTime($0)) }
-    return signal
+    return map(sampleTimes) { source.value($0) }
+
   case .Frequency:
-    let realLength = countElements(signalInterval)
+    let realLength = countElements(sampleTimes)
     let n2Length = 1 << (Int(log2f(Float(realLength))) + 2)
-    let n2Interval = SignalInterval(start: signalInterval.start, count: n2Length)
-    let signal = map(n2Interval, { source.value(SignalTime($0)) })
+    let n2Interval = SignalSampleTimes(start: sampleTimes.start, end: n2Length * sampleTimes.stride, sampleRate: sampleTimes.sampleRate)
+    let signal = map(n2Interval) { source.value($0) }
     return SpectrumForValues(signal) as [SignalValue]
   }
 }

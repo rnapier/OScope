@@ -11,7 +11,7 @@ import Darwin
 typealias SignalValue = Float
 
 // FIXME: It should be possible to build this with a Stride
-struct SignalSamples : Collection {
+struct SignalSampleTimes : Collection {
   typealias IndexType = Int
   typealias GeneratorType = GeneratorOf<SignalTime>
   internal let startIndex = 0
