@@ -13,6 +13,15 @@ enum VisualizerScale {
   case Automatic
 }
 
+struct TimePerPoint {
+  let scale: SignalTime
+  init(_ scale: SignalTime) { self.scale = scale }
+}
+
+func *(lhs: CGFloat, rhs: TimePerPoint) -> SignalTime {
+  return Double(lhs) * rhs.scale
+}
+
 enum VisualizerDomain {
   case Time
   case Frequency
@@ -22,14 +31,13 @@ struct SignalVisualizer {
   let source: SignalSource
   let domain: VisualizerDomain
   let frame: CGRect
-  let xScale: Float
+  let xScale: TimePerPoint
   let yScale: VisualizerScale
   let values: [SignalValue]
   let basePath : UIBezierPath
 
   var path: UIBezierPath {
   let path = self.basePath.copy() as UIBezierPath
-    println(self.frame)
     let transform = pathTransform(frame:self.frame, xScale:self.xScale, yScale:self.yScale, values: self.values)
     path.applyTransform(transform)
     return path
@@ -52,10 +60,10 @@ struct SignalVisualizer {
 }
 
 extension SignalVisualizer {
-  init(source: SignalSource, domain: VisualizerDomain, frame: CGRect, xScale: Float, yScale: VisualizerScale) {
+  init(source: SignalSource, domain: VisualizerDomain, frame: CGRect, xScale: TimePerPoint, yScale: VisualizerScale) {
     let samples = SignalSampleTimes(
       start:0.seconds,
-      end:(CGRectGetWidth(frame) / CGFloat(xScale)).seconds,
+      end:(CGRectGetWidth(frame) * xScale),
       sampleRate: SignalFrequency(hertz: 44100.0) // FIXME: configure sample rate
     )
 
@@ -105,11 +113,11 @@ func calculateAutomaticYScale(#values:[SignalValue]) -> SignalValue {
   return 1/values.map(abs).reduce(0.01, combine: max)
 }
 
-func pathTransform(#frame: CGRect, #xScale:Float, #yScale:VisualizerScale, #values:[SignalValue]) -> CGAffineTransform {
+func pathTransform(#frame: CGRect, #xScale:TimePerPoint, #yScale:VisualizerScale, #values:[SignalValue]) -> CGAffineTransform {
   let height = CGRectGetHeight(frame)
   let yZero  = CGRectGetMidY(frame)
   let baseScale = -height/2
-  let yScaleValue = baseScale * {
+  let yScaleValue: CGFloat = baseScale * {
     switch yScale {
     case .Absolute(let value): return CGFloat(value)
     case .Automatic: return CGFloat(calculateAutomaticYScale(values:values))
@@ -118,7 +126,7 @@ func pathTransform(#frame: CGRect, #xScale:Float, #yScale:VisualizerScale, #valu
 
   let transform = CGAffineTransformScale(
     CGAffineTransformMakeTranslation(CGRectGetMinX(frame), yZero),
-    CGFloat(xScale), CGFloat(yScaleValue))
+    CGFloat(xScale.scale.seconds), CGFloat(yScaleValue))
 
   return transform
 }

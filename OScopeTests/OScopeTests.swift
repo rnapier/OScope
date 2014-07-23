@@ -44,24 +44,26 @@ class OScopeTests: XCTestCase {
   func testConstantSource() {
     let value:SignalValue = 3
     let src = ConstantSource(value: value)
-    XCTAssertEqual(src.value(0), value)
-    XCTAssertEqual(src.value(1), value)
-    XCTAssertEqual(src.value(3), value)
+    XCTAssertEqual(src.value(0.seconds), value)
+    XCTAssertEqual(src.value(1.second), value)
+    XCTAssertEqual(src.value(3.seconds), value)
   }
 
   func testSineSource() {
-    let f = SignalTime(441)
+    let f = 441.hertz
     let a = SignalValue(1)
-    let p = SignalTime(0)
-    let r = SignalTime(44100)
+    let p = Radians(0)
+    let r = 44100.hertz
     let accuracy = SignalValue(0.001)
 
-    let src = SineSource(frequency: f, amplitude: a, phase: p, sampleRate:r)
+    let period = 1.0/f
 
-    XCTAssertEqual(src.value(0), 0)
-    XCTAssertEqualWithAccuracy(src.value(r/4), 1, accuracy)
-    XCTAssertEqualWithAccuracy(src.value(r/2), 0, accuracy)
-    XCTAssertEqualWithAccuracy(src.value(3*r/4), -1, accuracy)
+    let src = SineSource(frequency: f, amplitude: a, phase: p)
+
+    XCTAssertEqual(src.value(0.second), 0)
+    XCTAssertEqualWithAccuracy(src.value(0.25 * period), 1, accuracy)
+    XCTAssertEqualWithAccuracy(src.value(0.5 * period), 0, accuracy)
+    XCTAssertEqualWithAccuracy(src.value(0.75 * period), -1, accuracy)
   }
 
   func testFlatten() {
@@ -70,7 +72,7 @@ class OScopeTests: XCTestCase {
   }
 
   func testSignalSourceLocation() {
-    let s1 = SineSource(frequency: 1, amplitude: 1, phase: 1, sampleRate:1)
+    let s1 = SineSource(frequency: 1.hertz, amplitude: 1, phase: M_PI)
     let s2 = s1
 
     let s3 = s1
@@ -83,7 +85,7 @@ class OScopeTests: XCTestCase {
   }
 
   func testNetworkViewModel() {
-    let s1 = SineSource(frequency: 1, amplitude: 1, phase: 1, sampleRate:1)
+    let s1 = SineSource(frequency: 1.hertz, amplitude: 1, phase: M_PI)
     let s2 = s1
 
     let s3 = s1
@@ -97,25 +99,26 @@ class OScopeTests: XCTestCase {
   }
 
   func testFFT() {
-    let sampleRate = SignalTime(44100)
-    let source11 = SineSource(frequency: 440, amplitude: 1, phase: 0, sampleRate: sampleRate)
-    let source12 = SineSource(frequency: 800, amplitude: 1, phase: 0, sampleRate: sampleRate)
-    let source13 = SineSource(frequency: 1000, amplitude: 1, phase: 500, sampleRate: sampleRate)
+    let sampleRate = 44100.hertz
+    let source11 = SineSource(frequency: 440.hertz, amplitude: 1, phase: 0)
+    let source12 = SineSource(frequency: 800.hertz, amplitude: 1, phase: 0)
+    let source13 = SineSource(frequency: 1000.hertz, amplitude: 1, phase: M_PI)
     let mixer1 = MixerSource(inputs: [source11, source12, source13])
 
-    let source21 = SineSource(frequency: 1200, amplitude: 1, phase: 0, sampleRate: sampleRate)
-    let source22 = SineSource(frequency: 200, amplitude: 1, phase: 0, sampleRate: sampleRate)
+    let source21 = SineSource(frequency: 1200.hertz, amplitude: 1, phase: 0)
+    let source22 = SineSource(frequency: 200.hertz, amplitude: 1, phase: 0)
     let mixer2 = MixerSource(inputs: [source21, source22])
 
-    let source31 = SineSource(frequency: 11100, amplitude: 1, phase: 0, sampleRate: sampleRate)
+    let source31 = SineSource(frequency: 11100.hertz, amplitude: 1, phase: 0)
     let mixer3 = MixerSource(inputs: [ mixer1, mixer2, source31])
 
     let output = mixer3
 
-    let values = valuesForSource(source11, signalInterval: SignalInterval(start:0, end:1000), domain: .Time)
-    let values2 = valuesForSource(source11, signalInterval: SignalInterval(start:0, end:1000), domain: .Time)
+    // Verify that two FFT's give the same result
+    let values  = valuesForSource(source11, sampleTimes: SignalSampleTimes(start:0.second, end:1.millisecond, sampleRate:sampleRate), domain: .Time)
+    println(values)
+    let values2 = valuesForSource(source11, sampleTimes: SignalSampleTimes(start:0.second, end:1.millisecond, sampleRate:sampleRate), domain: .Time)
+    println(values2)
     XCTAssert(values == values2)
   }
-
-  
 }
