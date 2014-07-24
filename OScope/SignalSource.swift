@@ -43,7 +43,7 @@ struct SignalSampleTimes : Collection {
     self.end = end
     self.sampleRate = sampleRate
     self.endIndex = Int((end - start) * sampleRate)
-    self.stride = SignalTime(seconds: 1.0/Double(self.endIndex))
+    self.stride = 1.0/Double(self.endIndex) * (end-start)
   }
 }
 

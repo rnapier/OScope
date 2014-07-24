@@ -13,15 +13,6 @@ enum VisualizerScale {
   case Automatic
 }
 
-struct TimePerPoint {
-  let scale: SignalTime
-  init(_ scale: SignalTime) { self.scale = scale }
-}
-
-func *(lhs: CGFloat, rhs: TimePerPoint) -> SignalTime {
-  return Double(lhs) * rhs.scale
-}
-
 enum VisualizerDomain {
   case Time
   case Frequency
@@ -31,14 +22,14 @@ struct SignalVisualizer {
   let source: SignalSource
   let domain: VisualizerDomain
   let frame: CGRect
-  let xScale: TimePerPoint
+  let sampleRate: SignalFrequency
   let yScale: VisualizerScale
   let values: [SignalValue]
   let basePath : UIBezierPath
 
   var path: UIBezierPath {
   let path = self.basePath.copy() as UIBezierPath
-    let transform = pathTransform(frame:self.frame, xScale:self.xScale, yScale:self.yScale, values: self.values)
+    let transform = pathTransform(frame:self.frame, yScale:self.yScale, values: self.values)
     path.applyTransform(transform)
     return path
   }
@@ -52,7 +43,7 @@ struct SignalVisualizer {
       source: self.source,
       domain: self.domain,
       frame: self.frame,
-      xScale: self.xScale,
+      sampleRate: self.sampleRate,
       yScale: newYScale,
       values: self.values,
       basePath: self.basePath)
@@ -60,11 +51,15 @@ struct SignalVisualizer {
 }
 
 extension SignalVisualizer {
-  init(source: SignalSource, domain: VisualizerDomain, frame: CGRect, xScale: TimePerPoint, yScale: VisualizerScale) {
+  init(source: SignalSource, domain: VisualizerDomain, frame: CGRect, sampleRate: SignalFrequency, yScale: VisualizerScale) {
+
+    let start = 0.seconds
+    let end = Double(CGRectGetWidth(frame)) / sampleRate
+
     let samples = SignalSampleTimes(
-      start:0.seconds,
-      end:(CGRectGetWidth(frame) * xScale),
-      sampleRate: SignalFrequency(hertz: 44100.0) // FIXME: configure sample rate
+      start:start,
+      end:end,
+      sampleRate:sampleRate
     )
 
     let vs = valuesForSource(source, sampleTimes:samples, domain: domain)
@@ -75,7 +70,7 @@ extension SignalVisualizer {
     self.source = source
     self.domain = domain
     self.frame = frame
-    self.xScale = xScale
+    self.sampleRate = sampleRate
     self.yScale = yScale
     self.values = vs
     self.basePath = basePath
@@ -102,8 +97,9 @@ func pathWithValues(values:[SignalValue]) -> UIBezierPath {
 
   cycle.moveToPoint(CGPointZero)
   for t in 0..<valCount {
-    if values[t].isFinite && values[t] < 10000 {
-      cycle.addLineToPoint(CGPointMake(CGFloat(t), min(CGFloat(values[t]), 10000)))
+    if values[t].isFinite {
+      let point = CGPointMake(CGFloat(t), min(CGFloat(values[t]), 10000))
+      cycle.addLineToPoint(point)
     }
   }
   return cycle
@@ -113,7 +109,7 @@ func calculateAutomaticYScale(#values:[SignalValue]) -> SignalValue {
   return 1/values.map(abs).reduce(0.01, combine: max)
 }
 
-func pathTransform(#frame: CGRect, #xScale:TimePerPoint, #yScale:VisualizerScale, #values:[SignalValue]) -> CGAffineTransform {
+func pathTransform(#frame: CGRect, #yScale:VisualizerScale, #values:[SignalValue]) -> CGAffineTransform {
   let height = CGRectGetHeight(frame)
   let yZero  = CGRectGetMidY(frame)
   let baseScale = -height/2
@@ -126,7 +122,7 @@ func pathTransform(#frame: CGRect, #xScale:TimePerPoint, #yScale:VisualizerScale
 
   let transform = CGAffineTransformScale(
     CGAffineTransformMakeTranslation(CGRectGetMinX(frame), yZero),
-    CGFloat(xScale.scale.seconds), CGFloat(yScaleValue))
+    1.0, CGFloat(yScaleValue))
 
   return transform
 }

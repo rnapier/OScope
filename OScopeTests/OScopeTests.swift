@@ -122,11 +122,8 @@ class OScopeTests: XCTestCase {
 
     // Verify that two calls give the same result
     let times = SignalSampleTimes(start:0.second, end:1.millisecond, sampleRate:sampleRate)
-//    println(map(times) { $0.seconds })
     let values  = valuesForSource(source11, sampleTimes: SignalSampleTimes(start:0.second, end:1.millisecond, sampleRate:sampleRate), domain: .Time)
-//    debugPrintln(values)
     let values2 = valuesForSource(source11, sampleTimes: SignalSampleTimes(start:0.second, end:1.millisecond, sampleRate:sampleRate), domain: .Time)
-//    debugPrintln(values2)
     XCTAssert(values == values2)
   }
 }

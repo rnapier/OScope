@@ -126,13 +126,6 @@ struct SignalSampleTimes : Collection {
   }
 }
 
-let sampleRate = 44100.hertz
-let times = SignalSampleTimes(start:0.second, end:1.millisecond, sampleRate:sampleRate)
-
-let x = SignalTime(seconds: 0)
-let y = SignalTime(seconds: 0.001)
-println(x.seconds, y.seconds)
-
 
 
 
