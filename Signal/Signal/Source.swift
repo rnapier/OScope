@@ -13,11 +13,11 @@ public typealias SignalValue = Float
 // FIXME: It should be possible to build this with a Stride
 public struct SignalSampleTimes : Collection {
   typealias IndexType = Int
-  public typealias GeneratorType = GeneratorOf<Time>
+  public typealias GeneratorType = GeneratorOf<SignalTime>
   public let startIndex = 0
   public let endIndex: Int
 
-  public subscript(i:Int) -> Time {
+  public subscript(i:Int) -> SignalTime {
     return self.start + (i * self.stride)
   }
 
@@ -33,12 +33,12 @@ public struct SignalSampleTimes : Collection {
     }
   }
 
-  let start: Time
-  let end: Time
+  let start: SignalTime
+  let end: SignalTime
   let sampleRate : SignalFrequency
-  var stride: Time
+  var stride: SignalTime
 
-  public init(start: Time, end: Time, sampleRate: SignalFrequency) {
+  public init(start: SignalTime, end: SignalTime, sampleRate: SignalFrequency) {
     self.start = start
     self.end = end
     self.sampleRate = sampleRate
@@ -47,40 +47,40 @@ public struct SignalSampleTimes : Collection {
   }
 }
 
-public protocol Source {
-  var inputs:[Source] { get }
-  func value(time: Time) -> SignalValue
+public protocol SignalSource {
+  var inputs:[SignalSource] { get }
+  func value(time: SignalTime) -> SignalValue
 }
 
-public struct MixerSource : Source {
-  public let inputs:[Source]
+public struct MixerSource : SignalSource {
+  public let inputs:[SignalSource]
 
-  public func value(time: Time) -> SignalValue {
+  public func value(time: SignalTime) -> SignalValue {
     return inputs.map{ $0.value(time) }.reduce(0,+)
   }
 
-  public init(inputs: [Source]) {
+  public init(inputs: [SignalSource]) {
     self.inputs = inputs
   }
 }
 
-public struct ConstantSource : Source {
+public struct ConstantSource : SignalSource {
   public init(value: SignalValue) {
     self.value = value
   }
 
   let value : SignalValue
 
-  public var inputs = [Source]()
+  public var inputs = [SignalSource]()
 
-  public func value(time: Time) -> SignalValue {
+  public func value(time: SignalTime) -> SignalValue {
     return self.value
   }
 }
 
 public typealias Radians = Double
 
-public struct SineSource : Source {
+public struct SineSource : SignalSource {
   let frequency  : SignalFrequency
   let amplitude  : SignalValue
   let phase      : Radians
@@ -91,9 +91,9 @@ public struct SineSource : Source {
     self.phase = phase
   }
 
-  public let inputs = [Source]()
+  public let inputs = [SignalSource]()
 
-  public func value(time: Time) -> SignalValue {
+  public func value(time: SignalTime) -> SignalValue {
     let tau = Double(2 * M_PI)
     let ft = self.frequency * time
     let p = self.phase

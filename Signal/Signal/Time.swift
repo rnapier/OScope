@@ -1,12 +1,12 @@
 //
-//  Time.swift
+//  SignalTime.swift
 //  OScope
 //
 //  Created by Rob Napier on 7/23/14.
 //  Copyright (c) 2014 Rob Napier. All rights reserved.
 //
 
-public struct Time : DebugPrintable {
+public struct SignalTime : DebugPrintable {
   public let seconds: Double
 
   static let Second      = 1.0
@@ -17,54 +17,54 @@ public struct Time : DebugPrintable {
   public var debugDescription: String { return seconds.description }
 }
 
-func combine(lhs: Time, rhs: Time, op: (Double, Double) -> Double) -> Time {
-  return Time(seconds: op(lhs.seconds, rhs.seconds))
+func combine(lhs: SignalTime, rhs: SignalTime, op: (Double, Double) -> Double) -> SignalTime {
+  return SignalTime(seconds: op(lhs.seconds, rhs.seconds))
 }
 
-public func +(lhs: Time, rhs: Time) -> Time { return combine(lhs, rhs, +) }
-public func -(lhs: Time, rhs: Time) -> Time { return combine(lhs, rhs, -) }
+public func +(lhs: SignalTime, rhs: SignalTime) -> SignalTime { return combine(lhs, rhs, +) }
+public func -(lhs: SignalTime, rhs: SignalTime) -> SignalTime { return combine(lhs, rhs, -) }
 
-public func *(lhs: Time, rhs: Double)     -> Time { return Time(seconds: lhs.seconds * rhs) }
-public func *(lhs: Double,     rhs: Time) -> Time { return rhs * lhs }
-public func *(lhs: Time, rhs: Int)        -> Time { return lhs * Double(rhs) }
-public func *(lhs: Int,        rhs: Time) -> Time { return rhs * lhs }
+public func *(lhs: SignalTime, rhs: Double)     -> SignalTime { return SignalTime(seconds: lhs.seconds * rhs) }
+public func *(lhs: Double,     rhs: SignalTime) -> SignalTime { return rhs * lhs }
+public func *(lhs: SignalTime, rhs: Int)        -> SignalTime { return lhs * Double(rhs) }
+public func *(lhs: Int,        rhs: SignalTime) -> SignalTime { return rhs * lhs }
 
-func compare(lhs: Time, rhs: Time, op: (Double, Double) -> Bool) -> Bool {
+func compare(lhs: SignalTime, rhs: SignalTime, op: (Double, Double) -> Bool) -> Bool {
   return op(lhs.seconds, rhs.seconds)
 }
 
-public func <=(lhs: Time, rhs: Time) -> Bool { return compare(lhs, rhs, <=) }
-public func >=(lhs: Time, rhs: Time) -> Bool { return compare(lhs, rhs, >=) }
-public func > (lhs: Time, rhs: Time) -> Bool { return compare(lhs, rhs, >) }
-public func ==(lhs: Time, rhs: Time) -> Bool { return compare(lhs, rhs, ==) }
-public func < (lhs: Time, rhs: Time) -> Bool { return compare(lhs, rhs, <) }
+public func <=(lhs: SignalTime, rhs: SignalTime) -> Bool { return compare(lhs, rhs, <=) }
+public func >=(lhs: SignalTime, rhs: SignalTime) -> Bool { return compare(lhs, rhs, >=) }
+public func > (lhs: SignalTime, rhs: SignalTime) -> Bool { return compare(lhs, rhs, >) }
+public func ==(lhs: SignalTime, rhs: SignalTime) -> Bool { return compare(lhs, rhs, ==) }
+public func < (lhs: SignalTime, rhs: SignalTime) -> Bool { return compare(lhs, rhs, <) }
 
 public extension Double {
-  var nanosecond: Time { return Time(seconds: self * Time.Nanosecond) }
-  var nanoseconds: Time { return self.nanosecond }
+  var nanosecond: SignalTime { return SignalTime(seconds: self * SignalTime.Nanosecond) }
+  var nanoseconds: SignalTime { return self.nanosecond }
 
-  var microsecond: Time { return Time(seconds: self * Time.Microsecond) }
-  var microseconds: Time { return self.microsecond }
+  var microsecond: SignalTime { return SignalTime(seconds: self * SignalTime.Microsecond) }
+  var microseconds: SignalTime { return self.microsecond }
 
-  var millisecond: Time { return Time(seconds: self * Time.Millisecond) }
-  var milliseconds: Time { return self.millisecond }
+  var millisecond: SignalTime { return SignalTime(seconds: self * SignalTime.Millisecond) }
+  var milliseconds: SignalTime { return self.millisecond }
 
-  var second: Time { return Time(seconds: self) }
-  var seconds: Time { return self.second }
+  var second: SignalTime { return SignalTime(seconds: self) }
+  var seconds: SignalTime { return self.second }
 }
 
 public extension Int {
-  var nanosecond: Time { return Double(self).nanosecond }
-  var nanoseconds: Time { return self.nanosecond }
+  var nanosecond: SignalTime { return Double(self).nanosecond }
+  var nanoseconds: SignalTime { return self.nanosecond }
 
-  var microsecond: Time { return Double(self).microsecond }
-  var microseconds: Time { return self.microsecond }
+  var microsecond: SignalTime { return Double(self).microsecond }
+  var microseconds: SignalTime { return self.microsecond }
 
-  var millisecond: Time { return Double(self).millisecond }
-  var milliseconds: Time { return self.millisecond }
+  var millisecond: SignalTime { return Double(self).millisecond }
+  var milliseconds: SignalTime { return self.millisecond }
 
-  var second: Time { return Double(self).second }
-  var seconds: Time { return self.second }
+  var second: SignalTime { return Double(self).second }
+  var seconds: SignalTime { return self.second }
 }
 
 public struct SignalFrequency {
@@ -76,11 +76,11 @@ public struct SignalFrequency {
   static let Gigahertz = 1_000_000_000.0
 }
 
-public func *(lhs: Time,      rhs: SignalFrequency) -> Double { return lhs.seconds * rhs.hertz }
-public func *(lhs: SignalFrequency, rhs: Time)      -> Double { return rhs * lhs }
+public func *(lhs: SignalTime,      rhs: SignalFrequency) -> Double { return lhs.seconds * rhs.hertz }
+public func *(lhs: SignalFrequency, rhs: SignalTime)      -> Double { return rhs * lhs }
 
-public func /(lhs: Double, rhs: SignalFrequency) -> Time { return Time(seconds: lhs / rhs.hertz) }
-public func /(lhs: Double, rhs: Time) -> SignalFrequency { return SignalFrequency(hertz: lhs / rhs.seconds) }
+public func /(lhs: Double, rhs: SignalFrequency) -> SignalTime { return SignalTime(seconds: lhs / rhs.hertz) }
+public func /(lhs: Double, rhs: SignalTime) -> SignalFrequency { return SignalFrequency(hertz: lhs / rhs.seconds) }
 
 extension Double {
   var hertz:     SignalFrequency { return SignalFrequency(hertz: self) }

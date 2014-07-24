@@ -18,8 +18,8 @@ public enum VisualizerDomain {
   case Frequency
 }
 
-public struct Visualizer {
-  let source: Source
+public struct SignalVisualizer {
+  let source: SignalSource
   let domain: VisualizerDomain
   let frame: CGRect
   let sampleRate: SignalFrequency
@@ -38,8 +38,8 @@ public struct Visualizer {
   return calculateAutomaticYScale(values:values)
   }
 
-  public func withYScale(newYScale:VisualizerScale) -> Visualizer {
-    return Visualizer(
+  public func withYScale(newYScale:VisualizerScale) -> SignalVisualizer {
+    return SignalVisualizer(
       source: self.source,
       domain: self.domain,
       frame: self.frame,
@@ -50,8 +50,8 @@ public struct Visualizer {
   }
 }
 
-public extension Visualizer {
-  init(source: Source, domain: VisualizerDomain, frame: CGRect, sampleRate: SignalFrequency, yScale: VisualizerScale) {
+public extension SignalVisualizer {
+  init(source: SignalSource, domain: VisualizerDomain, frame: CGRect, sampleRate: SignalFrequency, yScale: VisualizerScale) {
 
     let start = 0.seconds
     let end = Double(CGRectGetWidth(frame)) / sampleRate
@@ -77,7 +77,7 @@ public extension Visualizer {
   }
 }
 
-public func valuesForSource(source: Source, #sampleTimes:SignalSampleTimes, #domain:VisualizerDomain) -> [SignalValue] {
+public func valuesForSource(source: SignalSource, #sampleTimes:SignalSampleTimes, #domain:VisualizerDomain) -> [SignalValue] {
   switch domain {
   case .Time:
     return map(sampleTimes) { source.value($0) }

@@ -26,7 +26,7 @@ struct NetworkNodeLayout {
 
   var nodePath: UIBezierPath {
     let path = UIBezierPath(rect:self.frame)
-    let v = Visualizer(source: self.node.source, domain:.Time, frame:self.frame, sampleRate: 44100.hertz, yScale:.Automatic)
+    let v = SignalVisualizer(source: self.node.source, domain:.Time, frame:self.frame, sampleRate: 44100.hertz, yScale:.Automatic)
     path.appendPath(v.path)
     return path
   }
@@ -61,7 +61,7 @@ struct NetworkNodeLayout {
 struct NetworkViewModel {
   let rootNode : NetworkNode
 
-  init(rootSource: Source) {
+  init(rootSource: SignalSource) {
     self.rootNode = NetworkNode(source: rootSource)
   }
 
