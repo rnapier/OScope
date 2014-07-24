@@ -18,22 +18,15 @@
 		FB454210197C8772000852C5 /* Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB45420F197C8772000852C5 /* Future.swift */; };
 		FB454212197C882C000852C5 /* ExecutionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB454211197C882C000852C5 /* ExecutionContext.swift */; };
 		FB454214197C8832000852C5 /* GCDExecutionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB454213197C8832000852C5 /* GCDExecutionContext.swift */; };
-		FB4A8184197AC48000BB0D72 /* SignalVisualizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE5109F1973074A004A7D07 /* SignalVisualizer.swift */; };
 		FB4A8186197AC5F700BB0D72 /* RWRotationGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA9D85D1977659100EC6BD1 /* RWRotationGestureRecognizer.m */; };
-		FB4A84D6197B17E100BB0D72 /* FFT.m in Sources */ = {isa = PBXBuildFile; fileRef = FB20A61F19789D6400BD0551 /* FFT.m */; };
-		FB4A84D7197B17E200BB0D72 /* FFT.m in Sources */ = {isa = PBXBuildFile; fileRef = FB20A61F19789D6400BD0551 /* FFT.m */; };
-		FB50DE9A198013230023A4F7 /* SignalTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB50DE99198013230023A4F7 /* SignalTime.swift */; };
-		FB50DE9B1980135D0023A4F7 /* SignalTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB50DE99198013230023A4F7 /* SignalTime.swift */; };
 		FB6B2B201975C0BE00B57828 /* NetworkNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF86CAD1973DBBC0090AD78 /* NetworkNode.swift */; };
 		FBA8768319761D7300362199 /* NetworkNodeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA8768219761D7300362199 /* NetworkNodeLayout.swift */; };
 		FBA8768419762ABF00362199 /* NetworkNodeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA8768219761D7300362199 /* NetworkNodeLayout.swift */; };
 		FBA876861976B2DD00362199 /* NetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA876851976B2DD00362199 /* NetworkView.swift */; };
 		FBA9D85719774A3F00EC6BD1 /* HighlightButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA9D85619774A3F00EC6BD1 /* HighlightButton.swift */; };
 		FBA9D8601977659100EC6BD1 /* RWRotationGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA9D85D1977659100EC6BD1 /* RWRotationGestureRecognizer.m */; };
-		FBB7D7DF1972DD2300D1D3D4 /* SignalSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD6BEF9196F0E2100A6F9CD /* SignalSource.swift */; };
 		FBC167511977FCAD002F65A2 /* KnobControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC167501977FCAD002F65A2 /* KnobControl.swift */; };
-		FBD6BEFA196F0E2100A6F9CD /* SignalSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD6BEF9196F0E2100A6F9CD /* SignalSource.swift */; };
-		FBE510A01973074A004A7D07 /* SignalVisualizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE5109F1973074A004A7D07 /* SignalVisualizer.swift */; };
+		FBD289BF1980AAED00E549F8 /* Signal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBD289B01980AA1A00E549F8 /* Signal.framework */; };
 		FBE510A319730E26004A7D07 /* NetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE510A219730E26004A7D07 /* NetworkViewController.swift */; };
 		FBE5EC4B197C8C2200143C03 /* Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB45420F197C8772000852C5 /* Future.swift */; };
 		FBE5EC4C197C8C2500143C03 /* ExecutionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB454211197C882C000852C5 /* ExecutionContext.swift */; };
@@ -58,6 +51,20 @@
 			remoteGlobalIDString = FB037EF0196EEF98006E383D;
 			remoteInfo = OScope;
 		};
+		FBD289AF1980AA1A00E549F8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FBD289AA1980AA1900E549F8 /* Signal.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = FBD2898E1980AA1900E549F8;
+			remoteInfo = Signal;
+		};
+		FBD289B11980AA1A00E549F8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FBD289AA1980AA1900E549F8 /* Signal.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = FBD289991980AA1900E549F8;
+			remoteInfo = SignalTests;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -73,15 +80,12 @@
 		FB037F17196EF194006E383D /* ScopeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ScopeViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FB037F19196EF1AA006E383D /* SignalVisualizerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SignalVisualizerView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FB20A61D197824B500BD0551 /* KnobRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KnobRenderer.swift; sourceTree = "<group>"; };
-		FB20A61F19789D6400BD0551 /* FFT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFT.m; sourceTree = "<group>"; };
 		FB20A62119789E9800BD0551 /* FFTAccelerate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FFTAccelerate.cpp; path = OScope/FFTAccelerate.cpp; sourceTree = "<group>"; };
 		FB20A62319789EBA00BD0551 /* FFTAccelerate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FFTAccelerate.h; path = OScope/FFTAccelerate.h; sourceTree = "<group>"; };
-		FB20A62419789EDA00BD0551 /* FFT.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; path = FFT.h; sourceTree = "<group>"; };
 		FB23614F197094210020FD9C /* lcm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = lcm.swift; path = OScope/lcm.swift; sourceTree = "<group>"; };
 		FB45420F197C8772000852C5 /* Future.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Future.swift; sourceTree = "<group>"; };
 		FB454211197C882C000852C5 /* ExecutionContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecutionContext.swift; sourceTree = "<group>"; };
 		FB454213197C8832000852C5 /* GCDExecutionContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDExecutionContext.swift; sourceTree = "<group>"; };
-		FB50DE99198013230023A4F7 /* SignalTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignalTime.swift; sourceTree = "<group>"; };
 		FBA8768219761D7300362199 /* NetworkNodeLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkNodeLayout.swift; sourceTree = "<group>"; };
 		FBA876851976B2DD00362199 /* NetworkView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkView.swift; sourceTree = "<group>"; };
 		FBA9D85619774A3F00EC6BD1 /* HighlightButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightButton.swift; sourceTree = "<group>"; };
@@ -90,8 +94,7 @@
 		FBA9D8641977665700EC6BD1 /* OScope-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OScope-Bridging-Header.h"; sourceTree = "<group>"; };
 		FBB7D7E01972DEF900D1D3D4 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		FBC167501977FCAD002F65A2 /* KnobControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KnobControl.swift; sourceTree = "<group>"; };
-		FBD6BEF9196F0E2100A6F9CD /* SignalSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SignalSource.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		FBE5109F1973074A004A7D07 /* SignalVisualizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SignalVisualizer.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		FBD289AA1980AA1900E549F8 /* Signal.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Signal.xcodeproj; path = Signal/Signal.xcodeproj; sourceTree = "<group>"; };
 		FBE510A219730E26004A7D07 /* NetworkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkViewController.swift; sourceTree = "<group>"; };
 		FBF86CAD1973DBBC0090AD78 /* NetworkNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NetworkNode.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FBF86CB11973E2860090AD78 /* Lambda.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lambda.swift; sourceTree = "<group>"; };
@@ -102,6 +105,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBD289BF1980AAED00E549F8 /* Signal.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,7 +122,7 @@
 		FB037EE8196EEF98006E383D = {
 			isa = PBXGroup;
 			children = (
-				FB50DE99198013230023A4F7 /* SignalTime.swift */,
+				FBD289AA1980AA1900E549F8 /* Signal.xcodeproj */,
 				FBF86CB11973E2860090AD78 /* Lambda.swift */,
 				FB45420F197C8772000852C5 /* Future.swift */,
 				FB454211197C882C000852C5 /* ExecutionContext.swift */,
@@ -148,8 +152,6 @@
 				FBA876871976B2FA00362199 /* Views */,
 				FBE510A119730773004A7D07 /* Model */,
 				FB6B2B1F1974B82100B57828 /* ViewModel */,
-				FB20A62419789EDA00BD0551 /* FFT.h */,
-				FB20A61F19789D6400BD0551 /* FFT.m */,
 				FB037EFA196EEF98006E383D /* Main.storyboard */,
 				FB037EFD196EEF98006E383D /* Images.xcassets */,
 				FB037EF4196EEF98006E383D /* Supporting Files */,
@@ -225,11 +227,18 @@
 			name = ViewControllers;
 			sourceTree = "<group>";
 		};
+		FBD289AB1980AA1900E549F8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FBD289B01980AA1A00E549F8 /* Signal.framework */,
+				FBD289B21980AA1A00E549F8 /* SignalTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		FBE510A119730773004A7D07 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				FBD6BEF9196F0E2100A6F9CD /* SignalSource.swift */,
-				FBE5109F1973074A004A7D07 /* SignalVisualizer.swift */,
 				FBF86CAD1973DBBC0090AD78 /* NetworkNode.swift */,
 			);
 			name = Model;
@@ -303,6 +312,12 @@
 			mainGroup = FB037EE8196EEF98006E383D;
 			productRefGroup = FB037EF2196EEF98006E383D /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = FBD289AB1980AA1900E549F8 /* Products */;
+					ProjectRef = FBD289AA1980AA1900E549F8 /* Signal.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				FB037EF0196EEF98006E383D /* OScope */,
@@ -310,6 +325,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		FBD289B01980AA1A00E549F8 /* Signal.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Signal.framework;
+			remoteRef = FBD289AF1980AA1A00E549F8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FBD289B21980AA1A00E549F8 /* SignalTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SignalTests.xctest;
+			remoteRef = FBD289B11980AA1A00E549F8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		FB037EEF196EEF98006E383D /* Resources */ = {
@@ -335,14 +367,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FBD6BEFA196F0E2100A6F9CD /* SignalSource.swift in Sources */,
 				FBE510A319730E26004A7D07 /* NetworkViewController.swift in Sources */,
 				FBA8768319761D7300362199 /* NetworkNodeLayout.swift in Sources */,
-				FBE510A01973074A004A7D07 /* SignalVisualizer.swift in Sources */,
 				FB037F18196EF194006E383D /* ScopeViewController.swift in Sources */,
 				FBC167511977FCAD002F65A2 /* KnobControl.swift in Sources */,
 				FBA9D8601977659100EC6BD1 /* RWRotationGestureRecognizer.m in Sources */,
-				FB50DE9A198013230023A4F7 /* SignalTime.swift in Sources */,
 				FBF86CAE1973DBBC0090AD78 /* NetworkNode.swift in Sources */,
 				FBF86CB21973E2860090AD78 /* Lambda.swift in Sources */,
 				FBA9D85719774A3F00EC6BD1 /* HighlightButton.swift in Sources */,
@@ -352,7 +381,6 @@
 				FB037EF9196EEF98006E383D /* RootViewController.swift in Sources */,
 				FB454214197C8832000852C5 /* GCDExecutionContext.swift in Sources */,
 				FB20A61E197824B500BD0551 /* KnobRenderer.swift in Sources */,
-				FB4A84D6197B17E100BB0D72 /* FFT.m in Sources */,
 				FB454212197C882C000852C5 /* ExecutionContext.swift in Sources */,
 				FB037EF7196EEF98006E383D /* AppDelegate.swift in Sources */,
 			);
@@ -365,14 +393,10 @@
 				FBF86CB31973E3910090AD78 /* Lambda.swift in Sources */,
 				FBA8768419762ABF00362199 /* NetworkNodeLayout.swift in Sources */,
 				FB4A8186197AC5F700BB0D72 /* RWRotationGestureRecognizer.m in Sources */,
-				FBB7D7DF1972DD2300D1D3D4 /* SignalSource.swift in Sources */,
-				FB50DE9B1980135D0023A4F7 /* SignalTime.swift in Sources */,
 				FBE5EC4D197C8C2800143C03 /* GCDExecutionContext.swift in Sources */,
-				FB4A8184197AC48000BB0D72 /* SignalVisualizer.swift in Sources */,
 				FB6B2B201975C0BE00B57828 /* NetworkNode.swift in Sources */,
 				FBE5EC4C197C8C2500143C03 /* ExecutionContext.swift in Sources */,
 				FBE5EC4B197C8C2200143C03 /* Future.swift in Sources */,
-				FB4A84D7197B17E200BB0D72 /* FFT.m in Sources */,
 				FB037F0A196EEF98006E383D /* OScopeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

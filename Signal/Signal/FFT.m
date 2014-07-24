@@ -17,10 +17,10 @@ NSArray *SpectrumForValues(NSArray *samples) {
   Float32 *signal = (float*)calloc(1, N * Stride * sizeof *signal);
   Float32 *fft = (float*)calloc(1, N * sizeof *fft);
 
-    //Fill Input Array
-    for (int i=0; i < N; i++) {
-      signal[i] = [samples[i] floatValue];
-    }
+  //Fill Input Array
+  for (int i=0; i < N; i++) {
+    signal[i] = [samples[i] floatValue];
+  }
 
   UInt32 inMaxFramesPerSlice = N;
   Float32  mFFTNormFactor = 1.0/(2*inMaxFramesPerSlice);

@@ -8,12 +8,4 @@
 
 #import <Foundation/Foundation.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 NSArray *SpectrumForValues(NSArray *samples);
-
-#ifdef __cplusplus
-}
-#endif

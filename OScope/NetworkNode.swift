@@ -6,8 +6,10 @@
 //  Copyright (c) 2014 Rob Napier. All rights reserved.
 //
 
+import Signal
+
 struct NetworkNode {
-  let source: SignalSource
+  let source: Source
   let layer: Int
   let offset: Int
 
@@ -16,7 +18,7 @@ struct NetworkNode {
 
   var depth: Int { return 1 + children.map{$0.depth}.reduce(0, combine: max) }
 
-  init(source: SignalSource, layer: Int = 0, offset: Int = 0) {
+  init(source: Source, layer: Int = 0, offset: Int = 0) {
     self.source = source
     self.layer = layer
     self.offset = offset

@@ -8,18 +8,18 @@
 
 import UIKit
 
-enum VisualizerScale {
+public enum VisualizerScale {
   case Absolute(Float)
   case Automatic
 }
 
-enum VisualizerDomain {
+public enum VisualizerDomain {
   case Time
   case Frequency
 }
 
-struct SignalVisualizer {
-  let source: SignalSource
+public struct Visualizer {
+  let source: Source
   let domain: VisualizerDomain
   let frame: CGRect
   let sampleRate: SignalFrequency
@@ -27,19 +27,19 @@ struct SignalVisualizer {
   let values: [SignalValue]
   let basePath : UIBezierPath
 
-  var path: UIBezierPath {
+  public var path: UIBezierPath {
   let path = self.basePath.copy() as UIBezierPath
     let transform = pathTransform(frame:self.frame, yScale:self.yScale, values: self.values)
     path.applyTransform(transform)
     return path
   }
 
-  var automaticYScale : SignalValue {
+  public var automaticYScale : SignalValue {
   return calculateAutomaticYScale(values:values)
   }
 
-  func withYScale(newYScale:VisualizerScale) -> SignalVisualizer {
-    return SignalVisualizer(
+  public func withYScale(newYScale:VisualizerScale) -> Visualizer {
+    return Visualizer(
       source: self.source,
       domain: self.domain,
       frame: self.frame,
@@ -50,8 +50,8 @@ struct SignalVisualizer {
   }
 }
 
-extension SignalVisualizer {
-  init(source: SignalSource, domain: VisualizerDomain, frame: CGRect, sampleRate: SignalFrequency, yScale: VisualizerScale) {
+public extension Visualizer {
+  init(source: Source, domain: VisualizerDomain, frame: CGRect, sampleRate: SignalFrequency, yScale: VisualizerScale) {
 
     let start = 0.seconds
     let end = Double(CGRectGetWidth(frame)) / sampleRate
@@ -77,7 +77,7 @@ extension SignalVisualizer {
   }
 }
 
-func valuesForSource(source: SignalSource, #sampleTimes:SignalSampleTimes, #domain:VisualizerDomain) -> [SignalValue] {
+public func valuesForSource(source: Source, #sampleTimes:SignalSampleTimes, #domain:VisualizerDomain) -> [SignalValue] {
   switch domain {
   case .Time:
     return map(sampleTimes) { source.value($0) }
@@ -123,6 +123,6 @@ func pathTransform(#frame: CGRect, #yScale:VisualizerScale, #values:[SignalValue
   let transform = CGAffineTransformScale(
     CGAffineTransformMakeTranslation(CGRectGetMinX(frame), yZero),
     1.0, CGFloat(yScaleValue))
-
+  
   return transform
 }

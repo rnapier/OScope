@@ -8,6 +8,7 @@
 
 import UIKit
 import XCTest
+import Signal
 
 class OScopeTests: XCTestCase {
 
@@ -61,9 +62,9 @@ class OScopeTests: XCTestCase {
     let src = SineSource(frequency: f, amplitude: a, phase: p)
 
     XCTAssertEqual(src.value(0.second), 0)
-    XCTAssertEqualWithAccuracy(src.value(0.25 * period), 1, accuracy)
-    XCTAssertEqualWithAccuracy(src.value(0.5 * period), 0, accuracy)
-    XCTAssertEqualWithAccuracy(src.value(0.75 * period), -1, accuracy)
+    XCTAssertEqualWithAccuracy(src.value(0.25 * period), SignalValue(1.0), accuracy)
+    XCTAssertEqualWithAccuracy(src.value(0.5 * period), 0.0, accuracy)
+    XCTAssertEqualWithAccuracy(src.value(0.75 * period), -1.0, accuracy)
   }
 
   func testFlatten() {

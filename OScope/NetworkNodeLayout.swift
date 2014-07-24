@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Signal
 
 let insetScale = CGFloat(5.0)
 
@@ -25,7 +26,7 @@ struct NetworkNodeLayout {
 
   var nodePath: UIBezierPath {
     let path = UIBezierPath(rect:self.frame)
-    let v = SignalVisualizer(source: self.node.source, domain:.Time, frame:self.frame, sampleRate: 44100.hertz, yScale:.Automatic)
+    let v = Visualizer(source: self.node.source, domain:.Time, frame:self.frame, sampleRate: 44100.hertz, yScale:.Automatic)
     path.appendPath(v.path)
     return path
   }
@@ -60,7 +61,7 @@ struct NetworkNodeLayout {
 struct NetworkViewModel {
   let rootNode : NetworkNode
 
-  init(rootSource: SignalSource) {
+  init(rootSource: Source) {
     self.rootNode = NetworkNode(source: rootSource)
   }
 

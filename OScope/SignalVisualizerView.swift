@@ -8,6 +8,7 @@
 
 import UIKit
 import QuartzCore
+import Signal
 
 class SignalVisualizerView: UIView {
 
@@ -38,9 +39,9 @@ class SignalVisualizerView: UIView {
     self.setup()
   }
 
-  var source : SignalSource? {
+  var source : Source? {
   didSet {
-    self.visualizer = self.source.map{SignalVisualizer(source: $0, domain: self.domain, frame:self.bounds, sampleRate:44100.hertz, yScale:self.yScale)}
+    self.visualizer = self.source.map{Visualizer(source: $0, domain: self.domain, frame:self.bounds, sampleRate:44100.hertz, yScale:self.yScale)}
   }
   }
 
@@ -50,7 +51,7 @@ class SignalVisualizerView: UIView {
   }
   }
 
-  var visualizer : SignalVisualizer? {
+  var visualizer : Visualizer? {
   didSet {
     let newPath = self.visualizer?.path.CGPath
     let animation = CABasicAnimation(keyPath: "path")
@@ -64,7 +65,7 @@ class SignalVisualizerView: UIView {
 
   var domain : VisualizerDomain = .Time {
   didSet {
-    self.visualizer = self.source.map{SignalVisualizer(source: $0, domain: self.domain, frame:self.bounds, sampleRate:44100.hertz, yScale:self.yScale)}
+    self.visualizer = self.source.map{Visualizer(source: $0, domain: self.domain, frame:self.bounds, sampleRate:44100.hertz, yScale:self.yScale)}
   }
   }
 

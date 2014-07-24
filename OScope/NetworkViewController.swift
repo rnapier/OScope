@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import Signal
 
 class NetworkViewController: UIViewController {
   var viewModel : NetworkViewModel?
 
-  var rootSource : SignalSource? {
+  var rootSource : Signal.Source? {
   get { return self.viewModel?.rootNode.source }
   set(newValue) {
     self.viewModel = newValue.map {NetworkViewModel(rootSource: $0)}
