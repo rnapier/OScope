@@ -41,7 +41,6 @@ class OScopeTests: XCTestCase {
 //    XCTAssertEqual(lcm([5,10,15]), 30, "30")
 //  }
 
-
   func testConstantSource() {
     let value = 3.volts
     let src = ConstantSource(value: value)

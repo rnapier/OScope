@@ -40,31 +40,17 @@ public func > (lhs: SignalTime, rhs: SignalTime) -> Bool { return compare(lhs, r
 public func ==(lhs: SignalTime, rhs: SignalTime) -> Bool { return compare(lhs, rhs, ==) }
 public func < (lhs: SignalTime, rhs: SignalTime) -> Bool { return compare(lhs, rhs, <) }
 
-public extension Double {
-  var nanosecond: SignalTime { return SignalTime(seconds: self * SignalTime.Nanosecond) }
-  var nanoseconds: SignalTime { return self.nanosecond }
-
-  var microsecond: SignalTime { return SignalTime(seconds: self * SignalTime.Microsecond) }
-  var microseconds: SignalTime { return self.microsecond }
-
-  var millisecond: SignalTime { return SignalTime(seconds: self * SignalTime.Millisecond) }
-  var milliseconds: SignalTime { return self.millisecond }
-
-  var second: SignalTime { return SignalTime(seconds: self) }
-  var seconds: SignalTime { return self.second }
-}
-
 public extension Int {
-  var nanosecond: SignalTime { return Double(self).nanosecond }
+  var nanosecond: SignalTime { return SignalTime(seconds: Double(self) * SignalTime.Nanosecond) }
   var nanoseconds: SignalTime { return self.nanosecond }
 
-  var microsecond: SignalTime { return Double(self).microsecond }
+  var microsecond: SignalTime { return SignalTime(seconds: Double(self) * SignalTime.Microsecond) }
   var microseconds: SignalTime { return self.microsecond }
 
-  var millisecond: SignalTime { return Double(self).millisecond }
+  var millisecond: SignalTime { return SignalTime(seconds: Double(self) * SignalTime.Millisecond) }
   var milliseconds: SignalTime { return self.millisecond }
 
-  var second: SignalTime { return Double(self).second }
+  var second: SignalTime { return SignalTime(seconds: Double(self) * SignalTime.Second) }
   var seconds: SignalTime { return self.second }
 }
 

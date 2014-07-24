@@ -36,19 +36,10 @@ public func > (lhs: SignalSample, rhs: SignalSample) -> Bool { return compare(lh
 public func ==(lhs: SignalSample, rhs: SignalSample) -> Bool { return compare(lhs, rhs, ==) }
 public func < (lhs: SignalSample, rhs: SignalSample) -> Bool { return compare(lhs, rhs, <) }
 
-
-public extension Double {
-  var volt: SignalSample { return SignalSample(volts: self * SignalSample.Volt) }
-  var volts: SignalSample { return self.volt }
-
-  var millivolt: SignalSample { return SignalSample(volts: self * SignalTime.Millisecond) }
-  var millivolts: SignalSample { return self.millivolt }
-}
-
 public extension Int {
-  var volt: SignalSample { return Double(self).volt }
+  var volt: SignalSample { return SignalSample(volts: Double(self) * SignalSample.Volt) }
   var volts: SignalSample { return self.volt }
 
-  var millivolt: SignalSample { return Double(self).volt }
+  var millivolt: SignalSample { return SignalSample(volts: Double(self) * SignalSample.Millivolt) }
   var millivolts: SignalSample { return self.millivolt }
 }
