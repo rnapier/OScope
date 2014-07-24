@@ -43,7 +43,7 @@ class OScopeTests: XCTestCase {
 
 
   func testConstantSource() {
-    let value:SignalValue = 3
+    let value = 3.volts
     let src = ConstantSource(value: value)
     XCTAssertEqual(src.value(0.seconds), value)
     XCTAssertEqual(src.value(1.second), value)
@@ -52,19 +52,19 @@ class OScopeTests: XCTestCase {
 
   func testSineSource() {
     let f = 441.hertz
-    let a = SignalValue(1)
+    let a = 1.volt
     let p = Radians(0)
     let r = 44100.hertz
-    let accuracy = SignalValue(0.001)
+    let accuracy = 1e-12
 
     let period = 1.0/f
 
     let src = SineSource(frequency: f, amplitude: a, phase: p)
 
-    XCTAssertEqual(src.value(0.second), 0)
-    XCTAssertEqualWithAccuracy(src.value(0.25 * period), SignalValue(1.0), accuracy)
-    XCTAssertEqualWithAccuracy(src.value(0.5 * period), 0.0, accuracy)
-    XCTAssertEqualWithAccuracy(src.value(0.75 * period), -1.0, accuracy)
+    XCTAssertEqualWithAccuracy(src.value(0.second).volts, 0, accuracy)
+    XCTAssertEqualWithAccuracy(src.value(0.25 * period).volts, 1, accuracy)
+    XCTAssertEqualWithAccuracy(src.value(0.5 * period).volts, 0, accuracy)
+    XCTAssertEqualWithAccuracy(src.value(0.75 * period).volts, -1, accuracy)
   }
 
   func testFlatten() {
@@ -73,7 +73,7 @@ class OScopeTests: XCTestCase {
   }
 
   func testSignalSourceLocation() {
-    let s1 = SineSource(frequency: 1.hertz, amplitude: 1, phase: M_PI)
+    let s1 = SineSource(frequency: 1.hertz, amplitude: 1.volt, phase: M_PI)
     let s2 = s1
 
     let s3 = s1
@@ -86,7 +86,7 @@ class OScopeTests: XCTestCase {
   }
 
   func testNetworkViewModel() {
-    let s1 = SineSource(frequency: 1.hertz, amplitude: 1, phase: M_PI)
+    let s1 = SineSource(frequency: 1.hertz, amplitude: 1.volt, phase: M_PI)
     let s2 = s1
 
     let s3 = s1
@@ -107,24 +107,24 @@ class OScopeTests: XCTestCase {
 
   func testTimeDomain() {
     let sampleRate = 44100.hertz
-    let source11 = SineSource(frequency: 440.hertz, amplitude: 1, phase: 0)
-    let source12 = SineSource(frequency: 800.hertz, amplitude: 1, phase: 0)
-    let source13 = SineSource(frequency: 1000.hertz, amplitude: 1, phase: M_PI)
+    let source11 = SineSource(frequency: 440.hertz, amplitude: 1.volt, phase: 0)
+    let source12 = SineSource(frequency: 800.hertz, amplitude: 1.volt, phase: 0)
+    let source13 = SineSource(frequency: 1000.hertz, amplitude: 1.volt, phase: M_PI)
     let mixer1 = MixerSource(inputs: [source11, source12, source13])
 
-    let source21 = SineSource(frequency: 1200.hertz, amplitude: 1, phase: 0)
-    let source22 = SineSource(frequency: 200.hertz, amplitude: 1, phase: 0)
+    let source21 = SineSource(frequency: 1200.hertz, amplitude: 1.volt, phase: 0)
+    let source22 = SineSource(frequency: 200.hertz, amplitude: 1.volt, phase: 0)
     let mixer2 = MixerSource(inputs: [source21, source22])
 
-    let source31 = SineSource(frequency: 11100.hertz, amplitude: 1, phase: 0)
+    let source31 = SineSource(frequency: 11100.hertz, amplitude: 1.volt, phase: 0)
     let mixer3 = MixerSource(inputs: [ mixer1, mixer2, source31])
 
     let output = mixer3
 
     // Verify that two calls give the same result
     let times = SignalSampleTimes(start:0.second, end:1.millisecond, sampleRate:sampleRate)
-    let values  = valuesForSource(source11, sampleTimes: SignalSampleTimes(start:0.second, end:1.millisecond, sampleRate:sampleRate), domain: .Time)
-    let values2 = valuesForSource(source11, sampleTimes: SignalSampleTimes(start:0.second, end:1.millisecond, sampleRate:sampleRate), domain: .Time)
+    let values = SignalVisualizer(source: source11, domain: .Time, frame: CGRectMake(0,0,100,100), sampleRate: 44100.hertz, yScale: .Automatic).values
+    let values2 = SignalVisualizer(source: source11, domain: .Time, frame: CGRectMake(0,0,100,100), sampleRate: 44100.hertz, yScale: .Automatic).values
     XCTAssert(values == values2)
   }
 }

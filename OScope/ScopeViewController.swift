@@ -7,8 +7,6 @@
 //
 
 import UIKit
-//import Signal
-
 import Signal
 
 class ScopeViewController: UIViewController {

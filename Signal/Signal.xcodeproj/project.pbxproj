@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FB0062051981432900C78829 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0062041981432900C78829 /* Sample.swift */; };
 		FBD289941980AA1900E549F8 /* Signal.h in Headers */ = {isa = PBXBuildFile; fileRef = FBD289931980AA1900E549F8 /* Signal.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FBD2899A1980AA1900E549F8 /* Signal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBD2898E1980AA1900E549F8 /* Signal.framework */; };
 		FBD289A11980AA1900E549F8 /* SignalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD289A01980AA1900E549F8 /* SignalTests.swift */; };
@@ -19,6 +20,9 @@
 		FBD289C21980AB4000E549F8 /* FFT.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD289C11980AB4000E549F8 /* FFT.m */; };
 		FBD289C31980AB4000E549F8 /* FFT.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD289C11980AB4000E549F8 /* FFT.m */; };
 		FBD289C51980AD1800E549F8 /* FFT.h in Headers */ = {isa = PBXBuildFile; fileRef = FBD289C41980AB5200E549F8 /* FFT.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FBD5B30719814F8E009A81C7 /* SampleTimes.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD5B30619814F8E009A81C7 /* SampleTimes.swift */; };
+		FBD5B30819814FBA009A81C7 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0062041981432900C78829 /* Sample.swift */; };
+		FBD5B30919814FC7009A81C7 /* SampleTimes.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD5B30619814F8E009A81C7 /* SampleTimes.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FB0062041981432900C78829 /* Sample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sample.swift; sourceTree = "<group>"; };
 		FBD2898E1980AA1900E549F8 /* Signal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Signal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBD289921980AA1900E549F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FBD289931980AA1900E549F8 /* Signal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Signal.h; sourceTree = "<group>"; };
@@ -44,6 +49,7 @@
 		FBD289C01980AB4000E549F8 /* Signal-Tests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Signal-Tests-Bridging-Header.h"; sourceTree = "<group>"; };
 		FBD289C11980AB4000E549F8 /* FFT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFT.m; sourceTree = "<group>"; };
 		FBD289C41980AB5200E549F8 /* FFT.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FFT.h; sourceTree = "<group>"; };
+		FBD5B30619814F8E009A81C7 /* SampleTimes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleTimes.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,11 +95,12 @@
 				FBD289931980AA1900E549F8 /* Signal.h */,
 				FBD289911980AA1900E549F8 /* Supporting Files */,
 				FBD289B31980AA5400E549F8 /* Time.swift */,
+				FB0062041981432900C78829 /* Sample.swift */,
+				FBD5B30619814F8E009A81C7 /* SampleTimes.swift */,
 				FBD289B61980AA7A00E549F8 /* Source.swift */,
 				FBD289B91980AA9200E549F8 /* Visualizer.swift */,
 				FBD289C11980AB4000E549F8 /* FFT.m */,
 				FBD289C41980AB5200E549F8 /* FFT.h */,
-				FBD289C01980AB4000E549F8 /* Signal-Tests-Bridging-Header.h */,
 			);
 			path = Signal;
 			sourceTree = "<group>";
@@ -102,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				FBD289921980AA1900E549F8 /* Info.plist */,
+				FBD289C01980AB4000E549F8 /* Signal-Tests-Bridging-Header.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -233,8 +241,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBD289C21980AB4000E549F8 /* FFT.m in Sources */,
+				FB0062051981432900C78829 /* Sample.swift in Sources */,
 				FBD289B71980AA7A00E549F8 /* Source.swift in Sources */,
 				FBD289B41980AA5400E549F8 /* Time.swift in Sources */,
+				FBD5B30719814F8E009A81C7 /* SampleTimes.swift in Sources */,
 				FBD289BA1980AA9200E549F8 /* Visualizer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -244,9 +254,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBD289B51980AA5400E549F8 /* Time.swift in Sources */,
+				FBD5B30819814FBA009A81C7 /* Sample.swift in Sources */,
 				FBD289C31980AB4000E549F8 /* FFT.m in Sources */,
 				FBD289BB1980AA9200E549F8 /* Visualizer.swift in Sources */,
 				FBD289A11980AA1900E549F8 /* SignalTests.swift in Sources */,
+				FBD5B30919814FC7009A81C7 /* SampleTimes.swift in Sources */,
 				FBD289B81980AA7A00E549F8 /* Source.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -397,7 +409,7 @@
 				INFOPLIST_FILE = SignalTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "Signal-Tests-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Signal/Signal-Tests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -413,7 +425,7 @@
 				INFOPLIST_FILE = SignalTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "Signal-Tests-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Signal/Signal-Tests-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -436,6 +448,7 @@
 				FBD289A61980AA1900E549F8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FBD289A71980AA1900E549F8 /* Build configuration list for PBXNativeTarget "SignalTests" */ = {
 			isa = XCConfigurationList;
@@ -444,6 +457,7 @@
 				FBD289A91980AA1900E549F8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

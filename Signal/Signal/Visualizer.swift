@@ -24,7 +24,7 @@ public struct SignalVisualizer {
   let frame: CGRect
   let sampleRate: SignalFrequency
   let yScale: VisualizerScale
-  let values: [SignalValue]
+  public let values: [CGFloat]
   let basePath : UIBezierPath
 
   public var path: UIBezierPath {
@@ -34,7 +34,7 @@ public struct SignalVisualizer {
     return path
   }
 
-  public var automaticYScale : SignalValue {
+  public var automaticYScale : CGFloat {
   return calculateAutomaticYScale(values:values)
   }
 
@@ -77,46 +77,46 @@ public extension SignalVisualizer {
   }
 }
 
-public func valuesForSource(source: SignalSource, #sampleTimes:SignalSampleTimes, #domain:VisualizerDomain) -> [SignalValue] {
+func valuesForSource(source: SignalSource, #sampleTimes:SignalSampleTimes, #domain:VisualizerDomain) -> [CGFloat] {
   switch domain {
   case .Time:
-    return map(sampleTimes) { source.value($0) }
+    return map(sampleTimes) { CGFloat(source.value($0).volts) }
 
   case .Frequency:
     let realLength = countElements(sampleTimes)
     let n2Length = 1 << (Int(log2f(Float(realLength))) + 2)
     let n2Interval = SignalSampleTimes(start: sampleTimes.start, end: n2Length * sampleTimes.stride, sampleRate: sampleTimes.sampleRate)
-    let signal = map(n2Interval) { source.value($0) }
-    return SpectrumForValues(signal) as [SignalValue]
+    let signal = map(n2Interval) { source.value($0).volts }
+    return SpectrumForValues(signal) as [CGFloat]
   }
 }
 
-func pathWithValues(values:[SignalValue]) -> UIBezierPath {
+func pathWithValues(values:[CGFloat]) -> UIBezierPath {
   let cycle = UIBezierPath()
   let valCount = values.count
 
   cycle.moveToPoint(CGPointZero)
   for t in 0..<valCount {
     if values[t].isFinite {
-      let point = CGPointMake(CGFloat(t), min(CGFloat(values[t]), 10000))
+      let point = CGPointMake(CGFloat(t), min(values[t], 10000))
       cycle.addLineToPoint(point)
     }
   }
   return cycle
 }
 
-func calculateAutomaticYScale(#values:[SignalValue]) -> SignalValue {
+func calculateAutomaticYScale(#values:[CGFloat]) -> CGFloat {
   return 1/values.map(abs).reduce(0.01, combine: max)
 }
 
-func pathTransform(#frame: CGRect, #yScale:VisualizerScale, #values:[SignalValue]) -> CGAffineTransform {
+func pathTransform(#frame: CGRect, #yScale:VisualizerScale, #values:[CGFloat]) -> CGAffineTransform {
   let height = CGRectGetHeight(frame)
   let yZero  = CGRectGetMidY(frame)
   let baseScale = -height/2
   let yScaleValue: CGFloat = baseScale * {
     switch yScale {
     case .Absolute(let value): return CGFloat(value)
-    case .Automatic: return CGFloat(calculateAutomaticYScale(values:values))
+    case .Automatic: return calculateAutomaticYScale(values:values)
     }
     }()
 

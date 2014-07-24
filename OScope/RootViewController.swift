@@ -30,16 +30,16 @@ class RootViewController: UIViewController {
     }
 
     let sampleRate = 44100.hertz
-    let source11 = SineSource(frequency: 440.hertz, amplitude: 1, phase: 0)
-    let source12 = SineSource(frequency: 800.hertz, amplitude: 1, phase: 0)
-    let source13 = SineSource(frequency: 1000.hertz, amplitude: 1, phase: M_PI_2)
+    let source11 = SineSource(frequency: 440.hertz, amplitude: 1.millivolt, phase: 0)
+    let source12 = SineSource(frequency: 800.hertz, amplitude: 1.millivolt, phase: 0)
+    let source13 = SineSource(frequency: 1000.hertz, amplitude: 1.millivolt, phase: M_PI_2)
     let mixer1 = MixerSource(inputs: [source11, source12, source13])
 
-    let source21 = SineSource(frequency: 1200.hertz, amplitude: 1, phase: 0)
-    let source22 = SineSource(frequency: 200.hertz, amplitude: 1, phase: 0)
+    let source21 = SineSource(frequency: 1200.hertz, amplitude: 1.millivolt, phase: 0)
+    let source22 = SineSource(frequency: 200.hertz, amplitude: 1.millivolt, phase: 0)
     let mixer2 = MixerSource(inputs: [source21, source22])
 
-    let source31 = SineSource(frequency: 8000.hertz, amplitude: 1, phase: 0)
+    let source31 = SineSource(frequency: 8000.hertz, amplitude: 1.millivolt, phase: 0)
     let mixer3 = MixerSource(inputs: [ mixer1, mixer2, source31])
 
     let output = mixer3

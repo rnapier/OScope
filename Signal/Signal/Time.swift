@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Rob Napier. All rights reserved.
 //
 
-public struct SignalTime : DebugPrintable {
+public struct SignalTime : DebugPrintable, Comparable, Equatable {
   public let seconds: Double
 
   static let Second      = 1.0
@@ -14,7 +14,8 @@ public struct SignalTime : DebugPrintable {
   static let Microsecond = Millisecond / 1000.0
   static let Nanosecond  = Microsecond / 1000.0
 
-  public var debugDescription: String { return seconds.description }
+  // FIXME: Autoscale
+  public var debugDescription: String { return "\(seconds)s" }
 }
 
 func combine(lhs: SignalTime, rhs: SignalTime, op: (Double, Double) -> Double) -> SignalTime {

@@ -8,55 +8,16 @@
 
 import Darwin
 
-public typealias SignalValue = Float
-
-// FIXME: It should be possible to build this with a Stride
-public struct SignalSampleTimes : Collection {
-  typealias IndexType = Int
-  public typealias GeneratorType = GeneratorOf<SignalTime>
-  public let startIndex = 0
-  public let endIndex: Int
-
-  public subscript(i:Int) -> SignalTime {
-    return self.start + (i * self.stride)
-  }
-
-  public func generate() -> GeneratorType {
-    var current = self.start
-    return GeneratorOf {
-      if current > self.end {
-        return nil
-      }
-      let result = current
-      current = current + self.stride
-      return result
-    }
-  }
-
-  let start: SignalTime
-  let end: SignalTime
-  let sampleRate : SignalFrequency
-  var stride: SignalTime
-
-  public init(start: SignalTime, end: SignalTime, sampleRate: SignalFrequency) {
-    self.start = start
-    self.end = end
-    self.sampleRate = sampleRate
-    self.endIndex = Int((end - start) * sampleRate)
-    self.stride = 1.0/Double(self.endIndex) * (end-start)
-  }
-}
-
 public protocol SignalSource {
   var inputs:[SignalSource] { get }
-  func value(time: SignalTime) -> SignalValue
+  func value(time: SignalTime) -> SignalSample
 }
 
 public struct MixerSource : SignalSource {
   public let inputs:[SignalSource]
 
-  public func value(time: SignalTime) -> SignalValue {
-    return inputs.map{ $0.value(time) }.reduce(0,+)
+  public func value(time: SignalTime) -> SignalSample {
+    return inputs.map{ $0.value(time) }.reduce(0.volt,+)
   }
 
   public init(inputs: [SignalSource]) {
@@ -65,15 +26,15 @@ public struct MixerSource : SignalSource {
 }
 
 public struct ConstantSource : SignalSource {
-  public init(value: SignalValue) {
+  public init(value: SignalSample) {
     self.value = value
   }
 
-  let value : SignalValue
+  let value : SignalSample
 
   public var inputs = [SignalSource]()
 
-  public func value(time: SignalTime) -> SignalValue {
+  public func value(time: SignalTime) -> SignalSample {
     return self.value
   }
 }
@@ -82,10 +43,10 @@ public typealias Radians = Double
 
 public struct SineSource : SignalSource {
   let frequency  : SignalFrequency
-  let amplitude  : SignalValue
+  let amplitude  : SignalSample
   let phase      : Radians
 
-  public init(frequency: SignalFrequency, amplitude:SignalValue, phase:Radians) {
+  public init(frequency: SignalFrequency, amplitude:SignalSample, phase:Radians) {
     self.frequency = frequency
     self.amplitude = amplitude
     self.phase = phase
@@ -93,12 +54,12 @@ public struct SineSource : SignalSource {
 
   public let inputs = [SignalSource]()
 
-  public func value(time: SignalTime) -> SignalValue {
+  public func value(time: SignalTime) -> SignalSample {
     let tau = Double(2 * M_PI)
     let ft = self.frequency * time
     let p = self.phase
-    let v = Double(self.amplitude) * sin(tau * ft + p)
+    let v = self.amplitude * sin(tau * ft + p)
 
-    return SignalValue(v)
+    return v
   }
 }
