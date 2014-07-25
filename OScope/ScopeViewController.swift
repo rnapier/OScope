@@ -8,6 +8,7 @@
 
 import UIKit
 import SignalKit
+import KnobControl
 
 class ScopeViewController: UIViewController {
 

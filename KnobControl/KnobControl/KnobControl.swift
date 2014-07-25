@@ -10,27 +10,27 @@
 
 import UIKit
 
-class KnobControl : UIControl {
-  var minimumValue:CGFloat = 0.0
-  var maximumValue:CGFloat = 1.0
+public class KnobControl : UIControl {
+  public var minimumValue:CGFloat = 0.0
+  public var maximumValue:CGFloat = 1.0
 
   var _primitiveValue:CGFloat = 0.0
-  var value:CGFloat {
+  public var value:CGFloat {
   get { return self._primitiveValue }
   set { self.setValue(newValue, animated: false) }
   }
 
-  var startAngle:CGFloat {
+  public var startAngle:CGFloat {
   get { return self.knobRenderer.startAngle }
   set { self.knobRenderer.startAngle = newValue }
   }
 
-  var endAngle:CGFloat {
+  public var endAngle:CGFloat {
   get { return self.knobRenderer.endAngle }
   set { self.knobRenderer.endAngle = newValue }
   }
 
-  let continuous = true
+  public let continuous = true
 
   lazy var gestureRecognizer : RotationGestureRecognizer = {
     return RotationGestureRecognizer(target: self, action: "handleGesture:")
@@ -38,12 +38,12 @@ class KnobControl : UIControl {
 
   let knobRenderer = KnobRenderer()
 
-  var lineWidth : CGFloat {
+  public var lineWidth : CGFloat {
   get { return self.knobRenderer.lineWidth }
   set { self.knobRenderer.lineWidth = newValue }
   }
 
-  var pointerLength : CGFloat {
+  public var pointerLength : CGFloat {
   get { return self.knobRenderer.pointerLength }
   set { self.knobRenderer.pointerLength = newValue }
   }
@@ -75,7 +75,7 @@ class KnobControl : UIControl {
     layer.addSublayer(self.knobRenderer.pointerLayer)
   }
 
-  func setValue(newValue: CGFloat, animated:Bool) {
+  public func setValue(newValue: CGFloat, animated:Bool) {
     if newValue != self._primitiveValue {
       self.willChangeValueForKey("value")
 
@@ -128,7 +128,7 @@ class KnobControl : UIControl {
     }
   }
 
-  override func tintColorDidChange() {
+  override public func tintColorDidChange() {
     self.knobRenderer.color = tintColor
   }
 }
