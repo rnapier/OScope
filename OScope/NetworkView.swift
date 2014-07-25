@@ -41,9 +41,9 @@ class NetworkView: UIView {
 
   func addNodeView(layout: NetworkNodeLayout) {
     let nodeView = UIView(frame: layout.frame)
-    nodeView.tag = 1
     let nodeLayer = CAShapeLayer()
-    nodeLayer.frame = nodeView.bounds
+    nodeLayer.frame = nodeView.bounds // Fill the view with the layer
+    nodeLayer.bounds = nodeView.frame // but put the layer into the same coordinate space as the view
     nodeLayer.path = layout.nodePath.CGPath
     nodeLayer.fillColor = UIColor.clearColor().CGColor
     nodeLayer.strokeColor = UIColor.blackColor().CGColor
