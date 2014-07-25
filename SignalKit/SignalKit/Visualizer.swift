@@ -106,7 +106,7 @@ func pathWithValues(values:[CGFloat]) -> UIBezierPath {
 }
 
 func calculateAutomaticYScale(#values:[CGFloat]) -> CGFloat {
-  return 1/values.map(abs).reduce(0.01, combine: max)
+  return 1/values.map(abs).reduce(1e-9, combine: max)
 }
 
 func pathTransform(#frame: CGRect, #yScale:VisualizerScale, #values:[CGFloat]) -> CGAffineTransform {

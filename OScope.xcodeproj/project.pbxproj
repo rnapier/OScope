@@ -64,6 +64,13 @@
 			remoteGlobalIDString = FB40D30819829BB400C71CD2;
 			remoteInfo = SignalKitTests;
 		};
+		FB40D33919829E1D00C71CD2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FB40D31919829BB400C71CD2 /* SignalKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = FB40D2FC19829BB300C71CD2;
+			remoteInfo = SignalKit;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -256,6 +263,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				FB40D33A19829E1D00C71CD2 /* PBXTargetDependency */,
 			);
 			name = OScope;
 			productName = OScope;
@@ -411,6 +419,11 @@
 			isa = PBXTargetDependency;
 			target = FB037EF0196EEF98006E383D /* OScope */;
 			targetProxy = FB2361511970A05E0020FD9C /* PBXContainerItemProxy */;
+		};
+		FB40D33A19829E1D00C71CD2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SignalKit;
+			targetProxy = FB40D33919829E1D00C71CD2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
