@@ -20,13 +20,14 @@ func inputPoint(#frame: CGRect, #index: Int, #inputCount:Int) -> CGPoint {
 struct NetworkNodeLayout {
   let node: NetworkNode
   let frame: CGRect
+  var bounds: CGRect { return CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame)) }
   let inputPoints: [CGPoint]
   let outputPoint: CGPoint
   let inputs: [NetworkNodeLayout]
 
   var nodePath: UIBezierPath {
-    let path = UIBezierPath(rect:self.frame)
-    let v = SignalVisualizer(source: self.node.source, domain:.Time, frame:self.frame, sampleRate: 44100.hertz, yScale:.Automatic)
+    let path = UIBezierPath(rect:self.bounds)
+    let v = SignalVisualizer(source: self.node.source, domain:.Time, frame:self.bounds, sampleRate: 44100.hertz, yScale:.Automatic)
     path.appendPath(v.path)
     return path
   }

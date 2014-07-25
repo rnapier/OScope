@@ -15,13 +15,10 @@ class NetworkViewController: UIViewController {
   var rootSource : SignalSource? {
   get { return self.viewModel?.rootNode.source }
   set(newValue) {
-    self.viewModel = newValue.map {NetworkViewModel(rootSource: $0)}
+    self.viewModel = newValue.map { NetworkViewModel(rootSource: $0) }
     if let networkView = view as? NetworkView {
       networkView.viewModel = self.viewModel
     }
   }
   }
-
-
-
 }
