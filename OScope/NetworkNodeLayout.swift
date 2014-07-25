@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Signal
+import SignalKit
 
 let insetScale = CGFloat(5.0)
 

@@ -8,7 +8,7 @@
 
 import UIKit
 import XCTest
-import Signal
+import SignalKit
 
 class OScopeTests: XCTestCase {
 

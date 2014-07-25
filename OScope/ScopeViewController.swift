@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Signal
+import SignalKit
 
 class ScopeViewController: UIViewController {
 
@@ -23,7 +23,7 @@ class ScopeViewController: UIViewController {
   }
   }
 
-  var source : Signal.SignalSource? {
+  var source : SignalSource? {
   get {
     return self.signalVisualizerView.source
   }

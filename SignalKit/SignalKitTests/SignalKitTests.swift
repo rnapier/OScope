@@ -1,15 +1,15 @@
 //
-//  SignalTests.swift
-//  SignalTests
+//  SignalKitTests.swift
+//  SignalKitTests
 //
-//  Created by Rob Napier on 7/23/14.
+//  Created by Rob Napier on 7/25/14.
 //  Copyright (c) 2014 Rob Napier. All rights reserved.
 //
 
 import UIKit
 import XCTest
 
-class SignalTests: XCTestCase {
+class SignalKitTests: XCTestCase {
     
     override func setUp() {
         super.setUp()

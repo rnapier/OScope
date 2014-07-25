@@ -8,7 +8,7 @@
 
 import UIKit
 import QuartzCore
-import Signal
+import SignalKit
 
 class SignalVisualizerView: UIView {
 

@@ -26,7 +26,6 @@
 		FBA9D85719774A3F00EC6BD1 /* HighlightButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA9D85619774A3F00EC6BD1 /* HighlightButton.swift */; };
 		FBA9D8601977659100EC6BD1 /* RWRotationGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA9D85D1977659100EC6BD1 /* RWRotationGestureRecognizer.m */; };
 		FBC167511977FCAD002F65A2 /* KnobControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC167501977FCAD002F65A2 /* KnobControl.swift */; };
-		FBD289BF1980AAED00E549F8 /* Signal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBD289B01980AA1A00E549F8 /* Signal.framework */; };
 		FBE510A319730E26004A7D07 /* NetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE510A219730E26004A7D07 /* NetworkViewController.swift */; };
 		FBE5EC4B197C8C2200143C03 /* Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB45420F197C8772000852C5 /* Future.swift */; };
 		FBE5EC4C197C8C2500143C03 /* ExecutionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB454211197C882C000852C5 /* ExecutionContext.swift */; };
@@ -51,19 +50,19 @@
 			remoteGlobalIDString = FB037EF0196EEF98006E383D;
 			remoteInfo = OScope;
 		};
-		FBD289AF1980AA1A00E549F8 /* PBXContainerItemProxy */ = {
+		FB40D32019829BB400C71CD2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = FBD289AA1980AA1900E549F8 /* Signal.xcodeproj */;
+			containerPortal = FB40D31919829BB400C71CD2 /* SignalKit.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = FBD2898E1980AA1900E549F8;
-			remoteInfo = Signal;
+			remoteGlobalIDString = FB40D2FD19829BB300C71CD2;
+			remoteInfo = SignalKit;
 		};
-		FBD289B11980AA1A00E549F8 /* PBXContainerItemProxy */ = {
+		FB40D32219829BB400C71CD2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = FBD289AA1980AA1900E549F8 /* Signal.xcodeproj */;
+			containerPortal = FB40D31919829BB400C71CD2 /* SignalKit.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = FBD289991980AA1900E549F8;
-			remoteInfo = SignalTests;
+			remoteGlobalIDString = FB40D30819829BB400C71CD2;
+			remoteInfo = SignalKitTests;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -83,6 +82,7 @@
 		FB20A62119789E9800BD0551 /* FFTAccelerate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FFTAccelerate.cpp; path = OScope/FFTAccelerate.cpp; sourceTree = "<group>"; };
 		FB20A62319789EBA00BD0551 /* FFTAccelerate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FFTAccelerate.h; path = OScope/FFTAccelerate.h; sourceTree = "<group>"; };
 		FB23614F197094210020FD9C /* lcm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = lcm.swift; path = OScope/lcm.swift; sourceTree = "<group>"; };
+		FB40D31919829BB400C71CD2 /* SignalKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SignalKit.xcodeproj; path = SignalKit/SignalKit.xcodeproj; sourceTree = "<group>"; };
 		FB45420F197C8772000852C5 /* Future.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Future.swift; sourceTree = "<group>"; };
 		FB454211197C882C000852C5 /* ExecutionContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecutionContext.swift; sourceTree = "<group>"; };
 		FB454213197C8832000852C5 /* GCDExecutionContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDExecutionContext.swift; sourceTree = "<group>"; };
@@ -94,7 +94,6 @@
 		FBA9D8641977665700EC6BD1 /* OScope-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OScope-Bridging-Header.h"; sourceTree = "<group>"; };
 		FBB7D7E01972DEF900D1D3D4 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		FBC167501977FCAD002F65A2 /* KnobControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KnobControl.swift; sourceTree = "<group>"; };
-		FBD289AA1980AA1900E549F8 /* Signal.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Signal.xcodeproj; path = Signal/Signal.xcodeproj; sourceTree = "<group>"; };
 		FBE510A219730E26004A7D07 /* NetworkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkViewController.swift; sourceTree = "<group>"; };
 		FBF86CAD1973DBBC0090AD78 /* NetworkNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NetworkNode.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FBF86CB11973E2860090AD78 /* Lambda.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lambda.swift; sourceTree = "<group>"; };
@@ -105,7 +104,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FBD289BF1980AAED00E549F8 /* Signal.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,7 +120,7 @@
 		FB037EE8196EEF98006E383D = {
 			isa = PBXGroup;
 			children = (
-				FBD289AA1980AA1900E549F8 /* Signal.xcodeproj */,
+				FB40D31919829BB400C71CD2 /* SignalKit.xcodeproj */,
 				FBF86CB11973E2860090AD78 /* Lambda.swift */,
 				FB45420F197C8772000852C5 /* Future.swift */,
 				FB454211197C882C000852C5 /* ExecutionContext.swift */,
@@ -185,6 +183,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		FB40D31A19829BB400C71CD2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FB40D32119829BB400C71CD2 /* SignalKit.framework */,
+				FB40D32319829BB400C71CD2 /* SignalKitTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		FB4A8187197ACD0800BB0D72 /* Unused */ = {
 			isa = PBXGroup;
 			children = (
@@ -225,15 +232,6 @@
 				FBE510A219730E26004A7D07 /* NetworkViewController.swift */,
 			);
 			name = ViewControllers;
-			sourceTree = "<group>";
-		};
-		FBD289AB1980AA1900E549F8 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				FBD289B01980AA1A00E549F8 /* Signal.framework */,
-				FBD289B21980AA1A00E549F8 /* SignalTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		FBE510A119730773004A7D07 /* Model */ = {
@@ -314,8 +312,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = FBD289AB1980AA1900E549F8 /* Products */;
-					ProjectRef = FBD289AA1980AA1900E549F8 /* Signal.xcodeproj */;
+					ProductGroup = FB40D31A19829BB400C71CD2 /* Products */;
+					ProjectRef = FB40D31919829BB400C71CD2 /* SignalKit.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -327,18 +325,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		FBD289B01980AA1A00E549F8 /* Signal.framework */ = {
+		FB40D32119829BB400C71CD2 /* SignalKit.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			path = Signal.framework;
-			remoteRef = FBD289AF1980AA1A00E549F8 /* PBXContainerItemProxy */;
+			path = SignalKit.framework;
+			remoteRef = FB40D32019829BB400C71CD2 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		FBD289B21980AA1A00E549F8 /* SignalTests.xctest */ = {
+		FB40D32319829BB400C71CD2 /* SignalKitTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = SignalTests.xctest;
-			remoteRef = FBD289B11980AA1A00E549F8 /* PBXContainerItemProxy */;
+			path = SignalKitTests.xctest;
+			remoteRef = FB40D32219829BB400C71CD2 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Signal
+import SignalKit
 
 class RootViewController: UIViewController {
 

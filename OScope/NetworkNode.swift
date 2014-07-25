@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Rob Napier. All rights reserved.
 //
 
-import Signal
+import SignalKit
 
 struct NetworkNode {
   let source: SignalSource
