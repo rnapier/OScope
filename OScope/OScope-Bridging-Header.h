@@ -6,4 +6,7 @@
 //  Copyright (c) 2014 Rob Napier. All rights reserved.
 //
 
-#import "RWRotationGestureRecognizer.h"
+// FIXME: This shouldn't be needed. radar:17410323 (6beta4)
+// https://devforums.apple.com/message/991538#991538
+@import UIKit.UIGestureRecognizerSubclass;
+

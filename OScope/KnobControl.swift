@@ -32,8 +32,8 @@ class KnobControl : UIControl {
 
   let continuous = true
 
-  lazy var gestureRecognizer : RWRotationGestureRecognizer = {
-    return RWRotationGestureRecognizer(target: self, action: "handleGesture:")
+  lazy var gestureRecognizer : RotationGestureRecognizer = {
+    return RotationGestureRecognizer(target: self, action: "handleGesture:")
     }()
 
   let knobRenderer = KnobRenderer()
@@ -92,7 +92,7 @@ class KnobControl : UIControl {
     }
   }
 
-  func handleGesture(gesture:RWRotationGestureRecognizer) {
+  func handleGesture(gesture:RotationGestureRecognizer) {
     // Mid-point angle
     let midPointAngle = (2.0 * CGFloat(M_PI) + self.startAngle - self.endAngle) / 2.0 + self.endAngle
 

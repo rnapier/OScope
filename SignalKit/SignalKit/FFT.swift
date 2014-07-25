@@ -9,40 +9,36 @@
 import Accelerate
 
 func spectrumForValues(signal: [Double]) -> [Double] {
-  let Log2N = Int(log2(Double(signal.count)))
-  let N = 1 << Log2N
+  // Find the largest power of two in our samples
+  let log2N = vDSP_Length(log2(Double(signal.count)))
+  let n = 1 << log2N
+  let fftLength = n / 2
 
-  var fft = [Double](count:N, repeatedValue:0.0)
+  // This is expensive; factor it out if you need to call this function a lot
+  let fftsetup = create_fftsetupD(log2N, FFTRadix(kFFTRadix2))
 
-  var mFFTNormFactor:Double = 1.0 / Double(2*N)
-  let mFFTLength = N/2;
+  // Generate a split complex vector from the real data
+  var realp = [Double](count:Int(fftLength), repeatedValue:0.0)
+  var imagp = realp
+  var splitComplex = DSPDoubleSplitComplex(realp:&realp, imagp:&imagp)
+  ctozD(ConstUnsafePointer(signal), 2, &splitComplex, 1, fftLength)
 
-  let mSpectrumAnalysis = create_fftsetupD(vDSP_Length(Log2N), FFTRadix(kFFTRadix2))
+  // Take the fft
+  fft_zripD(fftsetup, &splitComplex, 1, log2N, FFTDirection(kFFTDirection_Forward))
 
-  //Generate a split complex vector from the real data
-  var realp = [Double](count:mFFTLength, repeatedValue:0.0)
-  var imagp = [Double](count:mFFTLength, repeatedValue:0.0)
+  // Normalize
+  var normFactor = 1.0 / Double(2 * n)
+  vsmulD(splitComplex.realp, 1, &normFactor, splitComplex.realp, 1, fftLength)
+  vsmulD(splitComplex.imagp, 1, &normFactor, splitComplex.imagp, 1, fftLength)
 
-  var mDspSplitComplex = DSPDoubleSplitComplex(realp:&realp, imagp:&imagp)
-  ctozD(ConstUnsafePointer(signal), 2, &mDspSplitComplex, 1, vDSP_Length(mFFTLength))
+  // Zero out Nyquist
+  splitComplex.imagp[0] = 0.0
 
-  //Take the fft and scale appropriately
-  fft_zripD(mSpectrumAnalysis, &mDspSplitComplex, 1, vDSP_Length(Log2N), FFTDirection(kFFTDirection_Forward))
+  // Convert complex FFT to magnitude
+  var fft = [Double](count:Int(n), repeatedValue:0.0)
+  vDSP_zvmagsD(&splitComplex, 1, &fft, 1, fftLength)
 
-  vsmulD(mDspSplitComplex.realp, 1, &mFFTNormFactor, mDspSplitComplex.realp, 1, vDSP_Length(mFFTLength))
-  vsmulD(mDspSplitComplex.imagp, 1, &mFFTNormFactor, mDspSplitComplex.imagp, 1, vDSP_Length(mFFTLength))
-
-  //Zero out the nyquist value
-  mDspSplitComplex.imagp[0] = 0.0;
-
-  //Convert the fft data to dB
-  vDSP_zvmagsD(&mDspSplitComplex, 1, &fft, 1, vDSP_Length(mFFTLength))
-
-  // FIXME: Converting to dB actually makes the graph confusing.
-  //In order to avoid taking log10 of zero, an adjusting factor is added in to make the minimum value equal -128dB
-  //  vDSP_vsadd(outFFTData, 1, &kAdjust0DB, outFFTData, 1, mFFTLength);
-  //  Float32 one = 1;
-  //  vDSP_vdbcon(outFFTData, 1, &one, outFFTData, 1, mFFTLength, 0);
-  destroy_fftsetupD(mSpectrumAnalysis)
+  // Cleanup
+  destroy_fftsetupD(fftsetup)
   return fft
 }

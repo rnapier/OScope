@@ -15,16 +15,15 @@
 		FB037F18196EF194006E383D /* ScopeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB037F17196EF194006E383D /* ScopeViewController.swift */; };
 		FB037F1A196EF1AA006E383D /* SignalVisualizerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB037F19196EF1AA006E383D /* SignalVisualizerView.swift */; };
 		FB20A61E197824B500BD0551 /* KnobRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB20A61D197824B500BD0551 /* KnobRenderer.swift */; };
+		FB40D3401982C53700C71CD2 /* RotationGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB40D33F1982C53700C71CD2 /* RotationGestureRecognizer.swift */; };
 		FB454210197C8772000852C5 /* Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB45420F197C8772000852C5 /* Future.swift */; };
 		FB454212197C882C000852C5 /* ExecutionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB454211197C882C000852C5 /* ExecutionContext.swift */; };
 		FB454214197C8832000852C5 /* GCDExecutionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB454213197C8832000852C5 /* GCDExecutionContext.swift */; };
-		FB4A8186197AC5F700BB0D72 /* RWRotationGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA9D85D1977659100EC6BD1 /* RWRotationGestureRecognizer.m */; };
 		FB6B2B201975C0BE00B57828 /* NetworkNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF86CAD1973DBBC0090AD78 /* NetworkNode.swift */; };
 		FBA8768319761D7300362199 /* NetworkNodeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA8768219761D7300362199 /* NetworkNodeLayout.swift */; };
 		FBA8768419762ABF00362199 /* NetworkNodeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA8768219761D7300362199 /* NetworkNodeLayout.swift */; };
 		FBA876861976B2DD00362199 /* NetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA876851976B2DD00362199 /* NetworkView.swift */; };
 		FBA9D85719774A3F00EC6BD1 /* HighlightButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA9D85619774A3F00EC6BD1 /* HighlightButton.swift */; };
-		FBA9D8601977659100EC6BD1 /* RWRotationGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA9D85D1977659100EC6BD1 /* RWRotationGestureRecognizer.m */; };
 		FBC167511977FCAD002F65A2 /* KnobControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC167501977FCAD002F65A2 /* KnobControl.swift */; };
 		FBE510A319730E26004A7D07 /* NetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE510A219730E26004A7D07 /* NetworkViewController.swift */; };
 		FBE5EC4B197C8C2200143C03 /* Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB45420F197C8772000852C5 /* Future.swift */; };
@@ -90,14 +89,13 @@
 		FB20A62319789EBA00BD0551 /* FFTAccelerate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FFTAccelerate.h; path = OScope/FFTAccelerate.h; sourceTree = "<group>"; };
 		FB23614F197094210020FD9C /* lcm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = lcm.swift; path = OScope/lcm.swift; sourceTree = "<group>"; };
 		FB40D31919829BB400C71CD2 /* SignalKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SignalKit.xcodeproj; path = SignalKit/SignalKit.xcodeproj; sourceTree = "<group>"; };
+		FB40D33F1982C53700C71CD2 /* RotationGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotationGestureRecognizer.swift; sourceTree = "<group>"; };
 		FB45420F197C8772000852C5 /* Future.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Future.swift; sourceTree = "<group>"; };
 		FB454211197C882C000852C5 /* ExecutionContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecutionContext.swift; sourceTree = "<group>"; };
 		FB454213197C8832000852C5 /* GCDExecutionContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDExecutionContext.swift; sourceTree = "<group>"; };
 		FBA8768219761D7300362199 /* NetworkNodeLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkNodeLayout.swift; sourceTree = "<group>"; };
 		FBA876851976B2DD00362199 /* NetworkView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkView.swift; sourceTree = "<group>"; };
 		FBA9D85619774A3F00EC6BD1 /* HighlightButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightButton.swift; sourceTree = "<group>"; };
-		FBA9D85C1977659100EC6BD1 /* RWRotationGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RWRotationGestureRecognizer.h; path = "../../../src/RW-KnobControl/KnobControl/RWRotationGestureRecognizer.h"; sourceTree = "<group>"; };
-		FBA9D85D1977659100EC6BD1 /* RWRotationGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RWRotationGestureRecognizer.m; path = "../../../src/RW-KnobControl/KnobControl/RWRotationGestureRecognizer.m"; sourceTree = "<group>"; };
 		FBA9D8641977665700EC6BD1 /* OScope-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OScope-Bridging-Header.h"; sourceTree = "<group>"; };
 		FBB7D7E01972DEF900D1D3D4 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		FBC167501977FCAD002F65A2 /* KnobControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KnobControl.swift; sourceTree = "<group>"; };
@@ -222,8 +220,7 @@
 			children = (
 				FBC167501977FCAD002F65A2 /* KnobControl.swift */,
 				FB20A61D197824B500BD0551 /* KnobRenderer.swift */,
-				FBA9D85C1977659100EC6BD1 /* RWRotationGestureRecognizer.h */,
-				FBA9D85D1977659100EC6BD1 /* RWRotationGestureRecognizer.m */,
+				FB40D33F1982C53700C71CD2 /* RotationGestureRecognizer.swift */,
 				FB037F19196EF1AA006E383D /* SignalVisualizerView.swift */,
 				FBA876851976B2DD00362199 /* NetworkView.swift */,
 				FBA9D85619774A3F00EC6BD1 /* HighlightButton.swift */,
@@ -377,8 +374,8 @@
 				FBA8768319761D7300362199 /* NetworkNodeLayout.swift in Sources */,
 				FB037F18196EF194006E383D /* ScopeViewController.swift in Sources */,
 				FBC167511977FCAD002F65A2 /* KnobControl.swift in Sources */,
-				FBA9D8601977659100EC6BD1 /* RWRotationGestureRecognizer.m in Sources */,
 				FBF86CAE1973DBBC0090AD78 /* NetworkNode.swift in Sources */,
+				FB40D3401982C53700C71CD2 /* RotationGestureRecognizer.swift in Sources */,
 				FBF86CB21973E2860090AD78 /* Lambda.swift in Sources */,
 				FBA9D85719774A3F00EC6BD1 /* HighlightButton.swift in Sources */,
 				FB454210197C8772000852C5 /* Future.swift in Sources */,
@@ -398,7 +395,6 @@
 			files = (
 				FBF86CB31973E3910090AD78 /* Lambda.swift in Sources */,
 				FBA8768419762ABF00362199 /* NetworkNodeLayout.swift in Sources */,
-				FB4A8186197AC5F700BB0D72 /* RWRotationGestureRecognizer.m in Sources */,
 				FBE5EC4D197C8C2800143C03 /* GCDExecutionContext.swift in Sources */,
 				FB6B2B201975C0BE00B57828 /* NetworkNode.swift in Sources */,
 				FBE5EC4C197C8C2500143C03 /* ExecutionContext.swift in Sources */,

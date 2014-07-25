@@ -8,6 +8,7 @@
 
 // Based on RWKnobControl (https://github.com/sammyd/RW-KnobControl)
 
+import UIKit
 import QuartzCore
 
 class KnobRenderer {
