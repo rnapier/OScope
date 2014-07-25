@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SignalKit
 
 public enum VisualizerScale {
   case Absolute(Float)
@@ -53,7 +54,7 @@ public struct SignalVisualizer {
 public extension SignalVisualizer {
   init(source: SignalSource, domain: VisualizerDomain, frame: CGRect, sampleRate: SignalFrequency, yScale: VisualizerScale) {
 
-    let start = 0.seconds
+    let start:SignalTime = 0.seconds
     let end = Double(CGRectGetWidth(frame)) / sampleRate
 
     let samples = SignalSampleTimes(
@@ -106,7 +107,7 @@ func pathWithValues(values:[CGFloat]) -> UIBezierPath {
 }
 
 func calculateAutomaticYScale(#values:[CGFloat]) -> CGFloat {
-  return 1/values.map(abs).reduce(1e-9, combine: max)
+  return 1/values.map(abs).reduce(CGFloat(DBL_EPSILON), combine: max) // FIXME: DBL_EPSILON could become 0 if CGFloat is Float
 }
 
 func pathTransform(#frame: CGRect, #yScale:VisualizerScale, #values:[CGFloat]) -> CGAffineTransform {

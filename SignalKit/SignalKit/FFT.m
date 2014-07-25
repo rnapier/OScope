@@ -14,40 +14,41 @@ NSArray *SpectrumForValues(NSArray *samples) {
   int N = 1u << Log2N;
   int Stride = 1;
 
-  Float32 *signal = (float*)calloc(1, N * Stride * sizeof *signal);
-  Float32 *fft = (float*)calloc(1, N * sizeof *fft);
+  double *signal = (double*)calloc(1, N * Stride * sizeof *signal);
+  double *fft = (double*)calloc(1, N * sizeof *fft);
 
   //Fill Input Array
   for (int i=0; i < N; i++) {
-    signal[i] = [samples[i] floatValue];
+    signal[i] = [samples[i] doubleValue];
   }
 
   UInt32 inMaxFramesPerSlice = N;
-  Float32  mFFTNormFactor = 1.0/(2*inMaxFramesPerSlice);
+  double  mFFTNormFactor = 1.0/(2*inMaxFramesPerSlice);
   UInt32 mFFTLength = inMaxFramesPerSlice/2;
-  UInt32 mLog2N = (int)ceilf(log2f(inMaxFramesPerSlice));
+  UInt32 mLog2N = Log2N; // (int)ceilf(log2f(inMaxFramesPerSlice));
 
-  DSPSplitComplex mDspSplitComplex;
-  mDspSplitComplex.realp = (Float32*) calloc(mFFTLength,sizeof(Float32));
-  mDspSplitComplex.imagp = (Float32*) calloc(mFFTLength, sizeof(Float32));
-  FFTSetup mSpectrumAnalysis = vDSP_create_fftsetup(mLog2N, kFFTRadix2);
+  DSPDoubleSplitComplex mDspSplitComplex;
+  mDspSplitComplex.realp = (double*) calloc(mFFTLength,sizeof(double));
+  mDspSplitComplex.imagp = (double*) calloc(mFFTLength, sizeof(double));
+  FFTSetupD mSpectrumAnalysis = vDSP_create_fftsetupD(mLog2N, kFFTRadix2);
 
-  Float32 *inAudioData = signal;
-  Float32 *outFFTData = fft;
+  double *inAudioData = signal;
+  double *outFFTData = fft;
 
   //Generate a split complex vector from the real data
-  vDSP_ctoz((COMPLEX *)inAudioData, 2, &mDspSplitComplex, 1, mFFTLength);
+  vDSP_ctozD((DSPDoubleComplex *)inAudioData, 2, &mDspSplitComplex, 1, mFFTLength);
 
   //Take the fft and scale appropriately
-  vDSP_fft_zrip(mSpectrumAnalysis, &mDspSplitComplex, 1, mLog2N, kFFTDirection_Forward);
-  vDSP_vsmul(mDspSplitComplex.realp, 1, &mFFTNormFactor, mDspSplitComplex.realp, 1, mFFTLength);
-  vDSP_vsmul(mDspSplitComplex.imagp, 1, &mFFTNormFactor, mDspSplitComplex.imagp, 1, mFFTLength);
+  vDSP_fft_zripD(mSpectrumAnalysis, &mDspSplitComplex, 1, mLog2N, kFFTDirection_Forward);
+
+  vDSP_vsmulD(mDspSplitComplex.realp, 1, &mFFTNormFactor, mDspSplitComplex.realp, 1, mFFTLength);
+  vDSP_vsmulD(mDspSplitComplex.imagp, 1, &mFFTNormFactor, mDspSplitComplex.imagp, 1, mFFTLength);
 
   //Zero out the nyquist value
   mDspSplitComplex.imagp[0] = 0.0;
 
   //Convert the fft data to dB
-  vDSP_zvmags(&mDspSplitComplex, 1, outFFTData, 1, mFFTLength);
+  vDSP_zvmagsD(&mDspSplitComplex, 1, outFFTData, 1, mFFTLength);
 
   // FIXME: Converting to dB actually makes the graph confusing.
   //In order to avoid taking log10 of zero, an adjusting factor is added in to make the minimum value equal -128dB
@@ -55,7 +56,7 @@ NSArray *SpectrumForValues(NSArray *samples) {
   //  Float32 one = 1;
   //  vDSP_vdbcon(outFFTData, 1, &one, outFFTData, 1, mFFTLength, 0);
 
-  vDSP_destroy_fftsetup(mSpectrumAnalysis);
+  vDSP_destroy_fftsetupD(mSpectrumAnalysis);
   free (mDspSplitComplex.realp);
   free (mDspSplitComplex.imagp);
 
