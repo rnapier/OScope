@@ -10,9 +10,6 @@
 		FB40D30319829BB300C71CD2 /* SignalKit.h in Headers */ = {isa = PBXBuildFile; fileRef = FB40D30219829BB300C71CD2 /* SignalKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FB40D30919829BB400C71CD2 /* SignalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB40D2FD19829BB300C71CD2 /* SignalKit.framework */; };
 		FB40D31019829BB400C71CD2 /* SignalKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB40D30F19829BB400C71CD2 /* SignalKitTests.swift */; };
-		FB40D32C19829BDB00C71CD2 /* FFT.h in Headers */ = {isa = PBXBuildFile; fileRef = FB40D32519829BDB00C71CD2 /* FFT.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FB40D32D19829BDB00C71CD2 /* FFT.m in Sources */ = {isa = PBXBuildFile; fileRef = FB40D32619829BDB00C71CD2 /* FFT.m */; };
-		FB40D32E19829BDB00C71CD2 /* FFT.m in Sources */ = {isa = PBXBuildFile; fileRef = FB40D32619829BDB00C71CD2 /* FFT.m */; };
 		FB40D32F19829BDB00C71CD2 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB40D32719829BDB00C71CD2 /* Sample.swift */; };
 		FB40D33019829BDB00C71CD2 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB40D32719829BDB00C71CD2 /* Sample.swift */; };
 		FB40D33119829BDB00C71CD2 /* SampleTimes.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB40D32819829BDB00C71CD2 /* SampleTimes.swift */; };
@@ -23,6 +20,8 @@
 		FB40D33619829BDB00C71CD2 /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB40D32A19829BDB00C71CD2 /* Time.swift */; };
 		FB40D33719829BDB00C71CD2 /* Visualizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB40D32B19829BDB00C71CD2 /* Visualizer.swift */; };
 		FB40D33819829BDB00C71CD2 /* Visualizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB40D32B19829BDB00C71CD2 /* Visualizer.swift */; };
+		FB40D33C1982AA3700C71CD2 /* FFT.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB40D33B1982AA3700C71CD2 /* FFT.swift */; };
+		FB40D33D1982AA3700C71CD2 /* FFT.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB40D33B1982AA3700C71CD2 /* FFT.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,13 +42,12 @@
 		FB40D30E19829BB400C71CD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FB40D30F19829BB400C71CD2 /* SignalKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalKitTests.swift; sourceTree = "<group>"; };
 		FB40D32419829BDB00C71CD2 /* SignalKitTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SignalKitTests-Bridging-Header.h"; sourceTree = "<group>"; };
-		FB40D32519829BDB00C71CD2 /* FFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFT.h; sourceTree = "<group>"; };
-		FB40D32619829BDB00C71CD2 /* FFT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFT.m; sourceTree = "<group>"; };
 		FB40D32719829BDB00C71CD2 /* Sample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sample.swift; sourceTree = "<group>"; };
 		FB40D32819829BDB00C71CD2 /* SampleTimes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleTimes.swift; sourceTree = "<group>"; };
 		FB40D32919829BDB00C71CD2 /* Source.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Source.swift; sourceTree = "<group>"; };
 		FB40D32A19829BDB00C71CD2 /* Time.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
 		FB40D32B19829BDB00C71CD2 /* Visualizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Visualizer.swift; sourceTree = "<group>"; };
+		FB40D33B1982AA3700C71CD2 /* FFT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFT.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,9 +90,8 @@
 		FB40D2FF19829BB300C71CD2 /* SignalKit */ = {
 			isa = PBXGroup;
 			children = (
+				FB40D33B1982AA3700C71CD2 /* FFT.swift */,
 				FB40D30219829BB300C71CD2 /* SignalKit.h */,
-				FB40D32519829BDB00C71CD2 /* FFT.h */,
-				FB40D32619829BDB00C71CD2 /* FFT.m */,
 				FB40D32719829BDB00C71CD2 /* Sample.swift */,
 				FB40D32819829BDB00C71CD2 /* SampleTimes.swift */,
 				FB40D32919829BDB00C71CD2 /* Source.swift */,
@@ -139,7 +136,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB40D30319829BB300C71CD2 /* SignalKit.h in Headers */,
-				FB40D32C19829BDB00C71CD2 /* FFT.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,9 +237,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB40D33319829BDB00C71CD2 /* Source.swift in Sources */,
-				FB40D32D19829BDB00C71CD2 /* FFT.m in Sources */,
 				FB40D33519829BDB00C71CD2 /* Time.swift in Sources */,
 				FB40D33119829BDB00C71CD2 /* SampleTimes.swift in Sources */,
+				FB40D33C1982AA3700C71CD2 /* FFT.swift in Sources */,
 				FB40D32F19829BDB00C71CD2 /* Sample.swift in Sources */,
 				FB40D33719829BDB00C71CD2 /* Visualizer.swift in Sources */,
 			);
@@ -256,7 +252,7 @@
 				FB40D33819829BDB00C71CD2 /* Visualizer.swift in Sources */,
 				FB40D33619829BDB00C71CD2 /* Time.swift in Sources */,
 				FB40D33219829BDB00C71CD2 /* SampleTimes.swift in Sources */,
-				FB40D32E19829BDB00C71CD2 /* FFT.m in Sources */,
+				FB40D33D1982AA3700C71CD2 /* FFT.swift in Sources */,
 				FB40D33019829BDB00C71CD2 /* Sample.swift in Sources */,
 				FB40D33419829BDB00C71CD2 /* Source.swift in Sources */,
 				FB40D31019829BB400C71CD2 /* SignalKitTests.swift in Sources */,
@@ -446,6 +442,7 @@
 				FB40D31519829BB400C71CD2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FB40D31619829BB400C71CD2 /* Build configuration list for PBXNativeTarget "SignalKitTests" */ = {
 			isa = XCConfigurationList;
@@ -454,6 +451,7 @@
 				FB40D31819829BB400C71CD2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

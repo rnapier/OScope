@@ -88,7 +88,8 @@ func valuesForSource(source: SignalSource, #sampleTimes:SignalSampleTimes, #doma
     let n2Length = 1 << (Int(log2f(Float(realLength))) + 2)
     let n2Interval = SignalSampleTimes(start: sampleTimes.start, end: n2Length * sampleTimes.stride, sampleRate: sampleTimes.sampleRate)
     let signal = map(n2Interval) { source.value($0).volts }
-    return SpectrumForValues(signal) as [CGFloat]
+
+    return map(spectrumForValues(signal)) { CGFloat($0) }
   }
 }
 

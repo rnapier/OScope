@@ -15,6 +15,3 @@ FOUNDATION_EXPORT double SignalKitVersionNumber;
 FOUNDATION_EXPORT const unsigned char SignalKitVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <SignalKit/PublicHeader.h>
-
-
-#import <SignalKit/FFT.h>
