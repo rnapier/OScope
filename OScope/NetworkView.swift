@@ -41,14 +41,19 @@ class NetworkView: UIView {
 
   func addNodeView(layout: NetworkNodeLayout) {
     let nodeView = UIView(frame: layout.frame)
+
     let nodeLayer = CAShapeLayer()
     nodeLayer.frame = nodeView.bounds // Fill the view with the layer
     nodeLayer.bounds = nodeView.frame // but put the layer into the same coordinate space as the view
     nodeLayer.path = layout.nodePath.CGPath
     nodeLayer.fillColor = UIColor.clearColor().CGColor
     nodeLayer.strokeColor = UIColor.blackColor().CGColor
-
     nodeView.layer.addSublayer(nodeLayer)
+
+    let g = UITapGestureRecognizer(target: self, action: "doubleTapNode:")
+    g.numberOfTapsRequired = 2
+    nodeView.addGestureRecognizer(g);
+
     self.addSubview(nodeView)
     self.nodeViews += nodeView
   }
@@ -61,6 +66,10 @@ class NetworkView: UIView {
     connectionLayer.strokeColor = UIColor.blackColor().CGColor
     self.layer.addSublayer(connectionLayer)
     self.connectionLayers += connectionLayer
+  }
+
+  func doubleTapNode(g: UITapGestureRecognizer) {
+
   }
 }
 
