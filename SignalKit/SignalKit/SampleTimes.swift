@@ -29,10 +29,10 @@ public struct SignalSampleTimes : Collection {
     }
   }
 
-  let start: SignalTime
-  let end: SignalTime
-  let sampleRate : SignalFrequency
-  var stride: SignalTime
+  public let start: SignalTime
+  public let end: SignalTime
+  public let sampleRate : SignalFrequency
+  public let stride: SignalTime
 
   public init(start: SignalTime, end: SignalTime, sampleRate: SignalFrequency) {
     self.start = start
