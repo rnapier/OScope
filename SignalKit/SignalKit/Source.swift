@@ -9,24 +9,22 @@
 import Darwin
 
 public class SignalSource {
-  public let inputs = [SignalSource]()
+  public var inputs : [SignalSource] { return [] }
   public func value(time: SignalTime) -> SignalSample { return 0*Volt }
-
-  public init() {}
-
-  public init(inputs: [SignalSource]) {
-    self.inputs = inputs
-  }
 }
 
 public class MixerSource : SignalSource {
   public init(inputs: [SignalSource]) {
-    super.init(inputs: inputs)
+    self._inputs = inputs
   }
 
+  public override var inputs : [SignalSource] { return self._inputs }
+
   public override func value(time: SignalTime) -> SignalSample {
-    return inputs.map{ $0.value(time) }.reduce(0*Volt,+)
+    return self.inputs.map{ $0.value(time) }.reduce(0*Volt, +)
   }
+
+  private let _inputs : [SignalSource]
 }
 
 public class ConstantSource : SignalSource {
@@ -34,7 +32,6 @@ public class ConstantSource : SignalSource {
 
   public init(value: SignalSample) {
     self.value = value
-    super.init()
   }
 
   public override func value(time: SignalTime) -> SignalSample {
@@ -53,7 +50,6 @@ public class SineSource : SignalSource {
     self.frequency = frequency
     self.amplitude = amplitude
     self.phase = phase
-    super.init()
   }
 
   public override func value(time: SignalTime) -> SignalSample {
