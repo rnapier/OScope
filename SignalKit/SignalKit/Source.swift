@@ -8,40 +8,43 @@
 
 import Darwin
 
-public protocol SignalSource {
-  var inputs:[SignalSource] { get }
-  func value(time: SignalTime) -> SignalSample
-}
+public class SignalSource {
+  public let inputs = [SignalSource]()
+  public func value(time: SignalTime) -> SignalSample { return 0*Volt }
 
-public struct MixerSource : SignalSource {
-  public let inputs:[SignalSource]
-
-  public func value(time: SignalTime) -> SignalSample {
-    return inputs.map{ $0.value(time) }.reduce(0.volt,+)
-  }
+  public init() {}
 
   public init(inputs: [SignalSource]) {
     self.inputs = inputs
   }
 }
 
-public struct ConstantSource : SignalSource {
-  public init(value: SignalSample) {
-    self.value = value
+public class MixerSource : SignalSource {
+  public init(inputs: [SignalSource]) {
+    super.init(inputs: inputs)
   }
 
-  let value : SignalSample
+  public override func value(time: SignalTime) -> SignalSample {
+    return inputs.map{ $0.value(time) }.reduce(0*Volt,+)
+  }
+}
 
-  public var inputs = [SignalSource]()
+public class ConstantSource : SignalSource {
+  public let value : SignalSample
 
-  public func value(time: SignalTime) -> SignalSample {
+  public init(value: SignalSample) {
+    self.value = value
+    super.init()
+  }
+
+  public override func value(time: SignalTime) -> SignalSample {
     return self.value
   }
 }
 
 public typealias Radians = Double
 
-public struct SineSource : SignalSource {
+public class SineSource : SignalSource {
   let frequency  : SignalFrequency
   let amplitude  : SignalSample
   let phase      : Radians
@@ -50,11 +53,10 @@ public struct SineSource : SignalSource {
     self.frequency = frequency
     self.amplitude = amplitude
     self.phase = phase
+    super.init()
   }
 
-  public let inputs = [SignalSource]()
-
-  public func value(time: SignalTime) -> SignalSample {
+  public override func value(time: SignalTime) -> SignalSample {
     let tau = Double(2 * M_PI)
     let ft = self.frequency * time
     let p = self.phase

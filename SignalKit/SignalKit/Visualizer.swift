@@ -54,7 +54,7 @@ public struct SignalVisualizer {
 public extension SignalVisualizer {
   init(source: SignalSource, domain: VisualizerDomain, frame: CGRect, sampleRate: SignalFrequency, yScale: VisualizerScale) {
 
-    let start:SignalTime = 0.seconds
+    let start:SignalTime = 0*Second
     let end = Double(CGRectGetWidth(frame)) / sampleRate
 
     let samples = SignalSampleTimes(

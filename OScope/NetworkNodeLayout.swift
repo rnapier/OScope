@@ -27,7 +27,7 @@ struct NetworkNodeLayout {
 
   var nodePath: UIBezierPath {
     let path = UIBezierPath(rect:self.frame)
-    let v = SignalVisualizer(source: self.node.source, domain:.Time, frame:self.frame, sampleRate: 44100.hertz, yScale:.Automatic)
+    let v = SignalVisualizer(source: self.node.source, domain:.Time, frame:self.frame, sampleRate: 44100*Hertz, yScale:.Automatic)
     path.appendPath(v.path)
     return path
   }

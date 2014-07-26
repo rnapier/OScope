@@ -8,7 +8,7 @@
 
 import SignalKit
 
-struct NetworkNode {
+class NetworkNode {
   let source: SignalSource
   let layer: Int
   let offset: Int

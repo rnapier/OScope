@@ -41,7 +41,7 @@ class SignalVisualizerView: UIView {
 
   var source : SignalSource? {
   didSet {
-    self.visualizer = self.source.map{SignalVisualizer(source: $0, domain: self.domain, frame:self.bounds, sampleRate:44100.hertz, yScale:self.yScale)}
+    self.visualizer = self.source.map{SignalVisualizer(source: $0, domain: self.domain, frame:self.bounds, sampleRate:44100*Hertz, yScale:self.yScale)}
   }
   }
 
@@ -65,7 +65,7 @@ class SignalVisualizerView: UIView {
 
   var domain : VisualizerDomain = .Time {
   didSet {
-    self.visualizer = self.source.map{SignalVisualizer(source: $0, domain: self.domain, frame:self.bounds, sampleRate:44100.hertz, yScale:self.yScale)}
+    self.visualizer = self.source.map{SignalVisualizer(source: $0, domain: self.domain, frame:self.bounds, sampleRate:44100*Hertz, yScale:self.yScale)}
   }
   }
 
