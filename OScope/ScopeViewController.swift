@@ -17,6 +17,8 @@ class ScopeViewController: UIViewController {
   @IBOutlet var yScaleAutoButton: HighlightButton!
   @IBOutlet var domainSwitch: UISwitch!
 
+  let yScaleDivisions = [0.1, 0.2, 0.5, 1, 2, 5, 10, 20]
+
   var yScale: VisualizerScale = .Automatic {
   didSet {
     self.signalVisualizerView.yScale = yScale

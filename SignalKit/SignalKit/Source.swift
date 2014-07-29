@@ -21,10 +21,6 @@ public class SignalSource {
 
   public let output : (SignalTime -> SignalSample)
 
-//  func outputForTimes(times: [SignalTime]) -> [SignalSample] {
-//    
-//  }
-
   public init(inputs: [SignalSource] = [], function: (SignalTime -> SignalSample)) {
     self.inputs = inputs
     self.output = function

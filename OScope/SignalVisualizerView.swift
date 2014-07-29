@@ -12,20 +12,27 @@ import SignalKit
 
 class SignalVisualizerView: UIView {
 
-  let signalLayer = CAShapeLayer()
+  let signalLayer = SignalLayer()
+  let axesLayer = CAShapeLayer()
   let gridLayer = CAShapeLayer()
 
   func setup() {
-    clipsToBounds = true
+    self.clipsToBounds = true
 
     self.signalLayer.frame = self.bounds
     self.signalLayer.strokeColor = UIColor.whiteColor().CGColor
-    self.signalLayer.path = self.flatLine().CGPath
     layer.addSublayer(self.signalLayer)
 
+    self.axesLayer.frame = self.bounds
+    self.axesLayer.path = self.axesPath().CGPath
+    self.axesLayer.strokeColor = UIColor(red: 0.6, green: 0.4, blue: 0.2, alpha: 0.66).CGColor
+    self.axesLayer.lineWidth = 3
+    self.layer.addSublayer(self.axesLayer)
+
     self.gridLayer.frame = self.bounds
-    self.gridLayer.path = self.axesPath().CGPath
-    self.gridLayer.strokeColor = UIColor(red: 0.6, green: 0.4, blue: 0.2, alpha: 0.5).CGColor
+    self.gridLayer.path = self.gridPath().CGPath
+    self.gridLayer.strokeColor = UIColor(red: 0.6, green: 0.4, blue: 0.2, alpha: 0.33).CGColor
+    self.gridLayer.contentsGravity = kCAGravityCenter
     self.layer.addSublayer(self.gridLayer)
   }
 
@@ -39,9 +46,20 @@ class SignalVisualizerView: UIView {
     self.setup()
   }
 
+  override var bounds : CGRect {
+  didSet {
+    self.signalLayer.frame = self.bounds
+    self.axesLayer.frame = self.bounds
+    self.axesLayer.path = self.axesPath().CGPath
+    self.gridLayer.frame = self.bounds
+    self.gridLayer.path = self.gridPath().CGPath
+    self.updateVisualizer()
+  }
+  }
+
   var source : SignalSource? {
   didSet {
-    self.visualizer = self.source.map{SignalVisualizer(source: $0, domain: self.domain, frame:self.bounds, sampleRate:44100*Hertz, yScale:self.yScale)}
+    self.updateVisualizer()
   }
   }
 
@@ -51,22 +69,42 @@ class SignalVisualizerView: UIView {
   }
   }
 
-  var visualizer : SignalVisualizer? {
-  didSet {
-    let newPath = self.visualizer?.path.CGPath
-    let animation = CABasicAnimation(keyPath: "path")
-    animation.duration = 0.3
-    animation.fromValue = signalLayer.path
-    animation.toValue = newPath
-    self.signalLayer.addAnimation(animation, forKey: "path")
-    self.signalLayer.path = newPath
-  }
+  private(set) var visualizer : SignalVisualizer? {
+  get { return self.signalLayer.visualizer }
+  set { self.signalLayer.visualizer = newValue }
   }
 
   var domain : VisualizerDomain = .Time {
   didSet {
-    self.visualizer = self.source.map{SignalVisualizer(source: $0, domain: self.domain, frame:self.bounds, sampleRate:44100*Hertz, yScale:self.yScale)}
+    self.updateVisualizer()
   }
+  }
+
+  func updateVisualizer() {
+    self.visualizer = self.source.map { SignalVisualizer(source: $0, domain: self.domain, frame:self.bounds, sampleRate:44100*Hertz, yScale:self.yScale) }
+  }
+
+  func gridPath() -> UIBezierPath {
+    let path = UIBezierPath()
+
+    let vertSpacing = CGRectGetHeight(self.bounds) / 8
+    let minX = CGRectGetMinX(self.bounds)
+    let maxX = CGRectGetMaxX(self.bounds)
+    for i in [1, 2, 3, 5, 6, 7] {
+      let y = vertSpacing * CGFloat(i)
+      path.moveToPoint(CGPointMake(minX, y))
+      path.addLineToPoint(CGPointMake(maxX, y))
+    }
+
+    let horizSpecing = CGRectGetWidth(self.bounds) / 12
+    let minY = CGRectGetMinY(self.bounds)
+    let maxY = CGRectGetMaxY(self.bounds)
+    for i in [1,2,3,4,5,7,8,9,10,11] {
+      let x = horizSpecing * CGFloat(i)
+      path.moveToPoint(CGPointMake(x, minY))
+      path.addLineToPoint(CGPointMake(x, maxY))
+    }
+    return path
   }
 
   func axesPath() -> UIBezierPath {
@@ -77,15 +115,26 @@ class SignalVisualizerView: UIView {
     path.moveToPoint(CGPointMake(CGRectGetMinX(bounds), CGRectGetMidY(bounds)))
     path.addLineToPoint(CGPointMake(CGRectGetMaxX(bounds), CGRectGetMidY(bounds)))
 
-    path.lineWidth = 3
+    path.lineWidth = 10
 
     return path
   }
+}
 
-  func flatLine() -> UIBezierPath {
-    let path = UIBezierPath()
-    path.moveToPoint(CGPointMake(CGRectGetMinX(bounds), CGRectGetMidY(bounds)))
-    path.addLineToPoint(CGPointMake(CGRectGetMaxX(bounds), CGRectGetMidY(bounds)))
-    return path
+
+class SignalLayer : CAShapeLayer {
+  var visualizer: SignalVisualizer? {
+  didSet {
+    self.setNeedsDisplay()
+  }
+  }
+  override func display() {
+    let newPath = self.visualizer?.path.CGPath
+    let animation = CABasicAnimation(keyPath: "path")
+    animation.duration = 0.3
+    animation.fromValue = self.path
+    animation.toValue = newPath
+    self.addAnimation(animation, forKey: "path")
+    self.path = newPath
   }
 }
