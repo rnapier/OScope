@@ -8,7 +8,7 @@
 
 import Accelerate
 
-func spectrumForValues(signal: [Double]) -> [Double] {
+internal func spectrumForValues(signal: [Double]) -> [Double] {
   // Find the largest power of two in our samples
   let log2N = vDSP_Length(log2(Double(signal.count)))
   let n = 1 << log2N

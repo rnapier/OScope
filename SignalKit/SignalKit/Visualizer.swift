@@ -6,8 +6,12 @@
 //  Copyright (c) 2014 Rob Napier. All rights reserved.
 //
 
+/*
+  A Visualizer creates visualization paths (UIBezierPath) for a
+  Signal within a frame (CGRect) in the time or frequency domains.
+*/
+
 import UIKit
-import SignalKit
 
 public enum VisualizerScale {
   case Absolute(Float)
@@ -78,22 +82,22 @@ public extension SignalVisualizer {
   }
 }
 
-func valuesForSource(source: SignalSource, #sampleTimes:SignalSampleTimes, #domain:VisualizerDomain) -> [CGFloat] {
+private func valuesForSource(source: SignalSource, #sampleTimes:SignalSampleTimes, #domain:VisualizerDomain) -> [CGFloat] {
   switch domain {
   case .Time:
-    return map(sampleTimes) { CGFloat(source.value($0).volts) }
+    return map(sampleTimes) { CGFloat(source.output($0).volts) }
 
   case .Frequency:
     let realLength = countElements(sampleTimes)
     let n2Length = 1 << (Int(log2f(Float(realLength))) + 2)
     let n2Interval = SignalSampleTimes(start: sampleTimes.start, end: n2Length * sampleTimes.stride, sampleRate: sampleTimes.sampleRate)
-    let signal = map(n2Interval) { source.value($0).volts }
+    let signal = map(n2Interval) { source.output($0).volts }
 
     return map(spectrumForValues(signal)) { CGFloat($0) }
   }
 }
 
-func pathWithValues(values:[CGFloat]) -> UIBezierPath {
+private func pathWithValues(values:[CGFloat]) -> UIBezierPath {
   let cycle = UIBezierPath()
   let valCount = values.count
 
@@ -107,11 +111,11 @@ func pathWithValues(values:[CGFloat]) -> UIBezierPath {
   return cycle
 }
 
-func calculateAutomaticYScale(#values:[CGFloat]) -> CGFloat {
+private func calculateAutomaticYScale(#values:[CGFloat]) -> CGFloat {
   return 1/values.map(abs).reduce(CGFloat(DBL_EPSILON), combine: max) // FIXME: DBL_EPSILON could become 0 if CGFloat is Float
 }
 
-func pathTransform(#frame: CGRect, #yScale:VisualizerScale, #values:[CGFloat]) -> CGAffineTransform {
+private func pathTransform(#frame: CGRect, #yScale:VisualizerScale, #values:[CGFloat]) -> CGAffineTransform {
   let height = CGRectGetHeight(frame)
   let yZero  = CGRectGetMidY(frame)
   let baseScale = -height/2

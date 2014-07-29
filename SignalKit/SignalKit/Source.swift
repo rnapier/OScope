@@ -9,32 +9,45 @@
 import Darwin
 
 /*
-A SignalSource provides values over time.
+  A Source provides values over time. It is just a function with
+  input Sources and an output Sample (a Sample is the value of a Source
+  at a Time). Samples are pull-driven; they do not generate (push) values.
+  They compute values when requested.
 */
+
+//TODO: Add output gain
 public class SignalSource {
   public let inputs : [SignalSource]
 
-  public let value : (SignalTime -> SignalSample)
+  public let output : (SignalTime -> SignalSample)
 
   public init(inputs: [SignalSource] = [], function: (SignalTime -> SignalSample)) {
     self.inputs = inputs
-    self.value = function
+    self.output = function
   }
 }
 
+/*
+  Mixers sum their inputs
+*/
+
+//TODO: Add input gain
 public class MixerSource : SignalSource {
   public init(inputs: [SignalSource]) {
     super.init(
       inputs: inputs,
       function: { time in
-        inputs.map{ $0.value(time) }.reduce(0*Volt, +)
+        inputs.map{ $0.output(time) }.reduce(0*Volt, +)
       }
     )
   }
 }
 
+/*
+  Constant sources are constant
+*/
 public class ConstantSource : SignalSource {
-  public var constantValue : SignalSample { return self.value(0*Second) }
+  public var constantValue : SignalSample { return self.output(0*Second) }
 
   public init(value: SignalSample) {
     super.init(
@@ -43,12 +56,16 @@ public class ConstantSource : SignalSource {
   }
 }
 
-public typealias Radians = Double
+/*
+  Sine sources generate a sine wave over time
+*/
+
+public typealias Radians = Double // FIXME: Is this helpful? It should probably be somewhere else.
 
 public class SineSource : SignalSource {
-  let frequency  : SignalFrequency
-  let amplitude  : SignalSample
-  let phase      : Radians
+  public let frequency  : SignalFrequency
+  public let amplitude  : SignalSample
+  public let phase      : Radians
 
   public init(frequency: SignalFrequency, amplitude:SignalSample, phase:Radians) {
     self.frequency = frequency
