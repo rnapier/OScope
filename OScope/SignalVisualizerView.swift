@@ -16,6 +16,9 @@ class SignalVisualizerView: UIView {
   let axesLayer = CAShapeLayer()
   let gridLayer = CAShapeLayer()
 
+  let verticalDivisions = 8
+  let horizontalDivisions = 12
+
   func setup() {
     self.clipsToBounds = true
 
@@ -87,19 +90,19 @@ class SignalVisualizerView: UIView {
   func gridPath() -> UIBezierPath {
     let path = UIBezierPath()
 
-    let vertSpacing = CGRectGetHeight(self.bounds) / 8
+    let vertSpacing = CGRectGetHeight(self.bounds) / CGFloat(self.verticalDivisions)
     let minX = CGRectGetMinX(self.bounds)
     let maxX = CGRectGetMaxX(self.bounds)
-    for i in [1, 2, 3, 5, 6, 7] {
+    for i in 1 ..< self.verticalDivisions {
       let y = vertSpacing * CGFloat(i)
       path.moveToPoint(CGPointMake(minX, y))
       path.addLineToPoint(CGPointMake(maxX, y))
     }
 
-    let horizSpecing = CGRectGetWidth(self.bounds) / 12
+    let horizSpecing = CGRectGetWidth(self.bounds) / CGFloat(self.horizontalDivisions)
     let minY = CGRectGetMinY(self.bounds)
     let maxY = CGRectGetMaxY(self.bounds)
-    for i in [1,2,3,4,5,7,8,9,10,11] {
+    for i in 1 ..< self.horizontalDivisions {
       let x = horizSpecing * CGFloat(i)
       path.moveToPoint(CGPointMake(x, minY))
       path.addLineToPoint(CGPointMake(x, maxY))
