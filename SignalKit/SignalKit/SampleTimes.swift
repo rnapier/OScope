@@ -9,7 +9,7 @@
 /*
   A collection of times we would like to sample.
 */
-// FIXME: It should be possible to build this with a Stride
+// FIXME: It should be possible to build this with a Stride but most of Strideable is private
 public struct SignalSampleTimes : Collection {
   typealias IndexType = Int
   public typealias GeneratorType = GeneratorOf<SignalTime>
