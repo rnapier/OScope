@@ -34,14 +34,12 @@ public struct SignalVisualizer {
 
   public var path: UIBezierPath {
   let path = self.basePath.copy() as UIBezierPath
-    let transform = pathTransform(frame:self.frame, yScale:self.yScale, values: self.values)
+    let transform = pathTransform(frame:self.frame, yScale:self.yScale, values:self.values)
     path.applyTransform(transform)
     return path
   }
 
-  public var automaticYScale : CGFloat {
-  return calculateAutomaticYScale(values:values)
-  }
+  public var automaticYScale : CGFloat { return calculateAutomaticYScale(values:self.values) }
 
   public func withYScale(newYScale:VisualizerScale) -> SignalVisualizer {
     return SignalVisualizer(

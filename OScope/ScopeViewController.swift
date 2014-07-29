@@ -12,12 +12,11 @@ import KnobControl
 
 class ScopeViewController: UIViewController {
 
-  @IBOutlet var signalVisualizerView : SignalVisualizerView!
-  @IBOutlet var yScaleKnob: KnobControl!
-  @IBOutlet var yScaleAutoButton: HighlightButton!
-  @IBOutlet var domainSwitch: UISwitch!
-
-  let yScaleDivisions = [0.1, 0.2, 0.5, 1, 2, 5, 10, 20]
+  @IBOutlet weak var signalVisualizerView : SignalVisualizerView!
+  @IBOutlet weak var yScaleKnob: KnobControl!
+  @IBOutlet weak var yScaleAutoButton: HighlightButton!
+  @IBOutlet weak var xScaleKnob: KnobControl!
+  @IBOutlet weak var domainSwitch: UISwitch!
 
   var yScale: VisualizerScale = .Automatic {
   didSet {
@@ -81,5 +80,8 @@ class ScopeViewController: UIViewController {
 
   @IBAction func performDomainSwitch(sender: AnyObject) {
     self.domain = self.domainSwitch.on ? .Frequency : .Time
+  }
+
+  @IBAction func xScaleChanged(sender: KnobControl) {
   }
 }

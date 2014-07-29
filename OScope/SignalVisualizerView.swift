@@ -124,7 +124,6 @@ class SignalVisualizerView: UIView {
   }
 }
 
-
 class SignalLayer : CAShapeLayer {
   var visualizer: SignalVisualizer? {
   didSet {
