@@ -18,31 +18,28 @@ class ScopeViewController: UIViewController {
   @IBOutlet weak var xScaleKnob: KnobControl!
   @IBOutlet weak var domainSwitch: UISwitch!
 
-  var yScale: VisualizerScale = .Automatic {
-  didSet {
-    self.signalVisualizerView.yScale = yScale
+  var yScale: VisualizerScale  {
+  get { return self.signalVisualizerView.yScale }
+  set {
+    self.signalVisualizerView.yScale = newValue
     self.updateYScaleControls(animated: true)
   }
   }
 
   var source : SignalSource? {
-  get {
-    return self.signalVisualizerView.source
-  }
+  get { return self.signalVisualizerView.source }
   set(newValue) {
     self.signalVisualizerView.source = newValue
     self.updateYScaleControls(animated:false)
   }
   }
 
-  var domain : VisualizerDomain = .Time {
-  didSet {
-    self.signalVisualizerView.domain = self.domain
-  }
+  var domain : VisualizerDomain {
+  get { return self.signalVisualizerView.domain }
+  set { self.signalVisualizerView.domain = newValue }
   }
 
   override func viewDidLoad() {
-    self.signalVisualizerView.yScale = yScale
     self.updateYScaleControls(animated: false)
   }
 
