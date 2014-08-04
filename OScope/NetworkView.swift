@@ -55,7 +55,7 @@ class NetworkView: UIView {
     nodeView.addGestureRecognizer(g);
 
     self.addSubview(nodeView)
-    self.nodeViews += nodeView
+    self.nodeViews.append(nodeView)
   }
 
   func addConnections(layout: NetworkNodeLayout) {
@@ -65,7 +65,7 @@ class NetworkView: UIView {
     connectionLayer.fillColor = UIColor.clearColor().CGColor
     connectionLayer.strokeColor = UIColor.blackColor().CGColor
     self.layer.addSublayer(connectionLayer)
-    self.connectionLayers += connectionLayer
+    self.connectionLayers.append(connectionLayer)
   }
 
   func doubleTapNode(g: UITapGestureRecognizer) {

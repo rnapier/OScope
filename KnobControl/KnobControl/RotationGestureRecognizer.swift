@@ -12,7 +12,7 @@ class RotationGestureRecognizer : UIPanGestureRecognizer {
 
   var touchAngle: CGFloat
 
-  init(target: AnyObject?, action: Selector) {
+  override init(target: AnyObject?, action: Selector) {
     self.touchAngle = 0
     super.init(target: target, action: action)
     self.maximumNumberOfTouches = 1;
@@ -20,6 +20,7 @@ class RotationGestureRecognizer : UIPanGestureRecognizer {
   }
 
   override func touchesBegan(touches: NSSet!, withEvent event: UIEvent!) {
+    //FIXME: where is touchesBegan(withEvent:)?
     super.touchesBegan(touches, withEvent: event)
     updateTouchAngleWithTouches(touches)
   }

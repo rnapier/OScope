@@ -19,10 +19,10 @@
 //  }
 //}
 
-func flatten<T>(xs: [[T]]) -> [T] {
-  return [T]().join(xs)
-}
-
+//func flatten<T>(xs: [[T]]) -> [T] {
+//  return [T]().join(xs)
+//}
+//
 func flatten<T>(root: T, children:((T)->[T])) -> [T] {
   var result = [root]
   for node in children(root) {
@@ -30,46 +30,56 @@ func flatten<T>(root: T, children:((T)->[T])) -> [T] {
   }
   return result
 }
-
-extension Array {
-  func bind<U>(f:(T -> [U])) -> [U] {
-    return flatten(self.map(f))
-  }
-}
-
-operator infix >>= {
-associativity left
-}
-
-func >>=<T,U>(xs: [T], f:(T -> [U])) -> [U] {
-  return flatten(xs.map(f))
-}
-
-func +<T>(lhs: [T], rhs: T) -> [T] {
-  return lhs + [rhs]
-}
+//
+//extension Array {
+//  func flatMap<U>(f:(T -> [U])) -> [U] {
+//    return flatten(self.map(f))
+//  }
+//}
 
 
-func combinations
-  <First:Sequence, Second:Collection>
-  (first: First, second: Second) -> SequenceOf<(First.GeneratorType.Element, Second.GeneratorType.Element)> {
+//func flatMap<P>(f:T -> P?) -> P? {
+//  switch self {
+//  case .Success(let value):
+//    return .Success(f(value))
+//  case .Error(let msg):
+//    return .Error(msg)
+//  }
+//}
 
-    var firstGeneator = first.generate()
-    var nextElement = firstGeneator.next()
-    var secondIndex = second.startIndex
+//infix operator  >>= {
+//associativity left
+//}
+//
+//func >>=<T,U>(xs: [T], f:(T -> [U])) -> [U] {
+//  return flatten(xs.map(f))
+//}
+//
+//func +<T>(lhs: [T], rhs: T) -> [T] {
+//  return lhs + [rhs]
+//}
+//
 
-    return SequenceOf(GeneratorOf( {
-      if let firstElement = nextElement {
-        let secondElement = second[secondIndex]
-        secondIndex++
-        if secondIndex == second.endIndex {
-          nextElement = firstGeneator.next()
-          secondIndex = second.startIndex
-        }
-        return (firstElement, secondElement)
-      } else {
-        return nil
-      }
-      }
-      ))
-}
+//func combinations
+//  <First:SequenceType, Second:Collection>
+//  (first: First, second: Second) -> SequenceOf<(First.GeneratorType.Element, Second.GeneratorType.Element)> {
+//
+//    var firstGeneator = first.generate()
+//    var nextElement = firstGeneator.next()
+//    var secondIndex = second.startIndex
+//
+//    return SequenceOf(GeneratorOf( {
+//      if let firstElement = nextElement {
+//        let secondElement = second[secondIndex]
+//        secondIndex++
+//        if secondIndex == second.endIndex {
+//          nextElement = firstGeneator.next()
+//          secondIndex = second.startIndex
+//        }
+//        return (firstElement, secondElement)
+//      } else {
+//        return nil
+//      }
+//      }
+//      ))
+//}

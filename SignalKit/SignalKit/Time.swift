@@ -29,8 +29,8 @@ extension SignalTime : DebugPrintable {
 // Time is additive
 public func +(lhs: SignalTime, rhs: SignalTime) -> SignalTime { return combine(lhs, rhs, +) }
 public func -(lhs: SignalTime, rhs: SignalTime) -> SignalTime { return combine(lhs, rhs, -) }
-@assignment public func +=(inout lhs: SignalTime, rhs: SignalTime) { lhs = lhs + rhs }
-@assignment public func -=(inout lhs: SignalTime, rhs: SignalTime) { lhs = lhs - rhs }
+public func +=(inout lhs: SignalTime, rhs: SignalTime) { lhs = lhs + rhs }
+public func -=(inout lhs: SignalTime, rhs: SignalTime) { lhs = lhs - rhs }
 
 // Time can be scaled by a constant
 public func *(lhs: SignalTime, rhs: Double)     -> SignalTime { return SignalTime(seconds: lhs.seconds * rhs) }
