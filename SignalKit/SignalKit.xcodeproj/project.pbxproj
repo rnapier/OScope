@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		FB2D43181991B0DE00D15954 /* Waveform.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2D43171991B0DE00D15954 /* Waveform.swift */; };
 		FB2D43191991B28300D15954 /* Waveform.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2D43171991B0DE00D15954 /* Waveform.swift */; };
-		FB2D431B1991B2F400D15954 /* Spectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2D431A1991B2F400D15954 /* Spectrum.swift */; };
-		FB2D431C1991B36E00D15954 /* Spectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2D431A1991B2F400D15954 /* Spectrum.swift */; };
 		FB40D30319829BB300C71CD2 /* SignalKit.h in Headers */ = {isa = PBXBuildFile; fileRef = FB40D30219829BB300C71CD2 /* SignalKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FB40D30919829BB400C71CD2 /* SignalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB40D2FD19829BB300C71CD2 /* SignalKit.framework */; };
 		FB40D31019829BB400C71CD2 /* SignalKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB40D30F19829BB400C71CD2 /* SignalKitTests.swift */; };
@@ -40,7 +38,6 @@
 
 /* Begin PBXFileReference section */
 		FB2D43171991B0DE00D15954 /* Waveform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Waveform.swift; sourceTree = "<group>"; };
-		FB2D431A1991B2F400D15954 /* Spectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spectrum.swift; sourceTree = "<group>"; };
 		FB40D2FD19829BB300C71CD2 /* SignalKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SignalKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB40D30119829BB300C71CD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FB40D30219829BB300C71CD2 /* SignalKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignalKit.h; sourceTree = "<group>"; };
@@ -103,7 +100,6 @@
 				FB40D32819829BDB00C71CD2 /* SampleTimes.swift */,
 				FB40D32B19829BDB00C71CD2 /* Visualizer.swift */,
 				FB2D43171991B0DE00D15954 /* Waveform.swift */,
-				FB2D431A1991B2F400D15954 /* Spectrum.swift */,
 				FB40D33B1982AA3700C71CD2 /* FFT.swift */,
 				FB40D30019829BB300C71CD2 /* Supporting Files */,
 				FB40D32419829BDB00C71CD2 /* SignalKitTests-Bridging-Header.h */,
@@ -248,7 +244,6 @@
 				FB2D43181991B0DE00D15954 /* Waveform.swift in Sources */,
 				FB40D33519829BDB00C71CD2 /* Time.swift in Sources */,
 				FB40D33119829BDB00C71CD2 /* SampleTimes.swift in Sources */,
-				FB2D431B1991B2F400D15954 /* Spectrum.swift in Sources */,
 				FB40D33C1982AA3700C71CD2 /* FFT.swift in Sources */,
 				FB40D32F19829BDB00C71CD2 /* Sample.swift in Sources */,
 				FB40D33719829BDB00C71CD2 /* Visualizer.swift in Sources */,
@@ -263,7 +258,6 @@
 				FB40D33819829BDB00C71CD2 /* Visualizer.swift in Sources */,
 				FB40D33619829BDB00C71CD2 /* Time.swift in Sources */,
 				FB40D33219829BDB00C71CD2 /* SampleTimes.swift in Sources */,
-				FB2D431C1991B36E00D15954 /* Spectrum.swift in Sources */,
 				FB40D33D1982AA3700C71CD2 /* FFT.swift in Sources */,
 				FB40D33019829BDB00C71CD2 /* Sample.swift in Sources */,
 				FB40D33419829BDB00C71CD2 /* Source.swift in Sources */,

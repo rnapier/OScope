@@ -23,7 +23,7 @@ public enum VisualizerDomain {
   case Frequency
 }
 
-public struct SignalVisualizer {
+public class SignalVisualizer {
   let source: SignalSource
   let domain: VisualizerDomain
   let frame: CGRect
@@ -51,10 +51,18 @@ public struct SignalVisualizer {
       values: self.values,
       basePath: self.basePath)
   }
-}
 
-public extension SignalVisualizer {
-  init(source: SignalSource, domain: VisualizerDomain, frame: CGRect, sampleRate: SignalFrequency, yScale: VisualizerScale) {
+  init(source: SignalSource, domain: VisualizerDomain, frame: CGRect, sampleRate: SignalFrequency, yScale: VisualizerScale, values: [CGFloat], basePath: UIBezierPath) {
+    self.source = source
+    self.domain = domain
+    self.frame = frame
+    self.sampleRate = sampleRate
+    self.yScale = yScale
+    self.values = values
+    self.basePath = basePath
+  }
+
+  public init(source: SignalSource, domain: VisualizerDomain, frame: CGRect, sampleRate: SignalFrequency, yScale: VisualizerScale) {
 
     let start:SignalTime = 0*Second
     let end = Double(CGRectGetWidth(frame)) / sampleRate
@@ -71,7 +79,7 @@ public extension SignalVisualizer {
       self.basePath = w.path
       self.values = w.values
     case .Frequency:
-      let s = SignalSpectrum(source: source, sampleTimes: samples)
+      let s = SpectrumWaveform(source: source, sampleTimes: samples)
       self.basePath = s.path
       self.values = s.values
     }

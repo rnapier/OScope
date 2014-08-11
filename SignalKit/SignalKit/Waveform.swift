@@ -8,29 +8,48 @@
 
 import UIKit
 
-// A path representing a signal over time
-public struct SignalWaveform {
+public class Waveform {
   public let source: SignalSource
   public let sampleTimes: SignalSampleTimes
   public let path : UIBezierPath
   public let values : [CGFloat]
 
-  public init(source: SignalSource, sampleTimes: SignalSampleTimes) {
+  private init(source: SignalSource, sampleTimes: SignalSampleTimes, values: [CGFloat]) {
     self.source = source
     self.sampleTimes = sampleTimes
-    
-    self.values = map(sampleTimes) { CGFloat(source.output($0).volts) }
+    self.values = values
 
-    let cycle = UIBezierPath()
-    let valCount = self.values.count
+    self.path = {
+      let path = UIBezierPath()
+      let valCount = values.count
 
-    cycle.moveToPoint(CGPointZero)
-    for t in 0..<valCount {
-      if self.values[t].isFinite {
-        let point = CGPointMake(CGFloat(t), min(self.values[t], 10000))
-        cycle.addLineToPoint(point)
+      path.moveToPoint(CGPointZero)
+      for t in 0..<valCount {
+        if values[t].isFinite {
+          let point = CGPointMake(CGFloat(t), min(values[t], 10000))
+          path.addLineToPoint(point)
+        }
       }
-    }
-    self.path = cycle
+      return path
+      }()
+  }
+}
+
+// A path representing a signal over time
+public class SignalWaveform  : Waveform {
+  public init(source: SignalSource, sampleTimes: SignalSampleTimes) {
+    super.init(source: source, sampleTimes: sampleTimes, values:map(sampleTimes) { CGFloat(source.output($0).volts) })
+  }
+}
+
+// A path representing the frequency spectrum of a signal over time
+public class SpectrumWaveform : Waveform {
+  public init(source: SignalSource, sampleTimes: SignalSampleTimes) {
+
+    let realLength = countElements(sampleTimes)
+    let n2Length = 1 << (Int(log2f(Float(realLength))) + 2)
+    let n2Interval = SignalSampleTimes(start: sampleTimes.start, end: n2Length * sampleTimes.stride, sampleRate: sampleTimes.sampleRate)
+    let signal = map(n2Interval) { source.output($0).volts }
+    super.init(source: source, sampleTimes: sampleTimes, values: map(spectrumForValues(signal)) { CGFloat($0) })
   }
 }
