@@ -7,8 +7,8 @@
 //
 
 /*
-  A Visualizer creates visualization paths (UIBezierPath) for a
-  Signal within a frame (CGRect) in the time or frequency domains.
+A Visualizer creates visualization paths (UIBezierPath) for a
+Signal within a frame (CGRect) in the time or frequency domains.
 */
 
 import UIKit
@@ -18,78 +18,31 @@ public enum VisualizerScale {
   case Automatic
 }
 
-public enum VisualizerDomain {
-  case Time
-  case Frequency
-}
-
-public class SignalVisualizer {
-  let source: SignalSource
-  let domain: VisualizerDomain
+public class Visualizer {
+  let waveform: Waveform
   let frame: CGRect
-  let sampleRate: SignalFrequency
   let yScale: VisualizerScale
-  public let values: [CGFloat]
-  let basePath : UIBezierPath
 
   public var path: UIBezierPath {
-  let path = self.basePath.copy() as UIBezierPath
-    let transform = pathTransform(frame:self.frame, yScale:self.yScale, values:self.values)
+    let path = self.waveform.path.copy() as UIBezierPath
+    let transform = pathTransform(frame:self.frame, yScale:self.yScale, values:self.waveform.values)
     path.applyTransform(transform)
     return path
   }
 
-  public var automaticYScale : CGFloat { return calculateAutomaticYScale(values:self.values) }
+  public var automaticYScale : CGFloat { return calculateAutomaticYScale(values:self.waveform.values) }
 
-  public func withYScale(newYScale:VisualizerScale) -> SignalVisualizer {
-    return SignalVisualizer(
-      source: self.source,
-      domain: self.domain,
+  public func withYScale(newYScale:VisualizerScale) -> Visualizer {
+    return Visualizer(
+      waveform: self.waveform,
       frame: self.frame,
-      sampleRate: self.sampleRate,
-      yScale: newYScale,
-      values: self.values,
-      basePath: self.basePath)
-  }
-
-  init(source: SignalSource, domain: VisualizerDomain, frame: CGRect, sampleRate: SignalFrequency, yScale: VisualizerScale, values: [CGFloat], basePath: UIBezierPath) {
-    self.source = source
-    self.domain = domain
-    self.frame = frame
-    self.sampleRate = sampleRate
-    self.yScale = yScale
-    self.values = values
-    self.basePath = basePath
-  }
-
-  public init(source: SignalSource, domain: VisualizerDomain, frame: CGRect, sampleRate: SignalFrequency, yScale: VisualizerScale) {
-
-    let start:SignalTime = 0*Second
-    let end = Double(CGRectGetWidth(frame)) / sampleRate
-
-    let samples = SignalSampleTimes(
-      start:start,
-      end:end,
-      sampleRate:sampleRate
+      yScale: newYScale
     )
+  }
 
-    switch domain {
-    case .Time:
-      let w = SignalWaveform(source: source, sampleTimes: samples)
-      self.basePath = w.path
-      self.values = w.values
-    case .Frequency:
-      let s = SpectrumWaveform(source: source, sampleTimes: samples)
-      self.basePath = s.path
-      self.values = s.values
-    }
-
-    // FIXME: This still crashes in Beta4
-    //    self.init(source: source, domain: domain, frame: frame, xScale: xScale, yScale: yScale, values: vs, basePath: basePath)
-    self.source = source
-    self.domain = domain
+  public init(waveform: Waveform, frame: CGRect, yScale: VisualizerScale) {
+    self.waveform = waveform
     self.frame = frame
-    self.sampleRate = sampleRate
     self.yScale = yScale
   }
 }
@@ -112,6 +65,6 @@ private func pathTransform(#frame: CGRect, #yScale:VisualizerScale, #values:[CGF
   let transform = CGAffineTransformScale(
     CGAffineTransformMakeTranslation(CGRectGetMinX(frame), yZero),
     1.0, CGFloat(yScaleValue))
-  
+
   return transform
 }

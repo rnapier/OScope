@@ -50,41 +50,58 @@ class SignalVisualizerView: UIView {
   }
 
   override var bounds : CGRect {
-  didSet {
-    self.signalLayer.frame = self.bounds
-    self.axesLayer.frame = self.bounds
-    self.axesLayer.path = self.axesPath().CGPath
-    self.gridLayer.frame = self.bounds
-    self.gridLayer.path = self.gridPath().CGPath
-    self.updateVisualizer()
-  }
+    didSet {
+      self.signalLayer.frame = self.bounds
+      self.axesLayer.frame = self.bounds
+      self.axesLayer.path = self.axesPath().CGPath
+      self.gridLayer.frame = self.bounds
+      self.gridLayer.path = self.gridPath().CGPath
+      self.updateVisualizer()
+    }
   }
 
   var source : SignalSource? {
-  didSet {
-    self.updateVisualizer()
-  }
+    didSet {
+      self.updateVisualizer()
+    }
   }
 
   var yScale : VisualizerScale = .Automatic {
-  didSet {
-    self.visualizer = self.visualizer?.withYScale(self.yScale)
-  }
+    didSet {
+      self.visualizer = self.visualizer?.withYScale(self.yScale)
+    }
   }
 
-  private(set) var visualizer : SignalVisualizer? {
-  get { return self.signalLayer.visualizer }
-  set { self.signalLayer.visualizer = newValue }
+  var xScale : SignalTime = 10 * Millisecond {
+    didSet {
+      self.updateVisualizer()
+    }
+  }
+
+  private(set) var visualizer : Visualizer? {
+    get { return self.signalLayer.visualizer }
+    set { self.signalLayer.visualizer = newValue }
   }
 
   var domain : VisualizerDomain = .Time {
-  didSet {
-    self.updateVisualizer()
-  }
+    didSet {
+      self.updateVisualizer()
+    }
   }
 
   func updateVisualizer() {
-    self.visualizer = self.source.map { SignalVisualizer(source: $0, domain: self.domain, frame:self.bounds, sampleRate:44100*Hertz, yScale:self.yScale) }
+    self.visualizer = self.source.map { source in
+      let times = SignalSampleTimes(start: 0*Second, end: self.xScale, samples: Int(CGRectGetWidth(self.bounds)))
+      let waveform: Waveform = {
+        switch self.domain {
+        case .Time:
+          return SignalWaveform(source: source, sampleTimes: times)
+        case .Frequency:
+          return SpectrumWaveform(source: source, sampleTimes: times)
+        }
+      }()
+      return Visualizer(waveform:waveform, frame: self.bounds, yScale: self.yScale)
+    }
   }
 
   func gridPath() -> UIBezierPath {
@@ -125,10 +142,10 @@ class SignalVisualizerView: UIView {
 }
 
 class SignalLayer : CAShapeLayer {
-  var visualizer: SignalVisualizer? {
-  didSet {
-    self.setNeedsDisplay()
-  }
+  var visualizer: Visualizer? {
+    didSet {
+      self.setNeedsDisplay()
+    }
   }
   override func display() {
     let newPath = self.visualizer?.path.CGPath

@@ -10,6 +10,11 @@ import UIKit
 import SignalKit
 import KnobControl
 
+enum VisualizerDomain {
+   case Time
+   case Frequency
+}
+
 class ScopeViewController: UIViewController {
 
   @IBOutlet weak var signalVisualizerView : SignalVisualizerView!

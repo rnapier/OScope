@@ -34,14 +34,12 @@ public struct SignalSampleTimes : CollectionType {
 
   public let start: SignalTime
   public let end: SignalTime
-  public let sampleRate : SignalFrequency
   public let stride: SignalTime
 
-  public init(start: SignalTime, end: SignalTime, sampleRate: SignalFrequency) {
+  public init(start: SignalTime, end: SignalTime, samples: Int) {
     self.start = start
     self.end = end
-    self.sampleRate = sampleRate
-    self.endIndex = Int((end - start) * sampleRate)
-    self.stride = 1.0/Double(self.endIndex) * (end-start)
+    self.endIndex = samples - 1
+    self.stride = 1.0/Double(samples) * (end-start)
   }
 }

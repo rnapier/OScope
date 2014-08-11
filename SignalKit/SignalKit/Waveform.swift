@@ -48,7 +48,7 @@ public class SpectrumWaveform : Waveform {
 
     let realLength = countElements(sampleTimes)
     let n2Length = 1 << (Int(log2f(Float(realLength))) + 2)
-    let n2Interval = SignalSampleTimes(start: sampleTimes.start, end: n2Length * sampleTimes.stride, sampleRate: sampleTimes.sampleRate)
+    let n2Interval = SignalSampleTimes(start: sampleTimes.start, end: n2Length * sampleTimes.stride, samples: countElements(sampleTimes))
     let signal = map(n2Interval) { source.output($0).volts }
     super.init(source: source, sampleTimes: sampleTimes, values: map(spectrumForValues(signal)) { CGFloat($0) })
   }
