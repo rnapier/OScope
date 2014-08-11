@@ -72,7 +72,7 @@ class SignalVisualizerView: UIView {
     }
   }
 
-  var xScale : SignalTime = 10 * Millisecond {
+  var secondsPerDiv : SignalTime = 1 * Millisecond {
     didSet {
       self.updateVisualizer()
     }
@@ -91,7 +91,10 @@ class SignalVisualizerView: UIView {
 
   func updateVisualizer() {
     self.visualizer = self.source.map { source in
-      let times = SignalSampleTimes(start: 0*Second, end: self.xScale, samples: Int(CGRectGetWidth(self.bounds)))
+      let times = SignalSampleTimes(
+        start: 0*Second,
+        end: self.secondsPerDiv * self.horizontalDivisions,
+        samples: Int(ceil(CGRectGetWidth(self.bounds) + 1)))
       let waveform: Waveform = {
         switch self.domain {
         case .Time:
@@ -147,6 +150,23 @@ class SignalLayer : CAShapeLayer {
       self.setNeedsDisplay()
     }
   }
+
+  func setup() {
+    self.lineJoin = kCALineCapRound
+    self.lineCap = kCALineCapRound
+    self.lineWidth = 1.5
+  }
+
+  override init() {
+    super.init()
+    self.setup()
+  }
+
+  required init(coder: NSCoder!) {
+    super.init(coder: coder)
+    self.setup()
+  }
+
   override func display() {
     let newPath = self.visualizer?.path.CGPath
     let animation = CABasicAnimation(keyPath: "path")
