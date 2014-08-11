@@ -65,8 +65,16 @@ public extension SignalVisualizer {
       sampleRate:sampleRate
     )
 
-    let vs = valuesForSource(source, sampleTimes:samples, domain: domain)
-    let basePath = pathWithValues(vs)
+    switch domain {
+    case .Time:
+      let w = SignalWaveform(source: source, sampleTimes: samples)
+      self.basePath = w.path
+      self.values = w.values
+    case .Frequency:
+      let s = SignalSpectrum(source: source, sampleTimes: samples)
+      self.basePath = s.path
+      self.values = s.values
+    }
 
     // FIXME: This still crashes in Beta4
     //    self.init(source: source, domain: domain, frame: frame, xScale: xScale, yScale: yScale, values: vs, basePath: basePath)
@@ -75,38 +83,7 @@ public extension SignalVisualizer {
     self.frame = frame
     self.sampleRate = sampleRate
     self.yScale = yScale
-    self.values = vs
-    self.basePath = basePath
   }
-}
-
-private func valuesForSource(source: SignalSource, #sampleTimes:SignalSampleTimes, #domain:VisualizerDomain) -> [CGFloat] {
-  switch domain {
-  case .Time:
-    return map(sampleTimes) { CGFloat(source.output($0).volts) }
-
-  case .Frequency:
-    let realLength = countElements(sampleTimes)
-    let n2Length = 1 << (Int(log2f(Float(realLength))) + 2)
-    let n2Interval = SignalSampleTimes(start: sampleTimes.start, end: n2Length * sampleTimes.stride, sampleRate: sampleTimes.sampleRate)
-    let signal = map(n2Interval) { source.output($0).volts }
-
-    return map(spectrumForValues(signal)) { CGFloat($0) }
-  }
-}
-
-private func pathWithValues(values:[CGFloat]) -> UIBezierPath {
-  let cycle = UIBezierPath()
-  let valCount = values.count
-
-  cycle.moveToPoint(CGPointZero)
-  for t in 0..<valCount {
-    if values[t].isFinite {
-      let point = CGPointMake(CGFloat(t), min(values[t], 10000))
-      cycle.addLineToPoint(point)
-    }
-  }
-  return cycle
 }
 
 private func calculateAutomaticYScale(#values:[CGFloat]) -> CGFloat {
