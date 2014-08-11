@@ -23,12 +23,12 @@ public class Visualizer {
   let frame: CGRect
   let yScale: VisualizerScale
 
-  public var path: UIBezierPath {
+  public lazy var path: UIBezierPath = {
     let path = self.waveform.path.copy() as UIBezierPath
     let transform = pathTransform(frame:self.frame, yScale:self.yScale, values:self.waveform.values)
     path.applyTransform(transform)
     return path
-  }
+  }()
 
   public var automaticYScale : CGFloat { return calculateAutomaticYScale(values:self.waveform.values) }
 

@@ -56,20 +56,3 @@ func withExtendedLifetime<T>(x: T, f: () -> ()) {
 func withExtendedLifetimes<A0, A1>(arg0: A0, arg1: A1, f: () -> ()) {
   return withExtendedLifetime(arg0) { withExtendedLifetime(arg1, f) }
 }
-
-// Experimental curried version (doesn't work; the function gets absorbed into the Any)
-//func withExtendedLifetimes(args: AnyObject...)(f: () -> ()) {
-//  var rest = args
-//  let last:AnyObject = rest.removeLast()
-//  if rest.count > 0 {
-//    return Swift.withExtendedLifetime(last) { () -> () in withExtendedLifetimes(rest)(f) }
-//  }
-//  else {
-//    return Swift.withExtendedLifetime(last, f)
-//  }
-//}
-
-//func withExtendedLifetimes<A0, A1, A2>(arg0: A0, arg1: A1, arg2: A2, f: () -> ()) {
-//  return withExtendedLifetime(arg0) { withExtendedLifetimes(arg1, arg2, f) }
-//}
-
