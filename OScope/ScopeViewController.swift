@@ -24,9 +24,9 @@ class ScopeViewController: UIViewController {
   @IBOutlet weak var domainSwitch: UISwitch!
 
   var yScale: VisualizerScale  {
-  get { return self.signalVisualizerView.yScale }
+  get { return self.signalVisualizerView.voltsPerDiv }
   set {
-    self.signalVisualizerView.yScale = newValue
+    self.signalVisualizerView.voltsPerDiv = newValue
     self.updateYScaleControls(animated: true)
   }
   }
@@ -45,6 +45,8 @@ class ScopeViewController: UIViewController {
   }
 
   override func viewDidLoad() {
+    self.yScaleKnob.minimumValue = 0.1
+    self.yScaleKnob.maximumValue = 10
     self.updateYScaleControls(animated: false)
   }
 
@@ -59,12 +61,13 @@ class ScopeViewController: UIViewController {
       self.yScaleKnob.enabled = false
       self.yScaleKnob.tintColor = UIColor.grayColor().colorWithAlphaComponent(0.3)
 
-      if let visualizer = signalVisualizerView.visualizer {
-        self.yScaleKnob.setValue(CGFloat(visualizer.automaticYScale), animated: animated)
-      }
-      else {
-        self.yScaleKnob.setValue(0, animated: animated)
-      }
+      // FIXME: Get scale back
+//      if let visualizer = signalVisualizerView.visualizer {
+//        self.yScaleKnob.setValue(CGFloat(visualizer.automaticYScale), animated: animated)
+//      }
+//      else {
+//        self.yScaleKnob.setValue(0, animated: animated)
+//      }
     }
   }
   @IBAction func yScaleChanged(sender: KnobControl) {

@@ -12,18 +12,16 @@ import SignalKit
 
 class SignalVisualizerView: UIView {
 
-  let signalLayer = SignalLayer()
-  let axesLayer = CAShapeLayer()
-  let gridLayer = CAShapeLayer()
+  private let signalLayer = SignalLayer()
+  private let axesLayer = CAShapeLayer()
+  private let gridLayer = CAShapeLayer()
 
   let verticalDivisions = 8
   let horizontalDivisions = 12
 
-  func setup() {
+  private func setup() {
     self.clipsToBounds = true
 
-    self.signalLayer.frame = self.bounds
-    self.signalLayer.strokeColor = UIColor.whiteColor().CGColor
     layer.addSublayer(self.signalLayer)
 
     self.axesLayer.frame = self.bounds
@@ -51,7 +49,6 @@ class SignalVisualizerView: UIView {
 
   override var bounds : CGRect {
     didSet {
-      self.signalLayer.frame = self.bounds
       self.axesLayer.frame = self.bounds
       self.axesLayer.path = self.axesPath().CGPath
       self.gridLayer.frame = self.bounds
@@ -60,15 +57,43 @@ class SignalVisualizerView: UIView {
     }
   }
 
+  override func layoutSublayersOfLayer(layer: CALayer!) {
+    let bounds = self.layer.bounds
+    let height = CGRectGetHeight(bounds)
+    self.signalLayer.bounds = CGRectMake(0, -height/2.0, CGRectGetWidth(bounds), height)
+    self.signalLayer.position = CGPointMake(CGRectGetMidX(bounds), CGRectGetMidY(bounds))
+  }
+
+  var visualizer : Visualizer? {
+    didSet { self.setNeedsDisplay() }
+  }
+
   var source : SignalSource? {
     didSet {
       self.updateVisualizer()
     }
   }
 
-  var yScale : VisualizerScale = .Automatic {
+  private func calculateAutomaticYScale(#values:[CGFloat]) -> CGFloat {
+    return 1/values.map(abs).reduce(CGFloat(FLT_EPSILON), combine: max)
+  }
+
+  var voltsPerDiv : VisualizerScale = .Automatic {
     didSet {
-      self.visualizer = self.visualizer?.withYScale(self.yScale)
+      if let source = self.source {
+        let scale: CGFloat = {
+          switch self.voltsPerDiv {
+          case .Absolute(let value):
+            return CGFloat(value) * CGFloat(self.verticalDivisions)
+          case .Automatic:
+            return CGFloat(self.verticalDivisions)
+          }
+          }()
+        let t = CGAffineTransformMakeScale(1, -scale)
+        let p = self.waveform?.path.copy() as UIBezierPath
+        p.applyTransform(t)
+        self.signalLayer.path = p.CGPath
+      }
     }
   }
 
@@ -78,34 +103,32 @@ class SignalVisualizerView: UIView {
     }
   }
 
-  private(set) var visualizer : Visualizer? {
-    get { return self.signalLayer.visualizer }
-    set { self.signalLayer.visualizer = newValue }
-  }
-
   var domain : VisualizerDomain = .Time {
     didSet {
       self.updateVisualizer()
     }
   }
 
+  private var waveform: Waveform?
+
   func updateVisualizer() {
-    self.visualizer = self.source.map { source in
+    if let source = self.source {
       let times = SignalSampleTimes(
         start: 0*Second,
         end: self.secondsPerDiv * self.horizontalDivisions,
         samples: Int(ceil(CGRectGetWidth(self.bounds) + 1)))
-      let waveform: Waveform = {
+      self.waveform = {
         switch self.domain {
         case .Time:
           return SignalWaveform(source: source, sampleTimes: times)
         case .Frequency:
           return SpectrumWaveform(source: source, sampleTimes: times)
         }
-      }()
-      return Visualizer(waveform:waveform, frame: self.bounds, yScale: self.yScale)
+        }()
+      self.signalLayer.path = self.waveform?.path.CGPath
     }
   }
+
 
   func gridPath() -> UIBezierPath {
     let path = UIBezierPath()
@@ -145,16 +168,25 @@ class SignalVisualizerView: UIView {
 }
 
 class SignalLayer : CAShapeLayer {
-  var visualizer: Visualizer? {
+  var waveform: Waveform? {
     didSet {
-      self.setNeedsDisplay()
+      self.updatePath()
     }
+  }
+
+  var yScale: CGFloat = 1.0
+
+  func updatePath() {
+    let path = self.waveform?.path.copy() as UIBezierPath
+    path.applyTransform(CGAffineTransformMakeScale(1, -self.yScale))
+    self.path = path.CGPath
   }
 
   func setup() {
     self.lineJoin = kCALineCapRound
     self.lineCap = kCALineCapRound
     self.lineWidth = 1.5
+    self.strokeColor = UIColor.whiteColor().CGColor
   }
 
   override init() {
@@ -166,14 +198,8 @@ class SignalLayer : CAShapeLayer {
     super.init(coder: coder)
     self.setup()
   }
-
-  override func display() {
-    let newPath = self.visualizer?.path.CGPath
-    let animation = CABasicAnimation(keyPath: "path")
-    animation.duration = 0.3
-    animation.fromValue = self.path
-    animation.toValue = newPath
-    self.addAnimation(animation, forKey: "path")
-    self.path = newPath
+  
+  override init(layer: AnyObject!) {
+    super.init(layer: layer)
   }
 }

@@ -15,7 +15,7 @@ internal func spectrumForValues(signal: [Double]) -> [Double] {
   let fftLength = n / 2
 
   // This is expensive; factor it out if you need to call this function a lot
-  let fftsetup = create_fftsetupD(log2N, FFTRadix(kFFTRadix2))
+  let fftsetup = vDSP_create_fftsetupD(log2N, FFTRadix(kFFTRadix2))
 
   var fft = [Double](count:Int(n), repeatedValue:0.0)
 
@@ -25,15 +25,15 @@ internal func spectrumForValues(signal: [Double]) -> [Double] {
 
   withExtendedLifetimes(realp, imagp) {
     var splitComplex = DSPDoubleSplitComplex(realp:&realp, imagp:&imagp)
-    ctozD(UnsafePointer(signal), 2, &splitComplex, 1, fftLength)
+    vDSP_ctozD(UnsafePointer(signal), 2, &splitComplex, 1, fftLength)
 
     // Take the fft
-    fft_zripD(fftsetup, &splitComplex, 1, log2N, FFTDirection(kFFTDirection_Forward))
+    vDSP_fft_zripD(fftsetup, &splitComplex, 1, log2N, FFTDirection(kFFTDirection_Forward))
 
     // Normalize
     var normFactor = 1.0 / Double(2 * n)
-    vsmulD(splitComplex.realp, 1, &normFactor, splitComplex.realp, 1, fftLength)
-    vsmulD(splitComplex.imagp, 1, &normFactor, splitComplex.imagp, 1, fftLength)
+    vDSP_vsmulD(splitComplex.realp, 1, &normFactor, splitComplex.realp, 1, fftLength)
+    vDSP_vsmulD(splitComplex.imagp, 1, &normFactor, splitComplex.imagp, 1, fftLength)
 
     // Zero out Nyquist
     splitComplex.imagp[0] = 0.0
@@ -43,7 +43,7 @@ internal func spectrumForValues(signal: [Double]) -> [Double] {
   }
 
   // Cleanup
-  destroy_fftsetupD(fftsetup)
+  vDSP_destroy_fftsetupD(fftsetup)
   return fft
 }
 

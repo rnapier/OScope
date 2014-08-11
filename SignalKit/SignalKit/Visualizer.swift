@@ -19,7 +19,7 @@ public enum VisualizerScale {
 }
 
 public class Visualizer {
-  let waveform: Waveform
+  public let waveform: Waveform
   let frame: CGRect
   let yScale: VisualizerScale
 
@@ -48,7 +48,7 @@ public class Visualizer {
 }
 
 private func calculateAutomaticYScale(#values:[CGFloat]) -> CGFloat {
-  return 1/values.map(abs).reduce(CGFloat(DBL_EPSILON), combine: max) // FIXME: DBL_EPSILON could become 0 if CGFloat is Float
+  return 1/values.map(abs).reduce(CGFloat(DBL_EPSILON), combine: max)
 }
 
 private func pathTransform(#frame: CGRect, #yScale:VisualizerScale, #values:[CGFloat]) -> CGAffineTransform {
