@@ -37,7 +37,7 @@ class SignalVisualizerView: UIView {
     self.layer.addSublayer(self.gridLayer)
   }
 
-  required init(coder aDecoder: NSCoder!) {
+  required init(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     self.setup()
   }
@@ -194,7 +194,7 @@ class SignalLayer : CAShapeLayer {
     self.setup()
   }
 
-  required init(coder: NSCoder!) {
+  required init(coder: NSCoder) {
     super.init(coder: coder)
     self.setup()
   }
