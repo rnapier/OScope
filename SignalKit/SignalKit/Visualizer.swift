@@ -24,7 +24,7 @@ public class Visualizer {
   let yScale: VisualizerScale
 
   public lazy var path: UIBezierPath = {
-    let path = self.waveform.path.copy() as UIBezierPath
+    let path = self.waveform.path.copy() as! UIBezierPath   // FIXME: Can I do better?
     let transform = pathTransform(frame:self.frame, yScale:self.yScale, values:self.waveform.values)
     path.applyTransform(transform)
     return path

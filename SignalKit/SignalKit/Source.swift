@@ -37,7 +37,7 @@ public class MixerSource : SignalSource {
     super.init(
       inputs: inputs,
       function: { time in
-        inputs.map{ $0.output(time) }.reduce(0*Volt, +)
+        inputs.map{ $0.output(time) }.reduce(0*Volt, combine: +)
       }
     )
   }

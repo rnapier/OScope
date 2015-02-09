@@ -23,13 +23,14 @@ class NetworkNode {
     self.layer = layer
     self.offset = offset
 
-    self.children = [NetworkNode]()
-    self.height = 0
+    var children = [NetworkNode]()
+    var height = 0
     for input in source.inputs {
-      let child = NetworkNode(source: input, layer: layer + 1, offset: offset + self.height)
-      self.children.append(child)
-      self.height += child.height
+      let child = NetworkNode(source: input, layer: layer + 1, offset: offset + height)
+      children.append(child)
+      height += child.height
     }
-    self.height = max(self.height, 1)
+    self.height = max(height, 1)
+    self.children = children
   }
 }

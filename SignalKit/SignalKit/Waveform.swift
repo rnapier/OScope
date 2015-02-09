@@ -47,7 +47,7 @@ public class SpectrumWaveform : Waveform {
   public init(source: SignalSource, sampleTimes: SignalSampleTimes) {
 
     // Expand samples to next power of two
-    let realLength = countElements(sampleTimes)
+    let realLength = count(sampleTimes)
     let n2Length = 1 << (Int(ceilf(log2f(Float(realLength)))) + 1)
     let n2Interval = SignalSampleTimes(start: sampleTimes.start, end: n2Length * sampleTimes.stride, samples: n2Length)
     let signal = map(n2Interval) { source.output($0).volts }

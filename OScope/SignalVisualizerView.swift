@@ -152,7 +152,7 @@ class SignalLayer : CAShapeLayer {
     var yScale: CGFloat = 1.0
     
     func updatePath() {
-        let path = self.waveform?.path.copy() as UIBezierPath
+        let path = self.waveform?.path.copy() as! UIBezierPath // FIXME: Can we do better
         path.applyTransform(CGAffineTransformMakeScale(1, -self.yScale))
         self.path = path.CGPath
     }

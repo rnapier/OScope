@@ -18,7 +18,7 @@ class RootViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    for vc in childViewControllers as [UIViewController] {
+    for vc in childViewControllers as! [UIViewController] { // FIXME: Can we do better
       switch vc {
       case let vc as ScopeViewController:
         self.scopeViewController = vc
